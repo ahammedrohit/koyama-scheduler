@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.koyama.scheduler.data.model.Lesson;
@@ -22,7 +23,7 @@ public class LessonViewModel extends AndroidViewModel {
     private LessonRepository repository;
     private LiveData<List<Lesson>> allLessons;
     private LiveData<Lesson> nextUpcomingLesson;
-    private final MutableLiveData<Float> progressPercentage = new MutableLiveData<>(0f);
+    private final MediatorLiveData<Float> progressPercentage = new MediatorLiveData<>();
 
     public LessonViewModel(@NonNull Application application) {
         super(application);
@@ -31,6 +32,7 @@ public class LessonViewModel extends AndroidViewModel {
         allLessons = new MutableLiveData<>(new ArrayList<>());
         nextUpcomingLesson = new MutableLiveData<>(null);
         repository = null;
+        progressPercentage.setValue(0f);
         
         try {
             Log.d(TAG, "Initializing LessonViewModel");
@@ -40,8 +42,12 @@ public class LessonViewModel extends AndroidViewModel {
             allLessons = repository.getAllLessons();
             Log.d(TAG, "Getting next upcoming lesson");
             nextUpcomingLesson = repository.getNextUpcomingLesson();
-            Log.d(TAG, "Updating progress");
-            updateProgress();
+            
+            // Add a source to progressPercentage that observes allLessons
+            progressPercentage.addSource(allLessons, lessons -> {
+                updateProgress();
+            });
+            
             Log.d(TAG, "LessonViewModel initialized successfully");
         } catch (Exception e) {
             Log.e(TAG, "Error initializing LessonViewModel", e);
@@ -110,8 +116,17 @@ public class LessonViewModel extends AndroidViewModel {
 
     public void markAsCompleted(Lesson lesson) {
         if (repository != null) {
-            repository.markAsCompleted(lesson);
-            updateProgress();
+            lesson.setCompleted(true);
+            repository.update(lesson);
+            // Progress will be updated automatically through MediatorLiveData
+        }
+    }
+
+    public void undoMarkAsCompleted(Lesson lesson) {
+        if (repository != null) {
+            lesson.setCompleted(false);
+            repository.update(lesson);
+            // Progress will be updated automatically through MediatorLiveData
         }
     }
 
@@ -125,21 +140,27 @@ public class LessonViewModel extends AndroidViewModel {
             return;
         }
         
-        new Thread(() -> {
-            try {
-                int total = repository.getTotalLessonCount();
-                int completed = repository.getCompletedLessonCount();
-                
-                float progress = 0;
-                if (total > 0) {
-                    progress = (float) completed / total;
-                }
-                
-                progressPercentage.postValue(progress);
-            } catch (Exception e) {
-                Log.e(TAG, "Error updating progress", e);
+        try {
+            List<Lesson> lessons = allLessons.getValue();
+            if (lessons == null || lessons.isEmpty()) {
                 progressPercentage.postValue(0f);
+                return;
             }
-        }).start();
+            
+            int total = lessons.size();
+            int completed = 0;
+            for (Lesson lesson : lessons) {
+                if (lesson.isCompleted()) {
+                    completed++;
+                }
+            }
+            
+            float progress = total > 0 ? (float) completed / total : 0f;
+            progressPercentage.postValue(progress);
+            Log.d(TAG, "Progress updated: " + progress);
+        } catch (Exception e) {
+            Log.e(TAG, "Error updating progress", e);
+            progressPercentage.postValue(0f);
+        }
     }
 }

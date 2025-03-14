@@ -161,6 +161,14 @@
                         android:textAppearance="?attr/textAppearanceBody2"
                         tools:text="Initial assessment to determine your driving ability and skills." />
 
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_undo_mark_completed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/undo_mark_completed"
+                        android:visibility="gone" />
+
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 

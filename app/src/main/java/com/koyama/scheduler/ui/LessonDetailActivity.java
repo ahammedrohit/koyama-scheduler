@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,6 +71,7 @@ public class LessonDetailActivity extends AppCompatActivity {
         getDirectionsButton = findViewById(R.id.button_get_directions);
         setReminderButton = findViewById(R.id.button_set_reminder);
         markCompletedButton = findViewById(R.id.button_mark_completed);
+        MaterialButton undoMarkCompletedButton = findViewById(R.id.button_undo_mark_completed);
 
         // Set up view model
         viewModel = new ViewModelProvider(this).get(LessonViewModel.class);
@@ -79,6 +81,13 @@ public class LessonDetailActivity extends AppCompatActivity {
             if (lesson != null) {
                 currentLesson = lesson;
                 updateUI(lesson);
+
+                // Show or hide the undo button based on lesson completion status
+                if (lesson.isCompleted()) {
+                    undoMarkCompletedButton.setVisibility(View.VISIBLE);
+                } else {
+                    undoMarkCompletedButton.setVisibility(View.GONE);
+                }
             }
         });
 
@@ -87,6 +96,17 @@ public class LessonDetailActivity extends AppCompatActivity {
         getDirectionsButton.setOnClickListener(v -> getDirections());
         setReminderButton.setOnClickListener(v -> setReminder());
         markCompletedButton.setOnClickListener(v -> markAsCompleted());
+        undoMarkCompletedButton.setOnClickListener(v -> undoMarkAsCompleted());
+    }
+
+    private void undoMarkAsCompleted() {
+        if (currentLesson != null) {
+            viewModel.undoMarkAsCompleted(currentLesson);
+            Toast.makeText(this, "Lesson marked as not completed", Toast.LENGTH_SHORT).show();
+
+            // Hide the undo button
+            findViewById(R.id.button_undo_mark_completed).setVisibility(View.GONE);
+        }
     }
 
     private void updateUI(Lesson lesson) {
@@ -133,7 +153,7 @@ public class LessonDetailActivity extends AppCompatActivity {
                 .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, finishTime.getTimeInMillis())
                 .putExtra(CalendarContract.Events.TITLE, getLessonTypeDisplay(currentLesson.getEventType()))
                 .putExtra(CalendarContract.Events.DESCRIPTION, currentLesson.getDescription())
-                .putExtra(CalendarContract.Events.EVENT_LOCATION, "Koyama Driving School")
+                .putExtra(CalendarContract.Events.EVENT_LOCATION, "Koyama Driving School Futako-tamagawa")
                 .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY);
         
         startActivity(intent);
@@ -142,7 +162,7 @@ public class LessonDetailActivity extends AppCompatActivity {
     private void getDirections() {
         // For demonstration, using a fixed location for Koyama Driving School
         // In a real application, you would use the actual school coordinates
-        Uri gmmIntentUri = Uri.parse("geo:0,0?q=Koyama+Driving+School");
+        Uri gmmIntentUri = Uri.parse("geo:0,0?q=Koyama+Driving+School+Futako-tamagawa");
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
         

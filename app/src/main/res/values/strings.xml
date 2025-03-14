@@ -49,6 +49,7 @@
     <string name="set_reminder">Set Reminder</string>
     <string name="mark_completed">Mark as Completed</string>
     <string name="lesson_completed">Completed</string>
+    <string name="undo_mark_completed">Undo Mark Completed</string>
     <string name="date">Date</string>
     <string name="your_progress">Your Progress</string>
     

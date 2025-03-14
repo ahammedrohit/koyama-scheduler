@@ -217,6 +217,17 @@
                     app:icon="@drawable/ic_check"
                     app:iconGravity="textStart" />
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_undo_mark_completed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/undo_mark_completed"
+                    android:textAllCaps="false"
+                    android:visibility="gone"
+                    app:icon="@null"
+                    app:iconGravity="textStart" />
+
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

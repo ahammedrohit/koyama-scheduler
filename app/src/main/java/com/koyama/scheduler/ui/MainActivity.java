@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private TextView progressPercentage;
     private LessonAdapter adapter;
+    private Lesson currentLesson;
 
     private static final String TAG = "MainActivity";
 
@@ -57,39 +58,10 @@ public class MainActivity extends AppCompatActivity {
             // Set up toolbar
             Log.d(TAG, "Setting up toolbar");
             Toolbar toolbar = findViewById(R.id.toolbar);
-            // setSupportActionBar(toolbar);
 
             // Initialize view model
             Log.d(TAG, "Initializing view model");
-            try {
-                lessonViewModel = new ViewModelProvider(this).get(LessonViewModel.class);
-                Log.d(TAG, "ViewModel initialized successfully");
-            } catch (Exception e) {
-                Log.e(TAG, "Error initializing ViewModel", e);
-                Toast.makeText(this, "Error initializing app: Database error", Toast.LENGTH_LONG).show();
-                // Create a simple ViewModel that won't crash
-                lessonViewModel = new LessonViewModel(getApplication()) {
-                    @Override
-                    public LiveData<List<Lesson>> getAllLessons() {
-                        return new MutableLiveData<>(new ArrayList<>());
-                    }
-                    
-                    @Override
-                    public LiveData<Lesson> getNextUpcomingLesson() {
-                        return new MutableLiveData<>(null);
-                    }
-                    
-                    @Override
-                    public LiveData<List<Lesson>> getLessonsByDate(String date) {
-                        return new MutableLiveData<>(new ArrayList<>());
-                    }
-                    
-                    @Override
-                    public LiveData<Float> getProgressPercentage() {
-                        return new MutableLiveData<>(0f);
-                    }
-                };
-            }
+            lessonViewModel = new ViewModelProvider(this).get(LessonViewModel.class);
 
             // Find views
             Log.d(TAG, "Finding views");
@@ -125,18 +97,25 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             });
 
-            // Set up click listener for lesson adapter items
-            Log.d(TAG, "Setting up click listener for lesson adapter");
+            // Set up click listener for lesson adapter
             adapter.setOnItemClickListener(lesson -> {
                 Intent intent = new Intent(MainActivity.this, LessonDetailActivity.class);
                 intent.putExtra("LESSON_ID", lesson.getId());
                 startActivity(intent);
             });
 
+            // Observe progress updates
+            lessonViewModel.getProgressPercentage().observe(this, progress -> {
+                int progressInt = Math.round(progress * 100);
+                progressBar.setProgress(progressInt);
+                progressPercentage.setText(String.format("%d%% Complete", progressInt));
+                Log.d(TAG, "Progress updated in UI: " + progressInt + "%");
+            });
+
             // Load data
             Log.d(TAG, "Loading data");
             loadData();
-            Log.d(TAG, "MainActivity.onCreate() completed successfully");
+
         } catch (Exception e) {
             Log.e(TAG, "Error in MainActivity.onCreate()", e);
             Toast.makeText(this, "Error starting app: " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -162,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
                 nextLessonTime.setText(String.format("%s - %s", lesson.getStartTime(), lesson.getEndTime()));
                 nextLessonType.setText(getLessonTypeDisplay(lesson.getEventType()));
                 nextLessonDescription.setText(lesson.getDescription());
+                currentLesson = lesson;
             }
         });
 
@@ -176,13 +156,6 @@ public class MainActivity extends AppCompatActivity {
                 todayLessonsRecycler.setVisibility(View.VISIBLE);
                 adapter.setLessons(lessons);
             }
-        });
-
-        // Load progress
-        lessonViewModel.getProgressPercentage().observe(this, progress -> {
-            int progressInt = Math.round(progress * 100);
-            progressBar.setProgress(progressInt);
-            progressPercentage.setText(String.format("%d%% Complete", progressInt));
         });
     }
 
