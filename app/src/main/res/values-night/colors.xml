@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Lesson Type Colors - Dark Theme -->
+    <color name="lesson_at">#81C784</color>     <!-- Lighter green -->
+    <color name="lesson_a50">#AED581</color>    <!-- Lighter light green -->
+    <color name="lesson_atp">#4DB6AC</color>    <!-- Lighter teal -->
+    <color name="lesson_pt">#E57373</color>     <!-- Lighter red -->
+    <color name="lesson_cpr">#F06292</color>    <!-- Lighter pink -->
+    <color name="lesson_aptit">#BA68C8</color>  <!-- Lighter purple -->
+    <color name="lesson_cdd">#9575CD</color>    <!-- Lighter deep purple -->
+    <color name="lesson_ext">#FFB74D</color>    <!-- Lighter orange -->
+    <color name="lesson_exrd">#64B5F6</color>   <!-- Lighter blue -->
+    <color name="lesson_aps">#A1887F</color>    <!-- Lighter brown -->
+</resources>

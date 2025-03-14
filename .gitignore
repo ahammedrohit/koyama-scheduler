@@ -1,0 +1,35 @@
+# Ignore build directories
+**/build/
+
+# Ignore Gradle wrapper files
+.gradle/
+**/gradle-wrapper.jar
+
+# Ignore local configuration files
+local.properties
+
+# Ignore generated files
+**/generated/
+
+# Ignore temporary files
+**/tmp/
+
+# Ignore output logs
+**/outputs/logs/
+
+# Ignore reports
+**/reports/
+
+# Ignore intermediate files
+**/intermediates/
+
+# Ignore Android Studio specific files
+.idea/
+*.iml
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore OneDrive temporary files
+*.~*
