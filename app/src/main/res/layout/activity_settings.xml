@@ -9,15 +9,16 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSurface">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light"
-            app:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+            android:background="?attr/colorSurface"
+            app:popupTheme="?attr/actionBarPopupTheme"
+            app:titleTextColor="?attr/colorOnSurface"
             app:title="@string/settings" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -115,7 +116,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/monthly_view" />
-</RadioGroup>
+            </RadioGroup>
 
             <View
                 android:layout_width="match_parent"

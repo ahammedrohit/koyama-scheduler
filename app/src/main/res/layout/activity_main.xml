@@ -11,7 +11,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="?attr/colorSurface"
         app:elevation="0dp">
 
         <androidx.appcompat.widget.Toolbar
@@ -21,7 +21,7 @@
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="?attr/actionBarPopupTheme"
             app:title="@string/app_name"
-            app:titleTextColor="?attr/colorOnPrimary" />
+            app:titleTextColor="?attr/colorOnSurface" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
