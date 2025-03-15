@@ -7,8 +7,9 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
     android:layout_marginVertical="8dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="2dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    app:strokeWidth="0dp"
     app:cardBackgroundColor="?attr/colorSurface">
 
     <LinearLayout
@@ -18,7 +19,7 @@
 
         <View
             android:id="@+id/view_lesson_color"
-            android:layout_width="12dp"
+            android:layout_width="16dp"
             android:layout_height="match_parent"
             android:background="@color/primary" />
 
@@ -31,7 +32,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/ic_assignment"
+                    app:tint="?attr/colorPrimary"
+                    android:contentDescription="Lesson type" />
 
                 <TextView
                     android:id="@+id/text_lesson_type"
@@ -42,6 +52,14 @@
                     android:textColor="?attr/colorOnSurface"
                     android:textStyle="bold"
                     tools:text="Lesson Type" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="4dp"
+                    android:src="@drawable/ic_access_time"
+                    app:tint="?attr/colorPrimary"
+                    android:contentDescription="Lesson time" />
 
                 <TextView
                     android:id="@+id/text_lesson_time"
@@ -68,10 +86,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:textSize="12sp"
+                app:chipIcon="@drawable/ic_location_on"
+                app:chipIconTint="?attr/colorPrimary"
                 app:chipBackgroundColor="?attr/colorSurface"
                 app:chipStrokeColor="?attr/colorPrimary"
                 app:chipStrokeWidth="1dp"
-                app:chipMinHeight="24dp"
+                app:chipMinHeight="28dp"
                 app:iconStartPadding="4dp"
                 android:visibility="gone"
                 tools:text="Location: Main Center"

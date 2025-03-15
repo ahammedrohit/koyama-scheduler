@@ -204,7 +204,9 @@ public class LessonDetailActivity extends AppCompatActivity {
 
     // Helper method to get user-friendly lesson type display from code
     private String getLessonTypeDisplay(String eventType) {
-        switch (eventType) {
+        if (eventType == null) return "Lesson";
+        
+        switch (eventType.toUpperCase()) {
             case "AT":
                 return getString(R.string.lesson_at);
             case "A50":
@@ -215,7 +217,8 @@ public class LessonDetailActivity extends AppCompatActivity {
                 return getString(R.string.lesson_pt);
             case "CPR":
                 return getString(R.string.lesson_cpr);
-            case "Apti.t":
+            case "APTI.T":
+            case "APTIT":
                 return getString(R.string.lesson_aptit);
             case "CDD":
                 return getString(R.string.lesson_cdd);

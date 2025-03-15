@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.koyama.scheduler.R;
 import com.koyama.scheduler.data.model.Lesson;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,70 +20,86 @@ import java.util.List;
  */
 public class NumberedLessonAdapter extends RecyclerView.Adapter<NumberedLessonAdapter.NumberedLessonViewHolder> {
 
-    private List<Lesson> lessons;
-    private OnItemClickListener listener;
+    private static final String TAG = "NumberedLessonAdapter";
+    private List<Lesson> lessons = new ArrayList<>();
+    private final OnItemClickListener listener;
 
     public interface OnItemClickListener {
         void onItemClick(Lesson lesson);
     }
 
-    public NumberedLessonAdapter(List<Lesson> lessons) {
-        this.lessons = lessons;
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener) {
+    public NumberedLessonAdapter(OnItemClickListener listener) {
         this.listener = listener;
     }
 
     public void setLessons(List<Lesson> lessons) {
         this.lessons = lessons;
-        Log.d("NumberedLessonAdapter", "Setting lessons: " + lessons.size() + " lessons");
+        Log.d(TAG, "Number of lessons set: " + lessons.size());
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
     public NumberedLessonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
+        View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_numbered_lesson, parent, false);
-        return new NumberedLessonViewHolder(view);
+        return new NumberedLessonViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull NumberedLessonViewHolder holder, int position) {
         Lesson lesson = lessons.get(position);
-        holder.bind(lesson, position + 1); // Position + 1 as the lesson number
+        
+        // Set the lesson number - ensuring it's visible and correctly formatted
+        if (lesson.getEventNumber() != null && !lesson.getEventNumber().isEmpty()) {
+            holder.lessonNumberTextView.setText(lesson.getEventNumber());
+            holder.lessonNumberTextView.setVisibility(View.VISIBLE);
+        } else if (lesson.getEventType() != null && !lesson.getEventType().isEmpty()) {
+            // If no number but has a type, display the type code
+            holder.lessonNumberTextView.setText(lesson.getEventType());
+            holder.lessonNumberTextView.setVisibility(View.VISIBLE);
+        } else {
+            // Default to position + 1 if no number or type available
+            holder.lessonNumberTextView.setText(String.valueOf(position + 1));
+            holder.lessonNumberTextView.setVisibility(View.VISIBLE);
+        }
+        
+        // Set the lesson time
+        holder.lessonTimeTextView.setText(String.format("%s - %s", 
+                lesson.getStartTime(), 
+                lesson.getEndTime()));
+        
+        // Set the lesson description if available
+        if (lesson.getDescription() != null && !lesson.getDescription().isEmpty()) {
+            holder.lessonDescriptionTextView.setText(lesson.getDescription());
+            holder.lessonDescriptionTextView.setVisibility(View.VISIBLE);
+        } else {
+            holder.lessonDescriptionTextView.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return lessons == null ? 0 : lessons.size();
+        return lessons.size();
     }
 
     class NumberedLessonViewHolder extends RecyclerView.ViewHolder {
-        private TextView lessonNumber;
-        private TextView lessonTime;
+        private final TextView lessonNumberTextView;
+        private final TextView lessonTimeTextView;
+        private final TextView lessonDescriptionTextView;
 
-        public NumberedLessonViewHolder(@NonNull View itemView) {
-            super(itemView);
-            lessonNumber = itemView.findViewById(R.id.text_lesson_number);
-            lessonTime = itemView.findViewById(R.id.text_lesson_time);
+        NumberedLessonViewHolder(View view) {
+            super(view);
+            lessonNumberTextView = view.findViewById(R.id.text_lesson_number);
+            lessonTimeTextView = view.findViewById(R.id.text_lesson_time);
+            lessonDescriptionTextView = view.findViewById(R.id.text_lesson_description);
 
-            itemView.setOnClickListener(v -> {
+            view.setOnClickListener(v -> {
                 int position = getAdapterPosition();
-                if (listener != null && position != RecyclerView.NO_POSITION) {
+                if (position != RecyclerView.NO_POSITION && listener != null) {
                     listener.onItemClick(lessons.get(position));
                 }
             });
-        }
-
-        public void bind(Lesson lesson, int number) {
-            // Set the lesson number
-            lessonNumber.setText(String.valueOf(number));
-            
-            // Format and set the time range
-            String timeRange = lesson.getStartTime() + " - " + lesson.getEndTime();
-            lessonTime.setText(timeRange);
         }
     }
 } 

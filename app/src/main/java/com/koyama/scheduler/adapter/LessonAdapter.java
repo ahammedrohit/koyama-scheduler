@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.chip.Chip;
 import com.koyama.scheduler.R;
 import com.koyama.scheduler.data.model.Lesson;
 
@@ -18,6 +19,7 @@ import java.util.List;
 
 public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonViewHolder> {
 
+    private static final String TAG = "LessonAdapter";
     private List<Lesson> lessons;
     private OnItemClickListener listener;
 
@@ -35,10 +37,7 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
 
     public void setLessons(List<Lesson> lessons) {
         this.lessons = lessons;
-        Log.d("LessonAdapter", "Setting lessons: " + lessons.size() + " lessons");
-        for (Lesson lesson : lessons) {
-            Log.d("LessonAdapter", "Lesson: " + lesson.getDate() + " " + lesson.getStartTime() + " - " + lesson.getEndTime() + " " + lesson.getDescription());
-        }
+        Log.d(TAG, "Setting lessons: " + lessons.size() + " lessons");
         notifyDataSetChanged();
     }
 
@@ -53,7 +52,41 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
     @Override
     public void onBindViewHolder(@NonNull LessonViewHolder holder, int position) {
         Lesson lesson = lessons.get(position);
-        holder.bind(lesson);
+        
+        // Set the lesson type properly
+        String lessonType = "";
+        
+        if (lesson.getEventType() != null && !lesson.getEventType().isEmpty()) {
+            lessonType = getLessonTypeFullName(lesson.getEventType());
+        } else if (lesson.getEventNumber() != null && !lesson.getEventNumber().isEmpty()) {
+            lessonType = "Lesson " + lesson.getEventNumber();
+        } else {
+            lessonType = "Lesson";
+        }
+        
+        holder.lessonTypeTextView.setText(lessonType);
+        
+        // Set lesson color indicator based on event type
+        int colorResId = getLessonColor(lesson.getEventType());
+        holder.lessonColorView.setBackgroundResource(colorResId);
+        
+        // Format and set the lesson time
+        String timeDisplay = String.format("%s - %s", lesson.getStartTime(), lesson.getEndTime());
+        holder.lessonTimeTextView.setText(timeDisplay);
+        
+        // Set the lesson description if available
+        if (lesson.getDescription() != null && !lesson.getDescription().isEmpty()) {
+            holder.lessonDescriptionTextView.setText(lesson.getDescription());
+            holder.lessonDescriptionTextView.setVisibility(View.VISIBLE);
+        } else {
+            holder.lessonDescriptionTextView.setVisibility(View.GONE);
+        }
+        
+        // Set lesson completion status 
+        holder.itemView.setAlpha(lesson.isCompleted() ? 0.6f : 1.0f);
+        
+        // Set location chip if available (future feature)
+        holder.lessonLocationChip.setVisibility(View.GONE);
     }
 
     @Override
@@ -62,91 +95,92 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
     }
 
     class LessonViewHolder extends RecyclerView.ViewHolder {
-        private View lessonColor;
-        private TextView lessonType;
-        private TextView lessonTime;
-        private TextView lessonDescription;
+        private final View lessonColorView;
+        private final TextView lessonTypeTextView;
+        private final TextView lessonTimeTextView;
+        private final TextView lessonDescriptionTextView;
+        private final Chip lessonLocationChip;
 
-        public LessonViewHolder(@NonNull View itemView) {
-            super(itemView);
-            lessonColor = itemView.findViewById(R.id.view_lesson_color);
-            lessonType = itemView.findViewById(R.id.text_lesson_type);
-            lessonTime = itemView.findViewById(R.id.text_lesson_time);
-            lessonDescription = itemView.findViewById(R.id.text_lesson_description);
+        LessonViewHolder(View view) {
+            super(view);
+            lessonColorView = view.findViewById(R.id.view_lesson_color);
+            lessonTypeTextView = view.findViewById(R.id.text_lesson_type);
+            lessonTimeTextView = view.findViewById(R.id.text_lesson_time);
+            lessonDescriptionTextView = view.findViewById(R.id.text_lesson_description);
+            lessonLocationChip = view.findViewById(R.id.chip_lesson_location);
 
-            itemView.setOnClickListener(v -> {
+            view.setOnClickListener(v -> {
                 int position = getAdapterPosition();
-                if (listener != null && position != RecyclerView.NO_POSITION) {
+                if (position != RecyclerView.NO_POSITION && listener != null) {
                     listener.onItemClick(lessons.get(position));
                 }
             });
         }
-
-        public void bind(Lesson lesson) {
-            Log.d("LessonAdapter", "Binding lesson: " + lesson.getDate() + " " + lesson.getStartTime() + " - " + lesson.getEndTime() + " " + lesson.getDescription());
-            // Set lesson type color
-            int colorResId = getLessonTypeColorResId(lesson.getEventType());
-            lessonColor.setBackgroundColor(ContextCompat.getColor(itemView.getContext(), colorResId));
-
-            // Set text values
-            lessonType.setText(getLessonTypeDisplay(lesson.getEventType()));
-            lessonTime.setText(String.format("%s - %s", lesson.getStartTime(), lesson.getEndTime()));
-            lessonDescription.setText(lesson.getDescription());
+    }
+    
+    /**
+     * Get the full name of a lesson type from its code
+     */
+    private String getLessonTypeFullName(String eventType) {
+        if (eventType == null) return "Lesson";
+        
+        switch (eventType.toUpperCase()) {
+            case "AT":
+                return "Autonomous Theory";
+            case "A50":
+                return "Advanced 50";
+            case "ATP":
+                return "Autonomous Theory Practice";
+            case "PT":
+                return "Practice Test";
+            case "CPR":
+                return "Comprehensive Review";
+            case "APTIT":
+            case "APTI.T":
+                return "Aptitude Test";
+            case "CDD":
+                return "Comprehensive Driving";
+            case "EXT":
+                return "Extended Training";
+            case "EX&RD":
+                return "Exam & Road Driving";
+            case "APS":
+                return "Advanced Practical Skills";
+            default:
+                return eventType;
         }
+    }
 
-        private int getLessonTypeColorResId(String eventType) {
-            boolean isNightMode = itemView.getContext().getResources().getBoolean(R.bool.is_night_mode);
-            switch (eventType) {
-                case "AT":
-                    return isNightMode ? R.color.lesson_at_dark : R.color.lesson_at;
-                case "A50":
-                    return isNightMode ? R.color.lesson_a50_dark : R.color.lesson_a50;
-                case "ATP":
-                    return isNightMode ? R.color.lesson_atp_dark : R.color.lesson_atp;
-                case "PT":
-                    return isNightMode ? R.color.lesson_pt_dark : R.color.lesson_pt;
-                case "CPR":
-                    return isNightMode ? R.color.lesson_cpr_dark : R.color.lesson_cpr;
-                case "Apti.t":
-                    return isNightMode ? R.color.lesson_aptit_dark : R.color.lesson_aptit;
-                case "CDD":
-                    return isNightMode ? R.color.lesson_cdd_dark : R.color.lesson_cdd;
-                case "EXT":
-                    return isNightMode ? R.color.lesson_ext_dark : R.color.lesson_ext;
-                case "EX&RD":
-                    return isNightMode ? R.color.lesson_exrd_dark : R.color.lesson_exrd;
-                case "APS":
-                    return isNightMode ? R.color.lesson_aps_dark : R.color.lesson_aps;
-                default:
-                    return isNightMode ? R.color.primary_dark : R.color.primary;
-            }
-        }
-
-        private String getLessonTypeDisplay(String eventType) {
-            switch (eventType) {
-                case "AT":
-                    return itemView.getContext().getString(R.string.lesson_at);
-                case "A50":
-                    return itemView.getContext().getString(R.string.lesson_a50);
-                case "ATP":
-                    return itemView.getContext().getString(R.string.lesson_atp);
-                case "PT":
-                    return itemView.getContext().getString(R.string.lesson_pt);
-                case "CPR":
-                    return itemView.getContext().getString(R.string.lesson_cpr);
-                case "Apti.t":
-                    return itemView.getContext().getString(R.string.lesson_aptit);
-                case "CDD":
-                    return itemView.getContext().getString(R.string.lesson_cdd);
-                case "EXT":
-                    return itemView.getContext().getString(R.string.lesson_ext);
-                case "EX&RD":
-                    return itemView.getContext().getString(R.string.lesson_exrd);
-                case "APS":
-                    return itemView.getContext().getString(R.string.lesson_aps);
-                default:
-                    return eventType;
-            }
+    /**
+     * Get the color resource ID for a lesson type
+     */
+    private int getLessonColor(String eventType) {
+        if (eventType == null) return R.color.primary;
+        
+        switch (eventType.toUpperCase()) {
+            case "AT":
+                return R.color.lesson_at;
+            case "A50":
+                return R.color.lesson_a50;
+            case "ATP":
+                return R.color.lesson_atp;
+            case "PT":
+                return R.color.lesson_pt;
+            case "CPR":
+                return R.color.lesson_cpr;
+            case "APTI.T":
+            case "APTIT":
+                return R.color.lesson_aptit;
+            case "CDD":
+                return R.color.lesson_cdd;
+            case "EXT":
+                return R.color.lesson_ext;
+            case "EX&RD":
+                return R.color.lesson_exrd;
+            case "APS":
+                return R.color.lesson_aps;
+            default:
+                return R.color.primary;
         }
     }
 }

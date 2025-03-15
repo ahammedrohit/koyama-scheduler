@@ -1,33 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Dark Theme Colors -->
-    <color name="primary_dark">#64B5F6</color>         <!-- Lighter blue for visibility in dark mode (Blue 300) -->
-    <color name="primary_variant_dark">#0D47A1</color> <!-- Darker blue for contrast (Blue 900) -->
+    <!-- Dark Theme Colors - Material Design 3 inspired -->
+    <color name="primary_dark">#90CAF9</color>         <!-- Blue 200 - lighter for dark theme visibility -->
+    <color name="primary_variant_dark">#1565C0</color> <!-- Blue 800 for contrast -->
     <color name="on_primary_dark">#000000</color>      <!-- Black text on light primary -->
     
-    <color name="secondary_dark">#80CBC4</color>       <!-- Light teal for secondary elements -->
-    <color name="secondary_variant_dark">#00695C</color> <!-- Darker teal variant -->
-    <color name="on_secondary_dark">#000000</color>    <!-- Black text on light secondary -->
+    <color name="secondary_dark">#78909C</color>       <!-- Blue Grey 400 - more subtle secondary -->
+    <color name="secondary_variant_dark">#455A64</color> <!-- Blue Grey 700 -->
+    <color name="on_secondary_dark">#FFFFFF</color>    <!-- White text on darker secondary -->
     
-    <color name="background_dark">#121212</color>      <!-- Standard dark theme background -->
-    <color name="surface_dark">#222222</color>         <!-- Lighter than background for cards -->
+    <color name="background_dark">#121212</color>      <!-- Standard Material dark theme background -->
+    <color name="surface_dark">#1E1E1E</color>         <!-- Slightly lighter than background for cards -->
     <color name="on_background_dark">#FFFFFF</color>   <!-- White text on dark background -->
     <color name="on_surface_dark">#FFFFFF</color>      <!-- White text for better readability -->
     
-    <!-- We can keep the same error colors as they should work in both themes -->
-    <color name="text_primary_dark">#FFFFFF</color>    <!-- Primary text in dark theme - white -->
-    <color name="text_secondary_dark">#CCCCCC</color>  <!-- Secondary text - light gray -->
-    <color name="text_disabled_dark">#99FFFFFF</color> <!-- Disabled text with 60% opacity -->
+    <!-- Error colors -->
+    <color name="error_dark">#CF6679</color>           <!-- Material Design dark theme error color -->
+    <color name="on_error_dark">#000000</color>
     
-    <!-- Lesson type colors adjusted for dark theme visibility -->
-    <color name="lesson_at_dark">#81C784</color>       <!-- Light green -->
-    <color name="lesson_a50_dark">#AED581</color>      <!-- Lighter green -->
-    <color name="lesson_atp_dark">#4DB6AC</color>      <!-- Light teal -->
-    <color name="lesson_pt_dark">#FF8A80</color>       <!-- Light red -->
-    <color name="lesson_cpr_dark">#FF80AB</color>      <!-- Light pink -->
-    <color name="lesson_aptit_dark">#90CAF9</color>    <!-- Light blue instead of purple -->
-    <color name="lesson_cdd_dark">#82B1FF</color>      <!-- Light blue instead of deep purple -->
-    <color name="lesson_ext_dark">#FFD180</color>      <!-- Orange -->
-    <color name="lesson_exrd_dark">#80D8FF</color>     <!-- Light blue -->
-    <color name="lesson_aps_dark">#BCAAA4</color>      <!-- Light brown -->
+    <!-- Text colors -->
+    <color name="text_primary_dark">#FFFFFF</color>    <!-- Primary text in dark theme - white -->
+    <color name="text_secondary_dark">#B0BEC5</color>  <!-- Secondary text - blue grey 200 -->
+    <color name="text_disabled_dark">#78909C</color>   <!-- Disabled text - blue grey 400 -->
+    
+    <!-- Lesson type colors adjusted for dark theme visibility - more consistent with Material Design -->
+    <color name="lesson_at_dark">#66BB6A</color>       <!-- Green 400 -->
+    <color name="lesson_a50_dark">#81C784</color>      <!-- Green 300 -->
+    <color name="lesson_atp_dark">#26A69A</color>      <!-- Teal 400 -->
+    <color name="lesson_pt_dark">#EF5350</color>       <!-- Red 400 -->
+    <color name="lesson_cpr_dark">#EC407A</color>      <!-- Pink 400 -->
+    <color name="lesson_aptit_dark">#42A5F5</color>    <!-- Blue 400 -->
+    <color name="lesson_cdd_dark">#29B6F6</color>      <!-- Light Blue 400 -->
+    <color name="lesson_ext_dark">#FFA726</color>      <!-- Orange 400 -->
+    <color name="lesson_exrd_dark">#2196F3</color>     <!-- Blue 500 -->
+    <color name="lesson_aps_dark">#8D6E63</color>      <!-- Brown 400 -->
 </resources>

@@ -87,6 +87,7 @@
     <string name="visit_website">Visit Website</string>
     
     <!-- Lesson Types -->
+    <string name="lesson_generic">Lesson</string>
     <string name="lesson_at">AT 1st step</string>
     <string name="lesson_a50">AT 2nd step (50min)</string>
     <string name="lesson_atp">AT Parking</string>

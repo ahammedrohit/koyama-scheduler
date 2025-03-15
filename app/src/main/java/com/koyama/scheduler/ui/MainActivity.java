@@ -69,10 +69,11 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "Setting up recycler views");
             todayLessonsRecycler.setLayoutManager(new LinearLayoutManager(this));
             todayAdapter = new LessonAdapter(new ArrayList<>());
+            todayAdapter.setOnItemClickListener(this::openLessonDetail);
             todayLessonsRecycler.setAdapter(todayAdapter);
             
             nextDayLessonsRecycler.setLayoutManager(new LinearLayoutManager(this));
-            nextDayAdapter = new NumberedLessonAdapter(new ArrayList<>());
+            nextDayAdapter = new NumberedLessonAdapter(this::openLessonDetail);
             nextDayLessonsRecycler.setAdapter(nextDayAdapter);
 
             // Set up button click listeners
@@ -89,10 +90,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);
             });
-
-            // Set up click listener for lesson adapters
-            todayAdapter.setOnItemClickListener(this::openLessonDetail);
-            nextDayAdapter.setOnItemClickListener(this::openLessonDetail);
 
             // Observe progress updates
             lessonViewModel.getProgressPercentage().observe(this, progress -> {
@@ -170,7 +167,9 @@ public class MainActivity extends AppCompatActivity {
 
     // Helper method to get user-friendly lesson type display from code
     private String getLessonTypeDisplay(String eventType) {
-        switch (eventType) {
+        if (eventType == null) return getString(R.string.lesson_generic);
+        
+        switch (eventType.toUpperCase()) {
             case "AT":
                 return getString(R.string.lesson_at);
             case "A50":
@@ -181,7 +180,8 @@ public class MainActivity extends AppCompatActivity {
                 return getString(R.string.lesson_pt);
             case "CPR":
                 return getString(R.string.lesson_cpr);
-            case "Apti.t":
+            case "APTI.T":
+            case "APTIT":
                 return getString(R.string.lesson_aptit);
             case "CDD":
                 return getString(R.string.lesson_cdd);
