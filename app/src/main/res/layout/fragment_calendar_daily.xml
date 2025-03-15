@@ -75,6 +75,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/lesson_at"
                 app:chipBackgroundColor="@color/lesson_at"
+                android:textColor="?attr/colorOnPrimary"
                 android:checkable="false"
                 android:clickable="false" />
 
@@ -83,6 +84,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/lesson_a50"
                 app:chipBackgroundColor="@color/lesson_a50"
+                android:textColor="?attr/colorOnPrimary"
                 android:checkable="false"
                 android:clickable="false" />
 
@@ -91,6 +93,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/lesson_atp"
                 app:chipBackgroundColor="@color/lesson_atp"
+                android:textColor="?attr/colorOnPrimary"
                 android:checkable="false"
                 android:clickable="false" />
 
@@ -99,6 +102,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/lesson_pt"
                 app:chipBackgroundColor="@color/lesson_pt"
+                android:textColor="?attr/colorOnPrimary"
                 android:checkable="false"
                 android:clickable="false" />
 
@@ -107,6 +111,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/lesson_cpr"
                 app:chipBackgroundColor="@color/lesson_cpr"
+                android:textColor="?attr/colorOnPrimary"
                 android:checkable="false"
                 android:clickable="false" />
 
@@ -115,6 +120,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/lesson_aptit"
                 app:chipBackgroundColor="@color/lesson_aptit"
+                android:textColor="?attr/colorOnPrimary"
                 android:checkable="false"
                 android:clickable="false" />
 
@@ -123,6 +129,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/lesson_cdd"
                 app:chipBackgroundColor="@color/lesson_cdd"
+                android:textColor="?attr/colorOnPrimary"
                 android:checkable="false"
                 android:clickable="false" />
 
@@ -131,6 +138,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/lesson_ext"
                 app:chipBackgroundColor="@color/lesson_ext"
+                android:textColor="?attr/colorOnPrimary"
                 android:checkable="false"
                 android:clickable="false" />
 
@@ -139,6 +147,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/lesson_exrd"
                 app:chipBackgroundColor="@color/lesson_exrd"
+                android:textColor="?attr/colorOnPrimary"
                 android:checkable="false"
                 android:clickable="false" />
 
@@ -147,6 +156,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/lesson_aps"
                 app:chipBackgroundColor="@color/lesson_aps"
+                android:textColor="?attr/colorOnPrimary"
                 android:checkable="false"
                 android:clickable="false" />
 

@@ -112,10 +112,12 @@ public class CalendarWeeklyFragment extends BaseCalendarFragment {
             
             // Highlight today
             if (date.equals(LocalDate.now())) {
-                dayTextViews.get(i).setTextColor(getResources().getColor(R.color.secondary, null));
+                dayTextViews.get(i).setTextColor(getResources().getColor(android.R.color.white, null));
+                dayTextViews.get(i).setBackgroundResource(R.drawable.bg_current_day);
                 dayTextViews.get(i).setTextSize(16);
             } else {
-                dayTextViews.get(i).setTextColor(getResources().getColor(R.color.on_background, null));
+                dayTextViews.get(i).setTextColor(getResources().getColor(android.R.color.black, null));
+                dayTextViews.get(i).setBackground(null);
                 dayTextViews.get(i).setTextSize(14);
             }
             

@@ -177,13 +177,13 @@ public class CalendarMonthlyFragment extends BaseCalendarFragment {
         dayView.setGravity(Gravity.CENTER);
         dayView.setPadding(8, 8, 8, 8);
 
-        // Make the cell fill its space
+        // Calculate cell dimensions based on grid height
         GridLayout.LayoutParams params = new GridLayout.LayoutParams();
         params.width = 0;
-        params.height = 0;
-        params.setGravity(Gravity.FILL);
+        params.height = GridLayout.LayoutParams.WRAP_CONTENT;
+        params.setGravity(Gravity.FILL_HORIZONTAL | Gravity.CENTER_VERTICAL);
         params.columnSpec = GridLayout.spec(col, 1f);
-        params.rowSpec = GridLayout.spec(row, 1f);
+        params.rowSpec = GridLayout.spec(row);
         params.setMargins(1, 1, 1, 1);
 
         // Style current day
@@ -215,10 +215,10 @@ public class CalendarMonthlyFragment extends BaseCalendarFragment {
         TextView emptyView = new TextView(requireContext());
         GridLayout.LayoutParams params = new GridLayout.LayoutParams();
         params.width = 0;
-        params.height = 0;
-        params.setGravity(Gravity.FILL);
+        params.height = GridLayout.LayoutParams.WRAP_CONTENT;
+        params.setGravity(Gravity.FILL_HORIZONTAL | Gravity.CENTER_VERTICAL);
         params.columnSpec = GridLayout.spec(col, 1f);
-        params.rowSpec = GridLayout.spec(row, 1f);
+        params.rowSpec = GridLayout.spec(row);
         params.setMargins(1, 1, 1, 1);
         calendarGrid.addView(emptyView, params);
     }
