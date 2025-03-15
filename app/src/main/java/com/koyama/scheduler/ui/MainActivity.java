@@ -4,15 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,23 +24,18 @@ import com.koyama.scheduler.viewmodel.LessonViewModel;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private LessonViewModel lessonViewModel;
-    private TextView nextLessonEmpty;
-    private LinearLayout nextLessonContent;
-    private TextView nextLessonDate;
-    private TextView nextLessonTime;
-    private TextView nextLessonType;
-    private TextView nextLessonDescription;
     private TextView todayEmpty;
     private RecyclerView todayLessonsRecycler;
+    private TextView nextDayEmpty;
+    private RecyclerView nextDayLessonsRecycler;
     private ProgressBar progressBar;
     private TextView progressPercentage;
-    private LessonAdapter adapter;
-    private Lesson currentLesson;
+    private LessonAdapter todayAdapter;
+    private LessonAdapter nextDayAdapter;
 
     private static final String TAG = "MainActivity";
 
@@ -65,22 +57,22 @@ public class MainActivity extends AppCompatActivity {
 
             // Find views
             Log.d(TAG, "Finding views");
-            nextLessonEmpty = findViewById(R.id.text_next_lesson_empty);
-            nextLessonContent = findViewById(R.id.layout_next_lesson_content);
-            nextLessonDate = findViewById(R.id.text_next_lesson_date);
-            nextLessonTime = findViewById(R.id.text_next_lesson_time);
-            nextLessonType = findViewById(R.id.text_next_lesson_type);
-            nextLessonDescription = findViewById(R.id.text_next_lesson_description);
             todayEmpty = findViewById(R.id.text_today_empty);
             todayLessonsRecycler = findViewById(R.id.recycler_today_lessons);
+            nextDayEmpty = findViewById(R.id.text_next_day_empty);
+            nextDayLessonsRecycler = findViewById(R.id.recycler_next_day_lessons);
             progressBar = findViewById(R.id.progress_bar);
             progressPercentage = findViewById(R.id.text_progress_percentage);
 
-            // Set up recycler view
-            Log.d(TAG, "Setting up recycler view");
+            // Set up recycler views
+            Log.d(TAG, "Setting up recycler views");
             todayLessonsRecycler.setLayoutManager(new LinearLayoutManager(this));
-            adapter = new LessonAdapter(new ArrayList<>());
-            todayLessonsRecycler.setAdapter(adapter);
+            todayAdapter = new LessonAdapter(new ArrayList<>());
+            todayLessonsRecycler.setAdapter(todayAdapter);
+            
+            nextDayLessonsRecycler.setLayoutManager(new LinearLayoutManager(this));
+            nextDayAdapter = new LessonAdapter(new ArrayList<>());
+            nextDayLessonsRecycler.setAdapter(nextDayAdapter);
 
             // Set up button click listeners
             Log.d(TAG, "Setting up button click listeners");
@@ -97,11 +89,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             });
 
-            // Set up click listener for lesson adapter
-            adapter.setOnItemClickListener(lesson -> {
-                Intent intent = new Intent(MainActivity.this, LessonDetailActivity.class);
-                intent.putExtra("LESSON_ID", lesson.getId());
-                startActivity(intent);
+            // Set up click listener for lesson adapters
+            todayAdapter.setOnItemClickListener(lesson -> {
+                openLessonDetail(lesson);
+            });
+            
+            nextDayAdapter.setOnItemClickListener(lesson -> {
+                openLessonDetail(lesson);
             });
 
             // Observe progress updates
@@ -121,6 +115,12 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Error starting app: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
+    
+    private void openLessonDetail(Lesson lesson) {
+        Intent intent = new Intent(MainActivity.this, LessonDetailActivity.class);
+        intent.putExtra("LESSON_ID", lesson.getId());
+        startActivity(intent);
+    }
 
     private void loadData() {
         // Get the current date and time
@@ -135,27 +135,20 @@ public class MainActivity extends AppCompatActivity {
         
         Log.d(TAG, "Current date: " + currentDate + ", Current time: " + currentTime);
         
-        // Load next upcoming lesson based on the current time
-        lessonViewModel.getNextUpcomingLesson(currentDate, currentTime).observe(this, lesson -> {
-            if (lesson == null) {
-                Log.d(TAG, "No next lesson found");
-                nextLessonEmpty.setVisibility(View.VISIBLE);
-                nextLessonContent.setVisibility(View.GONE);
+        // Load all lessons for the next day
+        lessonViewModel.getNextDayLessons(currentDate, currentTime).observe(this, lessons -> {
+            if (lessons == null || lessons.isEmpty()) {
+                Log.d(TAG, "No lessons found for next day");
+                nextDayEmpty.setVisibility(View.VISIBLE);
+                nextDayLessonsRecycler.setVisibility(View.GONE);
             } else {
-                Log.d(TAG, "Next lesson found: " + lesson.getDate() + " " + lesson.getStartTime() + " - " + lesson.getEndTime() + " " + lesson.getDescription());
-                nextLessonEmpty.setVisibility(View.GONE);
-                nextLessonContent.setVisibility(View.VISIBLE);
-                
-                // Format the date
-                LocalDate date = LocalDate.parse(lesson.getDate());
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE, MMM d, yyyy");
-                String formattedDate = date.format(formatter);
-                
-                nextLessonDate.setText(formattedDate);
-                nextLessonTime.setText(String.format("%s - %s", lesson.getStartTime(), lesson.getEndTime()));
-                nextLessonType.setText(getLessonTypeDisplay(lesson.getEventType()));
-                nextLessonDescription.setText(lesson.getDescription());
-                currentLesson = lesson;
+                Log.d(TAG, "Next day's lessons found: " + lessons.size() + " lessons");
+                for (Lesson lesson : lessons) {
+                    Log.d(TAG, "Next day lesson: " + lesson.getDate() + " " + lesson.getStartTime() + " - " + lesson.getEndTime() + " " + lesson.getDescription());
+                }
+                nextDayEmpty.setVisibility(View.GONE);
+                nextDayLessonsRecycler.setVisibility(View.VISIBLE);
+                nextDayAdapter.setLessons(lessons);
             }
         });
 
@@ -174,37 +167,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 todayEmpty.setVisibility(View.GONE);
                 todayLessonsRecycler.setVisibility(View.VISIBLE);
-                adapter.setLessons(lessons);
+                todayAdapter.setLessons(lessons);
             }
         });
-    }
-
-    /**
-     * Parse time string in format like "7:40 PM" to get 24-hour format integer value
-     * for comparison
-     */
-    private int parseTimeToMinutes(String timeString) {
-        try {
-            String[] parts = timeString.split(" ");
-            String timePart = parts[0];
-            String amPm = parts[1];
-            
-            String[] timeParts = timePart.split(":");
-            int hours = Integer.parseInt(timeParts[0]);
-            int minutes = Integer.parseInt(timeParts[1]);
-            
-            // Convert to 24-hour format
-            if (amPm.equalsIgnoreCase("PM") && hours < 12) {
-                hours += 12;
-            } else if (amPm.equalsIgnoreCase("AM") && hours == 12) {
-                hours = 0;
-            }
-            
-            return hours * 60 + minutes;
-        } catch (Exception e) {
-            Log.e(TAG, "Error parsing time: " + timeString, e);
-            return 0;
-        }
     }
 
     // Helper method to get user-friendly lesson type display from code
