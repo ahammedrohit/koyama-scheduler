@@ -5,6 +5,7 @@
     <!-- Main Screen -->
     <string name="today_lessons">Today\'s Lessons</string>
     <string name="next_lesson">Next Lesson</string>
+    <string name="next_day_lessons">Next Day\'s Lessons</string>
     <string name="no_lessons_today">No lessons scheduled for today</string>
     <string name="no_upcoming_lessons">No upcoming lessons</string>
     <string name="view_calendar">View Calendar</string>

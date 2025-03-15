@@ -101,10 +101,12 @@ public class LessonDetailActivity extends AppCompatActivity {
 
     private void undoMarkAsCompleted() {
         if (currentLesson != null) {
-            viewModel.undoMarkAsCompleted(currentLesson);
+            currentLesson.setCompleted(false);
+            viewModel.update(currentLesson);
             Toast.makeText(this, "Lesson marked as not completed", Toast.LENGTH_SHORT).show();
-
-            // Hide the undo button
+            
+            // The UI will be updated automatically through the lesson observer
+            updateUI(currentLesson);
             findViewById(R.id.button_undo_mark_completed).setVisibility(View.GONE);
         }
     }
@@ -181,8 +183,13 @@ public class LessonDetailActivity extends AppCompatActivity {
 
     private void markAsCompleted() {
         if (currentLesson != null) {
-            viewModel.markAsCompleted(currentLesson);
+            currentLesson.setCompleted(true);
+            viewModel.update(currentLesson);
             Toast.makeText(this, "Lesson marked as completed", Toast.LENGTH_SHORT).show();
+            
+            // The UI will be updated automatically through the lesson observer
+            updateUI(currentLesson);
+            findViewById(R.id.button_undo_mark_completed).setVisibility(View.VISIBLE);
         }
     }
 

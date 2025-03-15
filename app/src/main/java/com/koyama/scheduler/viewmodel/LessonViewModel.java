@@ -22,7 +22,6 @@ public class LessonViewModel extends AndroidViewModel {
     private static final String TAG = "LessonViewModel";
     private LessonRepository repository;
     private LiveData<List<Lesson>> allLessons;
-    private LiveData<Lesson> nextUpcomingLesson;
     private final MediatorLiveData<Float> progressPercentage = new MediatorLiveData<>();
 
     public LessonViewModel(@NonNull Application application) {
@@ -30,7 +29,6 @@ public class LessonViewModel extends AndroidViewModel {
         
         // Initialize with empty values
         allLessons = new MutableLiveData<>(new ArrayList<>());
-        nextUpcomingLesson = new MutableLiveData<>(null);
         repository = null;
         progressPercentage.setValue(0f);
         
@@ -40,8 +38,6 @@ public class LessonViewModel extends AndroidViewModel {
             repository = new LessonRepository(application);
             Log.d(TAG, "Getting all lessons");
             allLessons = repository.getAllLessons();
-            Log.d(TAG, "Getting next upcoming lesson");
-            nextUpcomingLesson = repository.getNextUpcomingLesson();
             
             // Add a source to progressPercentage that observes allLessons
             progressPercentage.addSource(allLessons, lessons -> {
@@ -60,8 +56,8 @@ public class LessonViewModel extends AndroidViewModel {
         return allLessons;
     }
 
-    public LiveData<Lesson> getNextUpcomingLesson() {
-        return nextUpcomingLesson;
+    public LiveData<Lesson> getNextUpcomingLesson(String currentDate, String currentTime) {
+        return repository.getNextUpcomingLesson(currentDate, currentTime);
     }
 
     public LiveData<List<Lesson>> getLessonsByDate(String date) {

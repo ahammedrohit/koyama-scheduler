@@ -123,12 +123,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadData() {
-        // Load next upcoming lesson
-        lessonViewModel.getNextUpcomingLesson().observe(this, lesson -> {
+        // Get the current date and time
+        String currentDate = LocalDate.now().toString();
+        
+        // Format current time in the same format as lesson times (e.g. "11:30 PM")
+        java.time.LocalTime now = java.time.LocalTime.now();
+        int hour = now.getHour();
+        String amPm = hour >= 12 ? "PM" : "AM";
+        int hour12 = hour > 12 ? hour - 12 : (hour == 0 ? 12 : hour);
+        String currentTime = String.format("%d:%02d %s", hour12, now.getMinute(), amPm);
+        
+        Log.d(TAG, "Current date: " + currentDate + ", Current time: " + currentTime);
+        
+        // Load next upcoming lesson based on the current time
+        lessonViewModel.getNextUpcomingLesson(currentDate, currentTime).observe(this, lesson -> {
             if (lesson == null) {
+                Log.d(TAG, "No next lesson found");
                 nextLessonEmpty.setVisibility(View.VISIBLE);
                 nextLessonContent.setVisibility(View.GONE);
             } else {
+                Log.d(TAG, "Next lesson found: " + lesson.getDate() + " " + lesson.getStartTime() + " - " + lesson.getEndTime() + " " + lesson.getDescription());
                 nextLessonEmpty.setVisibility(View.GONE);
                 nextLessonContent.setVisibility(View.VISIBLE);
                 
@@ -147,16 +161,50 @@ public class MainActivity extends AppCompatActivity {
 
         // Load today's lessons
         String todayDate = LocalDate.now().toString();
+        Log.d(TAG, "Fetching lessons for today: " + todayDate);
         lessonViewModel.getLessonsByDate(todayDate).observe(this, lessons -> {
             if (lessons == null || lessons.isEmpty()) {
+                Log.d(TAG, "No lessons found for today");
                 todayEmpty.setVisibility(View.VISIBLE);
                 todayLessonsRecycler.setVisibility(View.GONE);
             } else {
+                Log.d(TAG, "Today's lessons found: " + lessons.size() + " lessons");
+                for (Lesson lesson : lessons) {
+                    Log.d(TAG, "Lesson: " + lesson.getDate() + " " + lesson.getStartTime() + " - " + lesson.getEndTime() + " " + lesson.getDescription());
+                }
                 todayEmpty.setVisibility(View.GONE);
                 todayLessonsRecycler.setVisibility(View.VISIBLE);
                 adapter.setLessons(lessons);
             }
         });
+    }
+
+    /**
+     * Parse time string in format like "7:40 PM" to get 24-hour format integer value
+     * for comparison
+     */
+    private int parseTimeToMinutes(String timeString) {
+        try {
+            String[] parts = timeString.split(" ");
+            String timePart = parts[0];
+            String amPm = parts[1];
+            
+            String[] timeParts = timePart.split(":");
+            int hours = Integer.parseInt(timeParts[0]);
+            int minutes = Integer.parseInt(timeParts[1]);
+            
+            // Convert to 24-hour format
+            if (amPm.equalsIgnoreCase("PM") && hours < 12) {
+                hours += 12;
+            } else if (amPm.equalsIgnoreCase("AM") && hours == 12) {
+                hours = 0;
+            }
+            
+            return hours * 60 + minutes;
+        } catch (Exception e) {
+            Log.e(TAG, "Error parsing time: " + timeString, e);
+            return 0;
+        }
     }
 
     // Helper method to get user-friendly lesson type display from code

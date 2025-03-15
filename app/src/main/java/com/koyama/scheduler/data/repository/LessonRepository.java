@@ -19,7 +19,6 @@ public class LessonRepository {
     private static final String TAG = "LessonRepository";
     private final LessonDao lessonDao;
     private final LiveData<List<Lesson>> allLessons;
-    private final LiveData<Lesson> nextUpcomingLesson;
 
     public LessonRepository(Application application) {
         try {
@@ -30,8 +29,6 @@ public class LessonRepository {
             lessonDao = database.lessonDao();
             Log.d(TAG, "Getting all lessons");
             allLessons = lessonDao.getAllLessons();
-            Log.d(TAG, "Getting next upcoming lesson");
-            nextUpcomingLesson = lessonDao.getNextUpcomingLesson();
             Log.d(TAG, "LessonRepository initialized successfully");
         } catch (Exception e) {
             Log.e(TAG, "Error initializing LessonRepository", e);
@@ -49,8 +46,8 @@ public class LessonRepository {
         return allLessons;
     }
 
-    public LiveData<Lesson> getNextUpcomingLesson() {
-        return nextUpcomingLesson;
+    public LiveData<Lesson> getNextUpcomingLesson(String currentDate, String currentTime) {
+        return lessonDao.getNextUpcomingLesson(currentDate, currentTime);
     }
 
     public LiveData<List<Lesson>> getLessonsByDate(String date) {
@@ -63,6 +60,10 @@ public class LessonRepository {
 
     public LiveData<Lesson> getLessonById(String id) {
         return lessonDao.getLessonById(id);
+    }
+
+    public LiveData<List<Lesson>> getNextDayLessons(String currentDate, String currentTime) {
+        return lessonDao.getNextDayLessons(currentDate, currentTime);
     }
 
     public void insert(Lesson lesson) {
