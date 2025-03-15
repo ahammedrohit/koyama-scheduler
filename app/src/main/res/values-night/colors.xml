@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Dark Theme Colors -->
-    <color name="primary_dark">#B39DDB</color>         <!-- Lighter purple for visibility in dark mode -->
-    <color name="primary_variant_dark">#6A1B9A</color> <!-- Darker purple for contrast -->
+    <color name="primary_dark">#64B5F6</color>         <!-- Lighter blue for visibility in dark mode (Blue 300) -->
+    <color name="primary_variant_dark">#0D47A1</color> <!-- Darker blue for contrast (Blue 900) -->
     <color name="on_primary_dark">#000000</color>      <!-- Black text on light primary -->
     
     <color name="secondary_dark">#80CBC4</color>       <!-- Light teal for secondary elements -->
@@ -20,14 +20,14 @@
     <color name="text_disabled_dark">#99FFFFFF</color> <!-- Disabled text with 60% opacity -->
     
     <!-- Lesson type colors adjusted for dark theme visibility -->
-    <color name="lesson_at_dark">#B39DDB</color>
-    <color name="lesson_a50_dark">#9575CD</color>
-    <color name="lesson_atp_dark">#7E57C2</color>
-    <color name="lesson_pt_dark">#FF8A80</color>
-    <color name="lesson_cpr_dark">#FF80AB</color>
-    <color name="lesson_aptit_dark">#EA80FC</color>
-    <color name="lesson_cdd_dark">#B388FF</color>
-    <color name="lesson_ext_dark">#FFD180</color>
-    <color name="lesson_exrd_dark">#80D8FF</color>
-    <color name="lesson_aps_dark">#84FFFF</color>
+    <color name="lesson_at_dark">#81C784</color>       <!-- Light green -->
+    <color name="lesson_a50_dark">#AED581</color>      <!-- Lighter green -->
+    <color name="lesson_atp_dark">#4DB6AC</color>      <!-- Light teal -->
+    <color name="lesson_pt_dark">#FF8A80</color>       <!-- Light red -->
+    <color name="lesson_cpr_dark">#FF80AB</color>      <!-- Light pink -->
+    <color name="lesson_aptit_dark">#90CAF9</color>    <!-- Light blue instead of purple -->
+    <color name="lesson_cdd_dark">#82B1FF</color>      <!-- Light blue instead of deep purple -->
+    <color name="lesson_ext_dark">#FFD180</color>      <!-- Orange -->
+    <color name="lesson_exrd_dark">#80D8FF</color>     <!-- Light blue -->
+    <color name="lesson_aps_dark">#BCAAA4</color>      <!-- Light brown -->
 </resources>

@@ -20,8 +20,8 @@
     <color name="lesson_atp">#00796B</color>    <!-- Teal for parking -->
     <color name="lesson_pt">#D32F2F</color>     <!-- Red for pre-test -->
     <color name="lesson_cpr">#C2185B</color>    <!-- Pink for CPR -->
-    <color name="lesson_aptit">#7B1FA2</color>  <!-- Purple for aptitude test -->
-    <color name="lesson_cdd">#512DA8</color>    <!-- Deep purple for CDD -->
+    <color name="lesson_aptit">#1976D2</color>  <!-- Blue instead of Purple for aptitude test -->
+    <color name="lesson_cdd">#0288D1</color>    <!-- Light Blue instead of Deep purple for CDD -->
     <color name="lesson_ext">#EF6C00</color>    <!-- Orange for extra lessons -->
     <color name="lesson_exrd">#1565C0</color>   <!-- Blue for expressway -->
     <color name="lesson_aps">#5D4037</color>    <!-- Brown for special items -->
