@@ -37,6 +37,7 @@ public class SettingsActivity extends AppCompatActivity {
     private SwitchMaterial notificationsEnabledSwitch;
     private Spinner notificationTimingSpinner;
     private RadioGroup calendarRadioGroup;
+    private SwitchMaterial darkModeSwitch;
 
     // Shared preferences
     private SharedPreferences sharedPreferences;
@@ -59,6 +60,7 @@ public class SettingsActivity extends AppCompatActivity {
         notificationsEnabledSwitch = findViewById(R.id.switch_notifications);
         notificationTimingSpinner = findViewById(R.id.spinner_notification_time);
         calendarRadioGroup = findViewById(R.id.radio_group_calendar);
+        darkModeSwitch = findViewById(R.id.switch_dark_mode);
 
         // Load saved preferences
         loadPreferences();
@@ -104,8 +106,15 @@ public class SettingsActivity extends AppCompatActivity {
         notificationTimingSpinner.setAdapter(adapter);
         notificationTimingSpinner.setSelection(spinnerPosition);
 
-        // Force light theme
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        // Load theme from shared preferences
+        String themeValue = sharedPreferences.getString(KEY_THEME, DEFAULT_THEME);
+        if ("dark".equals(themeValue)) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+        boolean isDarkEnabled = "dark".equals(themeValue);
+        darkModeSwitch.setChecked(isDarkEnabled);
     }
 
     private void setupListeners() {
@@ -145,6 +154,17 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
         
+        // Dark mode switch
+        darkModeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            String themeValue = isChecked ? "dark" : "light";
+            sharedPreferences.edit().putString(KEY_THEME, themeValue).apply();
+            if ("dark".equals(themeValue)) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+        });
+
         // Initialize enabled state for notification timing spinner
         boolean notificationsEnabled = notificationsEnabledSwitch.isChecked();
         notificationTimingSpinner.setEnabled(notificationsEnabled);

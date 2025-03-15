@@ -115,7 +115,28 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/monthly_view" />
-            </RadioGroup>
+</RadioGroup>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="?android:attr/listDivider" />
+
+            <!-- Theme settings -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Theme"
+                android:textAppearance="?attr/textAppearanceHeadline6" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switch_dark_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dark mode"
+                android:layout_marginTop="4dp"/>
 
             <View
                 android:layout_width="match_parent"

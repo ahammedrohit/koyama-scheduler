@@ -8,13 +8,24 @@
     android:padding="16dp"
     android:importantForAccessibility="yes">
 
-    <!-- Day navigation header -->
+<!-- Day navigation header -->
+<com.google.android.material.card.MaterialCardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+style="@style/Widget.MaterialComponents.CardView"
+    android:layout_marginBottom="16dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    app:strokeColor="@color/primary"
+    app:strokeWidth="1dp"
+    android:clipToPadding="false">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginBottom="16dp">
+        android:padding="8dp">
 
         <ImageButton
             android:id="@+id/button_previous"
@@ -31,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:textAppearance="?attr/textAppearanceHeadline6"
+android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
             android:accessibilityHeading="true"
             tools:text="Tuesday, March 17, 2025" />
 
@@ -44,9 +55,10 @@
             android:minHeight="48dp"
             android:padding="12dp" />
     </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_today"
+<com.google.android.material.button.MaterialButton
+    android:id="@+id/button_today"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
