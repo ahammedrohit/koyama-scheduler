@@ -69,13 +69,8 @@ public class NumberedLessonAdapter extends RecyclerView.Adapter<NumberedLessonAd
                 lesson.getStartTime(), 
                 lesson.getEndTime()));
         
-        // Set the lesson description if available
-        if (lesson.getDescription() != null && !lesson.getDescription().isEmpty()) {
-            holder.lessonDescriptionTextView.setText(lesson.getDescription());
-            holder.lessonDescriptionTextView.setVisibility(View.VISIBLE);
-        } else {
-            holder.lessonDescriptionTextView.setVisibility(View.GONE);
-        }
+        // Always hide the description as requested
+        holder.lessonDescriptionTextView.setVisibility(View.GONE);
     }
 
     @Override

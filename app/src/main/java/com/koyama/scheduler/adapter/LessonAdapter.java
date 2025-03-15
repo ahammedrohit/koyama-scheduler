@@ -53,34 +53,29 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
     public void onBindViewHolder(@NonNull LessonViewHolder holder, int position) {
         Lesson lesson = lessons.get(position);
         
-        // Set the lesson type properly
+        // Set the lesson type - show original abbreviation code (AT, PT, etc.)
         String lessonType = "";
         
         if (lesson.getEventType() != null && !lesson.getEventType().isEmpty()) {
-            lessonType = getLessonTypeFullName(lesson.getEventType());
+            // Use the original code directly (AT, PT, etc.)
+            lessonType = lesson.getEventType().toUpperCase();
         } else if (lesson.getEventNumber() != null && !lesson.getEventNumber().isEmpty()) {
-            lessonType = "Lesson " + lesson.getEventNumber();
+            lessonType = "L" + lesson.getEventNumber();
         } else {
-            lessonType = "Lesson";
+            lessonType = "L";
         }
         
         holder.lessonTypeTextView.setText(lessonType);
         
-        // Set lesson color indicator based on event type
-        int colorResId = getLessonColor(lesson.getEventType());
-        holder.lessonColorView.setBackgroundResource(colorResId);
+        // Use primary color for all lesson indicators regardless of type
+        holder.lessonColorView.setBackgroundResource(R.color.primary);
         
         // Format and set the lesson time
         String timeDisplay = String.format("%s - %s", lesson.getStartTime(), lesson.getEndTime());
         holder.lessonTimeTextView.setText(timeDisplay);
         
-        // Set the lesson description if available
-        if (lesson.getDescription() != null && !lesson.getDescription().isEmpty()) {
-            holder.lessonDescriptionTextView.setText(lesson.getDescription());
-            holder.lessonDescriptionTextView.setVisibility(View.VISIBLE);
-        } else {
-            holder.lessonDescriptionTextView.setVisibility(View.GONE);
-        }
+        // Always hide the description as requested
+        holder.lessonDescriptionTextView.setVisibility(View.GONE);
         
         // Set lesson completion status 
         holder.itemView.setAlpha(lesson.isCompleted() ? 0.6f : 1.0f);
@@ -151,36 +146,8 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
         }
     }
 
-    /**
-     * Get the color resource ID for a lesson type
-     */
+    // No longer need to use different colors, but keeping method for reference
     private int getLessonColor(String eventType) {
-        if (eventType == null) return R.color.primary;
-        
-        switch (eventType.toUpperCase()) {
-            case "AT":
-                return R.color.lesson_at;
-            case "A50":
-                return R.color.lesson_a50;
-            case "ATP":
-                return R.color.lesson_atp;
-            case "PT":
-                return R.color.lesson_pt;
-            case "CPR":
-                return R.color.lesson_cpr;
-            case "APTI.T":
-            case "APTIT":
-                return R.color.lesson_aptit;
-            case "CDD":
-                return R.color.lesson_cdd;
-            case "EXT":
-                return R.color.lesson_ext;
-            case "EX&RD":
-                return R.color.lesson_exrd;
-            case "APS":
-                return R.color.lesson_aps;
-            default:
-                return R.color.primary;
-        }
+        return R.color.primary; // Always return primary color for consistency
     }
 }

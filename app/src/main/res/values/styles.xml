@@ -119,6 +119,14 @@
         <item name="cornerSize">12dp</item>
     </style>
 
+    <!-- Tab Text Style -->
+    <style name="TabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <!-- Component Styles -->
     <style name="Widget.KoyamaScheduler.Card" parent="Widget.MaterialComponents.CardView">
         <item name="cardElevation">2dp</item>
