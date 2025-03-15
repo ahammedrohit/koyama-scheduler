@@ -5,378 +5,269 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:background="?android:attr/colorBackground">
 
     <!-- Week navigation header -->
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:padding="16dp"
-        android:layout_marginBottom="16dp">
-
-        <ImageButton
-            android:id="@+id/button_previous"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Previous week"
-            android:src="@android:drawable/ic_media_previous" />
-
-        <TextView
-            android:id="@+id/text_week_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textAppearance="?attr/textAppearanceHeadline6"
-            tools:text="March 15 - 21, 2025" />
-
-        <ImageButton
-            android:id="@+id/button_next"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Next week"
-            android:src="@android:drawable/ic_media_next" />
-
-        <ImageButton
-            android:id="@+id/button_today"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_today"
-            android:contentDescription="@string/today_description" />
-
-    </LinearLayout>
-
-    <!-- Days of the week -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="8dp">
-
-        <!-- Sunday -->
+        android:layout_margin="12dp"
+        style="@style/Widget.KoyamaScheduler.Card">
+        
         <LinearLayout
-            android:id="@+id/container_day_0"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center"
-            android:background="?attr/selectableItemBackground"
-            android:padding="8dp">
+            android:padding="16dp">
 
-            <TextView
-                android:id="@+id/text_day_0"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textAppearance="?attr/textAppearanceBody2"
-                android:textColor="?android:attr/textColorPrimary"
-                tools:text="Sun\n15" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
-            <View
-                android:id="@+id/lesson_indicator_0"
-                android:layout_width="8dp"
-                android:layout_height="8dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/ic_notification"
-                android:visibility="invisible" />
+                <ImageButton
+                    android:id="@+id/button_previous"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Previous week"
+                    android:tint="?attr/colorPrimary"
+                    android:src="@android:drawable/ic_media_previous" />
 
-            <TextView
-                android:id="@+id/lesson_count_0"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginTop="2dp"
-                android:background="@color/primary"
-                android:gravity="center"
-                android:textColor="@color/on_primary"
-                android:textSize="10sp"
-                android:visibility="invisible"
-                tools:text="2"
-                tools:ignore="SmallSp" />
+                <TextView
+                    android:id="@+id/text_week_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    android:textColor="?attr/colorOnSurface"
+                    tools:text="March 16-22, 2025" />
 
+                <ImageButton
+                    android:id="@+id/button_next"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Next week"
+                    android:tint="?attr/colorPrimary"
+                    android:src="@android:drawable/ic_media_next" />
+
+                <ImageButton
+                    android:id="@+id/button_today"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="8dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Current week"
+                    android:tint="?attr/colorPrimary"
+                    android:src="@drawable/ic_today" />
+            </LinearLayout>
         </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
-        <!-- Monday -->
-        <LinearLayout
-            android:id="@+id/container_day_1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:background="?attr/selectableItemBackground"
-            android:padding="8dp">
-
-            <TextView
-                android:id="@+id/text_day_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textAppearance="?attr/textAppearanceBody2"
-                android:textColor="?android:attr/textColorPrimary"
-                tools:text="Mon\n16" />
-
-            <View
-                android:id="@+id/lesson_indicator_1"
-                android:layout_width="8dp"
-                android:layout_height="8dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/ic_notification"
-                android:visibility="invisible" />
-
-            <TextView
-                android:id="@+id/lesson_count_1"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginTop="2dp"
-                android:background="@color/primary"
-                android:gravity="center"
-                android:textColor="@color/on_primary"
-                android:textSize="10sp"
-                android:visibility="invisible"
-                tools:text="1"
-                tools:ignore="SmallSp" />
-
-        </LinearLayout>
-
-        <!-- Tuesday -->
-        <LinearLayout
-            android:id="@+id/container_day_2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:background="?attr/selectableItemBackground"
-            android:padding="8dp">
-
-            <TextView
-                android:id="@+id/text_day_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textAppearance="?attr/textAppearanceBody2"
-                android:textColor="?android:attr/textColorPrimary"
-                tools:text="Tue\n17" />
-
-            <View
-                android:id="@+id/lesson_indicator_2"
-                android:layout_width="8dp"
-                android:layout_height="8dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/ic_notification"
-                android:visibility="invisible" />
-
-            <TextView
-                android:id="@+id/lesson_count_2"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginTop="2dp"
-                android:background="@color/primary"
-                android:gravity="center"
-                android:textColor="@color/on_primary"
-                android:textSize="10sp"
-                android:visibility="invisible"
-                tools:text="3"
-                tools:ignore="SmallSp" />
-
-        </LinearLayout>
-
-        <!-- Wednesday -->
-        <LinearLayout
-            android:id="@+id/container_day_3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:background="?attr/selectableItemBackground"
-            android:padding="8dp">
-
-            <TextView
-                android:id="@+id/text_day_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textAppearance="?attr/textAppearanceBody2"
-                android:textColor="?android:attr/textColorPrimary"
-                tools:text="Wed\n18" />
-
-            <View
-                android:id="@+id/lesson_indicator_3"
-                android:layout_width="8dp"
-                android:layout_height="8dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/ic_notification"
-                android:visibility="invisible" />
-
-            <TextView
-                android:id="@+id/lesson_count_3"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginTop="2dp"
-                android:background="@color/primary"
-                android:gravity="center"
-                android:textColor="@color/on_primary"
-                android:textSize="10sp"
-                android:visibility="invisible"
-                tools:text="1"
-                tools:ignore="SmallSp" />
-
-        </LinearLayout>
-
-        <!-- Thursday -->
-        <LinearLayout
-            android:id="@+id/container_day_4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:background="?attr/selectableItemBackground"
-            android:padding="8dp">
-
-            <TextView
-                android:id="@+id/text_day_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textAppearance="?attr/textAppearanceBody2"
-                android:textColor="?android:attr/textColorPrimary"
-                tools:text="Thu\n19" />
-
-            <View
-                android:id="@+id/lesson_indicator_4"
-                android:layout_width="8dp"
-                android:layout_height="8dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/ic_notification"
-                android:visibility="invisible" />
-
-            <TextView
-                android:id="@+id/lesson_count_4"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginTop="2dp"
-                android:background="@color/primary"
-                android:gravity="center"
-                android:textColor="@color/on_primary"
-                android:textSize="10sp"
-                android:visibility="invisible"
-                tools:text="2"
-                tools:ignore="SmallSp" />
-
-        </LinearLayout>
-
-        <!-- Friday -->
-        <LinearLayout
-            android:id="@+id/container_day_5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:background="?attr/selectableItemBackground"
-            android:padding="8dp">
-
-            <TextView
-                android:id="@+id/text_day_5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textAppearance="?attr/textAppearanceBody2"
-                android:textColor="?android:attr/textColorPrimary"
-                tools:text="Fri\n20" />
-
-            <View
-                android:id="@+id/lesson_indicator_5"
-                android:layout_width="8dp"
-                android:layout_height="8dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/ic_notification"
-                android:visibility="invisible" />
-
-            <TextView
-                android:id="@+id/lesson_count_5"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginTop="2dp"
-                android:background="@color/primary"
-                android:gravity="center"
-                android:textColor="@color/on_primary"
-                android:textSize="10sp"
-                android:visibility="invisible"
-                tools:text="1"
-                tools:ignore="SmallSp" />
-
-        </LinearLayout>
-
-        <!-- Saturday -->
-        <LinearLayout
-            android:id="@+id/container_day_6"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:background="?attr/selectableItemBackground"
-            android:padding="8dp">
-
-            <TextView
-                android:id="@+id/text_day_6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textAppearance="?attr/textAppearanceBody2"
-                android:textColor="?android:attr/textColorPrimary"
-                tools:text="Sat\n21" />
-
-            <View
-                android:id="@+id/lesson_indicator_6"
-                android:layout_width="8dp"
-                android:layout_height="8dp"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/ic_notification"
-                android:visibility="invisible" />
-
-            <TextView
-                android:id="@+id/lesson_count_6"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginTop="2dp"
-                android:background="@color/primary"
-                android:gravity="center"
-                android:textColor="@color/on_primary"
-                android:textSize="10sp"
-                android:visibility="invisible"
-                tools:text="2"
-                tools:ignore="SmallSp" />
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <!-- Empty view -->
-    <TextView
-        android:id="@+id/text_empty"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="32dp"
-        android:gravity="center"
-        android:text="@string/no_lessons"
-        android:textAlignment="center"
-        android:textAppearance="?attr/textAppearanceBody1"
-        android:visibility="gone" />
-
-    <!-- In a real app, we'd display the week's schedule below this -->
-    <View
+    <!-- Week view -->
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:background="?attr/colorSurface"
+        android:fillViewport="true">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Weekday headers -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
+
+                <!-- Time column -->
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent" />
+
+                <!-- Day headers -->
+                <TextView
+                    android:id="@+id/text_sunday"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/sun"
+                    android:textAppearance="?attr/textAppearanceSubtitle2"
+                    android:textColor="?attr/colorOnSurface" />
+
+                <TextView
+                    android:id="@+id/text_monday"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/mon"
+                    android:textAppearance="?attr/textAppearanceSubtitle2"
+                    android:textColor="?attr/colorOnSurface" />
+
+                <TextView
+                    android:id="@+id/text_tuesday"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/tue"
+                    android:textAppearance="?attr/textAppearanceSubtitle2"
+                    android:textColor="?attr/colorOnSurface" />
+
+                <TextView
+                    android:id="@+id/text_wednesday"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/wed"
+                    android:textAppearance="?attr/textAppearanceSubtitle2"
+                    android:textColor="?attr/colorOnSurface" />
+
+                <TextView
+                    android:id="@+id/text_thursday"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/thu"
+                    android:textAppearance="?attr/textAppearanceSubtitle2"
+                    android:textColor="?attr/colorOnSurface" />
+
+                <TextView
+                    android:id="@+id/text_friday"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/fri"
+                    android:textAppearance="?attr/textAppearanceSubtitle2"
+                    android:textColor="?attr/colorOnSurface" />
+
+                <TextView
+                    android:id="@+id/text_saturday"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/sat"
+                    android:textAppearance="?attr/textAppearanceSubtitle2"
+                    android:textColor="?attr/colorOnSurface" />
+            </LinearLayout>
+
+            <!-- Date numbers -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <!-- Time column -->
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent" />
+
+                <!-- Date numbers -->
+                <TextView
+                    android:id="@+id/text_date_sunday"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?attr/colorOnSurface"
+                    tools:text="16" />
+
+                <TextView
+                    android:id="@+id/text_date_monday"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?attr/colorOnSurface"
+                    tools:text="17" />
+
+                <TextView
+                    android:id="@+id/text_date_tuesday"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?attr/colorOnSurface"
+                    tools:text="18" />
+
+                <TextView
+                    android:id="@+id/text_date_wednesday"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?attr/colorOnSurface"
+                    tools:text="19" />
+
+                <TextView
+                    android:id="@+id/text_date_thursday"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?attr/colorOnSurface"
+                    tools:text="20" />
+
+                <TextView
+                    android:id="@+id/text_date_friday"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?attr/colorOnSurface"
+                    tools:text="21" />
+
+                <TextView
+                    android:id="@+id/text_date_saturday"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?attr/colorOnSurface"
+                    tools:text="22" />
+            </LinearLayout>
+
+            <!-- Week grid - will be populated programmatically -->
+            <androidx.gridlayout.widget.GridLayout
+                android:id="@+id/grid_weekly_calendar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:columnCount="8"
+                app:rowCount="16" />
+
+            <!-- Empty view -->
+            <TextView
+                android:id="@+id/text_empty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@string/no_lessons_this_week"
+                android:textAlignment="center"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textColor="?attr/colorOnSurface"
+                android:visibility="gone" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

@@ -1,29 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#6200EE</color>
-    <color name="primary_variant">#3700B3</color>
-    <color name="secondary">#03DAC6</color>
-    <color name="secondary_variant">#018786</color>
-    <color name="background">#FFFFFF</color>
+    <!-- Primary and secondary palette - professional, not overly colorful -->
+    <color name="primary">#1976D2</color>
+    <color name="primary_variant">#0D47A1</color>
+    <color name="secondary">#546E7A</color>
+    <color name="secondary_variant">#37474F</color>
+    <color name="background">#FAFAFA</color>
     <color name="surface">#FFFFFF</color>
     <color name="error">#B00020</color>
     <color name="on_primary">#FFFFFF</color>
-    <color name="on_secondary">#000000</color>
-    <color name="on_background">#000000</color>
-    <color name="on_surface">#000000</color>
+    <color name="on_secondary">#FFFFFF</color>
+    <color name="on_background">#212121</color>
+    <color name="on_surface">#212121</color>
     <color name="on_error">#FFFFFF</color>
     
-    <!-- Lesson Type Colors -->
-    <color name="lesson_at">#4CAF50</color>     <!-- Green for regular AT lessons -->
-    <color name="lesson_a50">#8BC34A</color>    <!-- Light green for AT 50min -->
-    <color name="lesson_atp">#009688</color>    <!-- Teal for parking -->
-    <color name="lesson_pt">#F44336</color>     <!-- Red for pre-test -->
-    <color name="lesson_cpr">#E91E63</color>    <!-- Pink for CPR -->
-    <color name="lesson_aptit">#9C27B0</color>  <!-- Purple for aptitude test -->
-    <color name="lesson_cdd">#673AB7</color>    <!-- Deep purple for CDD -->
-    <color name="lesson_ext">#FF9800</color>    <!-- Orange for extra lessons -->
-    <color name="lesson_exrd">#2196F3</color>   <!-- Blue for expressway -->
-    <color name="lesson_aps">#795548</color>    <!-- Brown for special items -->
+    <!-- Lesson Type Colors - more muted professional tones -->
+    <color name="lesson_at">#388E3C</color>     <!-- Green for regular AT lessons -->
+    <color name="lesson_a50">#558B2F</color>    <!-- Light green for AT 50min -->
+    <color name="lesson_atp">#00796B</color>    <!-- Teal for parking -->
+    <color name="lesson_pt">#D32F2F</color>     <!-- Red for pre-test -->
+    <color name="lesson_cpr">#C2185B</color>    <!-- Pink for CPR -->
+    <color name="lesson_aptit">#7B1FA2</color>  <!-- Purple for aptitude test -->
+    <color name="lesson_cdd">#512DA8</color>    <!-- Deep purple for CDD -->
+    <color name="lesson_ext">#EF6C00</color>    <!-- Orange for extra lessons -->
+    <color name="lesson_exrd">#1565C0</color>   <!-- Blue for expressway -->
+    <color name="lesson_aps">#5D4037</color>    <!-- Brown for special items -->
+    
+    <!-- Additional neutral colors for UI elements -->
+    <color name="divider">#E0E0E0</color>
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="icon_color">#616161</color>
     
     <!-- Launcher icon colors -->
     <color name="ic_launcher_background">#1976D2</color>

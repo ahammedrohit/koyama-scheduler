@@ -95,29 +95,30 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
         }
 
         private int getLessonTypeColorResId(String eventType) {
+            boolean isNightMode = itemView.getContext().getResources().getBoolean(R.bool.is_night_mode);
             switch (eventType) {
                 case "AT":
-                    return R.color.lesson_at;
+                    return isNightMode ? R.color.lesson_at_dark : R.color.lesson_at;
                 case "A50":
-                    return R.color.lesson_a50;
+                    return isNightMode ? R.color.lesson_a50_dark : R.color.lesson_a50;
                 case "ATP":
-                    return R.color.lesson_atp;
+                    return isNightMode ? R.color.lesson_atp_dark : R.color.lesson_atp;
                 case "PT":
-                    return R.color.lesson_pt;
+                    return isNightMode ? R.color.lesson_pt_dark : R.color.lesson_pt;
                 case "CPR":
-                    return R.color.lesson_cpr;
+                    return isNightMode ? R.color.lesson_cpr_dark : R.color.lesson_cpr;
                 case "Apti.t":
-                    return R.color.lesson_aptit;
+                    return isNightMode ? R.color.lesson_aptit_dark : R.color.lesson_aptit;
                 case "CDD":
-                    return R.color.lesson_cdd;
+                    return isNightMode ? R.color.lesson_cdd_dark : R.color.lesson_cdd;
                 case "EXT":
-                    return R.color.lesson_ext;
+                    return isNightMode ? R.color.lesson_ext_dark : R.color.lesson_ext;
                 case "EX&RD":
-                    return R.color.lesson_exrd;
+                    return isNightMode ? R.color.lesson_exrd_dark : R.color.lesson_exrd;
                 case "APS":
-                    return R.color.lesson_aps;
+                    return isNightMode ? R.color.lesson_aps_dark : R.color.lesson_aps;
                 default:
-                    return R.color.primary;
+                    return isNightMode ? R.color.primary_dark : R.color.primary;
             }
         }
 

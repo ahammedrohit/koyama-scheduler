@@ -1,14 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Lesson Type Colors - Dark Theme -->
-    <color name="lesson_at">#81C784</color>     <!-- Lighter green -->
-    <color name="lesson_a50">#AED581</color>    <!-- Lighter light green -->
-    <color name="lesson_atp">#4DB6AC</color>    <!-- Lighter teal -->
-    <color name="lesson_pt">#E57373</color>     <!-- Lighter red -->
-    <color name="lesson_cpr">#F06292</color>    <!-- Lighter pink -->
-    <color name="lesson_aptit">#BA68C8</color>  <!-- Lighter purple -->
-    <color name="lesson_cdd">#9575CD</color>    <!-- Lighter deep purple -->
-    <color name="lesson_ext">#FFB74D</color>    <!-- Lighter orange -->
-    <color name="lesson_exrd">#64B5F6</color>   <!-- Lighter blue -->
-    <color name="lesson_aps">#A1887F</color>    <!-- Lighter brown -->
+    <!-- Dark Theme Colors -->
+    <color name="primary_dark">#B39DDB</color>         <!-- Lighter purple for visibility in dark mode -->
+    <color name="primary_variant_dark">#6A1B9A</color> <!-- Darker purple for contrast -->
+    <color name="on_primary_dark">#000000</color>      <!-- Black text on light primary -->
+    
+    <color name="secondary_dark">#80CBC4</color>       <!-- Light teal for secondary elements -->
+    <color name="secondary_variant_dark">#00695C</color> <!-- Darker teal variant -->
+    <color name="on_secondary_dark">#000000</color>    <!-- Black text on light secondary -->
+    
+    <color name="background_dark">#121212</color>      <!-- Standard dark theme background -->
+    <color name="surface_dark">#222222</color>         <!-- Lighter than background for cards -->
+    <color name="on_background_dark">#FFFFFF</color>   <!-- White text on dark background -->
+    <color name="on_surface_dark">#FFFFFF</color>      <!-- White text for better readability -->
+    
+    <!-- We can keep the same error colors as they should work in both themes -->
+    <color name="text_primary_dark">#FFFFFF</color>    <!-- Primary text in dark theme - white -->
+    <color name="text_secondary_dark">#CCCCCC</color>  <!-- Secondary text - light gray -->
+    <color name="text_disabled_dark">#99FFFFFF</color> <!-- Disabled text with 60% opacity -->
+    
+    <!-- Lesson type colors adjusted for dark theme visibility -->
+    <color name="lesson_at_dark">#B39DDB</color>
+    <color name="lesson_a50_dark">#9575CD</color>
+    <color name="lesson_atp_dark">#7E57C2</color>
+    <color name="lesson_pt_dark">#FF8A80</color>
+    <color name="lesson_cpr_dark">#FF80AB</color>
+    <color name="lesson_aptit_dark">#EA80FC</color>
+    <color name="lesson_cdd_dark">#B388FF</color>
+    <color name="lesson_ext_dark">#FFD180</color>
+    <color name="lesson_exrd_dark">#80D8FF</color>
+    <color name="lesson_aps_dark">#84FFFF</color>
 </resources>

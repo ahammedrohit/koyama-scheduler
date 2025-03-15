@@ -22,5 +22,28 @@
         <item name="colorOnSurface">@color/on_surface</item>
         <item name="colorError">@color/error</item>
         <item name="colorOnError">@color/on_error</item>
+        
+        <!-- Action Bar and popups -->
+        <item name="actionBarPopupTheme">@style/ThemeOverlay.MaterialComponents.Light</item>
+        
+        <!-- Typography -->
+        <item name="textAppearanceHeadline1">@style/TextAppearance.KoyamaScheduler.Headline1</item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.KoyamaScheduler.Headline2</item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.KoyamaScheduler.Headline3</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.KoyamaScheduler.Headline4</item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.KoyamaScheduler.Headline5</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.KoyamaScheduler.Headline6</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.KoyamaScheduler.Subtitle1</item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.KoyamaScheduler.Subtitle2</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.KoyamaScheduler.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.KoyamaScheduler.Body2</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.KoyamaScheduler.Caption</item>
+        <item name="textAppearanceButton">@style/TextAppearance.KoyamaScheduler.Button</item>
+        <item name="textAppearanceOverline">@style/TextAppearance.KoyamaScheduler.Overline</item>
+        
+        <!-- Shapes -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.KoyamaScheduler.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.KoyamaScheduler.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.KoyamaScheduler.LargeComponent</item>
     </style>
 </resources>

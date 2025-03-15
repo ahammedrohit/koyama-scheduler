@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="?android:attr/colorBackground">
 
     <!-- Calendar Section - Fixed height -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:background="?attr/colorSurface">
 
         <!-- Month navigation header -->
         <LinearLayout
@@ -26,6 +28,7 @@
                 android:layout_height="48dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Previous month"
+                android:tint="?attr/colorPrimary"
                 android:src="@android:drawable/ic_media_previous" />
 
             <TextView
@@ -35,6 +38,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textColor="?attr/colorOnSurface"
                 tools:text="March 2025" />
 
             <ImageButton
@@ -43,6 +47,7 @@
                 android:layout_height="48dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Next month"
+                android:tint="?attr/colorPrimary"
                 android:src="@android:drawable/ic_media_next" />
 
             <ImageButton
@@ -52,6 +57,7 @@
                 android:layout_marginStart="8dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_today"
+                android:tint="?attr/colorPrimary"
                 android:contentDescription="@string/today_description" />
         </LinearLayout>
 
@@ -68,6 +74,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/sun"
+                android:textColor="?attr/colorOnSurface"
                 android:textAppearance="?attr/textAppearanceCaption" />
 
             <TextView
@@ -76,6 +83,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/mon"
+                android:textColor="?attr/colorOnSurface"
                 android:textAppearance="?attr/textAppearanceCaption" />
 
             <TextView
@@ -84,6 +92,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/tue"
+                android:textColor="?attr/colorOnSurface"
                 android:textAppearance="?attr/textAppearanceCaption" />
 
             <TextView
@@ -92,6 +101,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/wed"
+                android:textColor="?attr/colorOnSurface"
                 android:textAppearance="?attr/textAppearanceCaption" />
 
             <TextView
@@ -100,6 +110,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/thu"
+                android:textColor="?attr/colorOnSurface"
                 android:textAppearance="?attr/textAppearanceCaption" />
 
             <TextView
@@ -108,6 +119,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/fri"
+                android:textColor="?attr/colorOnSurface"
                 android:textAppearance="?attr/textAppearanceCaption" />
 
             <TextView
@@ -116,6 +128,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/sat"
+                android:textColor="?attr/colorOnSurface"
                 android:textAppearance="?attr/textAppearanceCaption" />
         </LinearLayout>
 
@@ -145,13 +158,14 @@
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:background="@drawable/ic_notification"
-                    android:backgroundTint="@color/primary" />
+                    android:backgroundTint="?attr/colorPrimary" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:text="@string/has_lessons"
+                    android:textColor="?attr/colorOnSurface"
                     android:textAppearance="?attr/textAppearanceCaption" />
             </LinearLayout>
 
@@ -165,7 +179,7 @@
                 <View
                     android:layout_width="12dp"
                     android:layout_height="12dp"
-                    android:background="@color/primary"
+                    android:background="?attr/colorPrimary"
                     android:alpha="0.3" />
 
                 <TextView
@@ -173,6 +187,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:text="@string/current_day"
+                    android:textColor="?attr/colorOnSurface"
                     android:textAppearance="?attr/textAppearanceCaption" />
             </LinearLayout>
         </LinearLayout>
@@ -183,7 +198,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:background="?attr/colorSurface">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -198,6 +214,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?attr/textAppearanceSubtitle1"
                 android:textStyle="bold"
+                android:textColor="?attr/colorOnSurface"
                 tools:text="March 17, 2025" />
 
             <TextView
@@ -207,6 +224,8 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/no_lessons_selected_day"
                 android:textAlignment="center"
+                android:textColor="?attr/colorOnSurface"
+                android:textAppearance="?attr/textAppearanceBody2"
                 android:visibility="gone" />
 
             <androidx.recyclerview.widget.RecyclerView

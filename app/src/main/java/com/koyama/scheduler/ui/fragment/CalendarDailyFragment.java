@@ -46,7 +46,7 @@ public class CalendarDailyFragment extends BaseCalendarFragment {
     @Override
     protected void initializeViews(View view) {
         emptyView = view.findViewById(R.id.text_empty);
-        dateText = view.findViewById(R.id.text_day_title);
+        dateText = view.findViewById(R.id.text_date);
         lessonsRecyclerView = view.findViewById(R.id.recycler_lessons);
         
         // Set up RecyclerView
@@ -63,11 +63,11 @@ public class CalendarDailyFragment extends BaseCalendarFragment {
         // Setup navigation buttons with accessibility
         View previousButton = view.findViewById(R.id.button_previous);
         View nextButton = view.findViewById(R.id.button_next);
-        View todayButton = view.findViewById(R.id.button_today);
+        View calendarButton = view.findViewById(R.id.button_calendar);
 
         previousButton.setContentDescription(getString(R.string.previous_day_description));
         nextButton.setContentDescription(getString(R.string.next_day_description));
-        todayButton.setContentDescription(getString(R.string.today_description));
+        calendarButton.setContentDescription(getString(R.string.calendar_description));
         
         previousButton.setOnClickListener(v -> {
             currentDate = currentDate.minusDays(1);
@@ -81,10 +81,8 @@ public class CalendarDailyFragment extends BaseCalendarFragment {
             announceContentChange();
         });
         
-        todayButton.setOnClickListener(v -> {
-            currentDate = LocalDate.now();
-            updateCalendar();
-            announceContentChange();
+        calendarButton.setOnClickListener(v -> {
+            showDatePickerDialog();
         });
         
         // Initialize calendar
@@ -133,6 +131,30 @@ public class CalendarDailyFragment extends BaseCalendarFragment {
         // Create a bottom sheet dialog with options
         // This will be implemented in LessonDetailActivity
         openLessonDetail(lesson);
+    }
+
+    /**
+     * Show date picker dialog to select a date
+     */
+    private void showDatePickerDialog() {
+        if (getContext() == null) return;
+        
+        com.google.android.material.datepicker.MaterialDatePicker<Long> datePicker =
+                com.google.android.material.datepicker.MaterialDatePicker.Builder.datePicker()
+                        .setTitleText(getString(R.string.select_date))
+                        .setSelection(currentDate.atStartOfDay().toInstant(java.time.ZoneOffset.UTC).toEpochMilli())
+                        .build();
+        
+        datePicker.addOnPositiveButtonClickListener(selection -> {
+            // Convert from epoch milliseconds to LocalDate
+            java.time.Instant instant = java.time.Instant.ofEpochMilli(selection);
+            java.time.LocalDate selectedDate = instant.atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+            currentDate = selectedDate;
+            updateCalendar();
+            announceContentChange();
+        });
+        
+        datePicker.show(getParentFragmentManager(), "DATE_PICKER");
     }
 
     private void announceContentChange() {

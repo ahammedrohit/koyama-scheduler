@@ -5,11 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    android:clickable="true"
-    android:focusable="true"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
     app:cardCornerRadius="8dp"
-    app:cardElevation="2dp">
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="?attr/colorSurface">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
 
         <View
             android:id="@+id/view_lesson_color"
-            android:layout_width="8dp"
+            android:layout_width="12dp"
             android:layout_height="match_parent"
             android:background="@color/primary" />
 
@@ -38,20 +38,19 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textAppearance="?attr/textAppearanceHeadline6"
-                    android:textSize="16sp"
-                    tools:text="Aptitude Test" />
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textStyle="bold"
+                    tools:text="Lesson Type" />
 
                 <TextView
                     android:id="@+id/text_lesson_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?attr/textAppearanceBody1"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="?android:attr/textColorPrimary"
-                    tools:text="10:00 - 11:30" />
-
+                    android:gravity="end"
+                    android:textAppearance="?attr/textAppearanceCaption"
+                    android:textColor="?attr/colorOnSurface"
+                    tools:text="9:00 - 10:30" />
             </LinearLayout>
 
             <TextView
@@ -59,10 +58,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:ellipsize="end"
-                android:maxLines="2"
                 android:textAppearance="?attr/textAppearanceBody2"
-                tools:text="This is a lesson description that might be a bit longer and could need to be truncated after two lines." />
+                android:textColor="?attr/colorOnSurface"
+                tools:text="Lesson description goes here. This might be a longer text that spans multiple lines." />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_lesson_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="12sp"
+                app:chipBackgroundColor="?attr/colorSurface"
+                app:chipStrokeColor="?attr/colorPrimary"
+                app:chipStrokeWidth="1dp"
+                app:chipMinHeight="24dp"
+                app:iconStartPadding="4dp"
+                android:visibility="gone"
+                tools:text="Location: Main Center"
+                tools:visibility="visible"/>
 
         </LinearLayout>
     </LinearLayout>

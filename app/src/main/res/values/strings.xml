@@ -16,6 +16,7 @@
     <string name="weekly_view">Weekly</string>
     <string name="monthly_view">Monthly</string>
     <string name="no_lessons">No lessons scheduled</string>
+    <string name="no_lessons_this_week">No lessons scheduled for this week</string>
     <string name="jump_to_today">Today</string>
     <string name="has_lessons">Has lessons</string>
     <string name="current_day">Current day</string>
@@ -31,12 +32,14 @@
     <string name="sat">Sat</string>
     
     <!-- Calendar Accessibility -->
-    <string name="daily_calendar_description">Daily calendar view showing your lessons for the selected day</string>
+    <string name="daily_calendar_description">Daily calendar view</string>
     <string name="previous_day_description">Go to previous day</string>
     <string name="next_day_description">Go to next day</string>
     <string name="today_description">Jump to today</string>
     <string name="current_date_description">Showing lessons for %1$s</string>
     <string name="lessons_count_description">Found %1$d lessons for today</string>
+    <string name="calendar_description">Open calendar to select a date</string>
+    <string name="select_date">Select a date</string>
     
     <!-- Lesson Detail -->
     <string name="lesson_details">Lesson Details</string>

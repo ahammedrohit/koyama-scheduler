@@ -18,6 +18,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.koyama.scheduler.R;
 import com.koyama.scheduler.adapter.LessonAdapter;
+import com.koyama.scheduler.adapter.NumberedLessonAdapter;
 import com.koyama.scheduler.data.model.Lesson;
 import com.koyama.scheduler.viewmodel.LessonViewModel;
 
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private TextView progressPercentage;
     private LessonAdapter todayAdapter;
-    private LessonAdapter nextDayAdapter;
+    private NumberedLessonAdapter nextDayAdapter;
 
     private static final String TAG = "MainActivity";
 
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             todayLessonsRecycler.setAdapter(todayAdapter);
             
             nextDayLessonsRecycler.setLayoutManager(new LinearLayoutManager(this));
-            nextDayAdapter = new LessonAdapter(new ArrayList<>());
+            nextDayAdapter = new NumberedLessonAdapter(new ArrayList<>());
             nextDayLessonsRecycler.setAdapter(nextDayAdapter);
 
             // Set up button click listeners
@@ -90,13 +91,8 @@ public class MainActivity extends AppCompatActivity {
             });
 
             // Set up click listener for lesson adapters
-            todayAdapter.setOnItemClickListener(lesson -> {
-                openLessonDetail(lesson);
-            });
-            
-            nextDayAdapter.setOnItemClickListener(lesson -> {
-                openLessonDetail(lesson);
-            });
+            todayAdapter.setOnItemClickListener(this::openLessonDetail);
+            nextDayAdapter.setOnItemClickListener(this::openLessonDetail);
 
             // Observe progress updates
             lessonViewModel.getProgressPercentage().observe(this, progress -> {

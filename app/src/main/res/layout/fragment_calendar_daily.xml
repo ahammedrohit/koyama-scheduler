@@ -5,196 +5,102 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:importantForAccessibility="yes">
+    android:background="?android:attr/colorBackground">
 
-<!-- Day navigation header -->
-<com.google.android.material.card.MaterialCardView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-style="@style/Widget.MaterialComponents.CardView"
-    android:layout_marginBottom="16dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="4dp"
-    app:strokeColor="@color/primary"
-    app:strokeWidth="1dp"
-    android:clipToPadding="false">
-
-    <LinearLayout
+    <!-- Date selection and navigation -->
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:padding="8dp">
+        android:layout_margin="12dp"
+        style="@style/Widget.KoyamaScheduler.Card">
 
-        <ImageButton
-            android:id="@+id/button_previous"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@android:drawable/ic_media_previous"
-            android:minHeight="48dp"
-            android:padding="12dp" />
-
-        <TextView
-            android:id="@+id/text_day_title"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-            android:accessibilityHeading="true"
-            tools:text="Tuesday, March 17, 2025" />
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <ImageButton
-            android:id="@+id/button_next"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@android:drawable/ic_media_next"
-            android:minHeight="48dp"
-            android:padding="12dp" />
-    </LinearLayout>
-</com.google.android.material.card.MaterialCardView>
-
-<com.google.android.material.button.MaterialButton
-    android:id="@+id/button_today"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/jump_to_today"
-        android:minHeight="48dp"
-        android:layout_marginBottom="16dp" />
-
-    <!-- Legend for lesson types -->
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:clipToPadding="false"
-        android:scrollbars="none">
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/lesson_type_legend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:singleLine="true"
-            app:singleSelection="false">
-
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
+            <!-- Date navigation header -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/lesson_at"
-                app:chipBackgroundColor="@color/lesson_at"
-                android:textColor="?attr/colorOnPrimary"
-                android:checkable="false"
-                android:clickable="false" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lesson_a50"
-                app:chipBackgroundColor="@color/lesson_a50"
-                android:textColor="?attr/colorOnPrimary"
-                android:checkable="false"
-                android:clickable="false" />
+                <ImageButton
+                    android:id="@+id/button_previous"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Previous day"
+                    android:tint="?attr/colorPrimary"
+                    android:src="@android:drawable/ic_media_previous" />
 
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lesson_atp"
-                app:chipBackgroundColor="@color/lesson_atp"
-                android:textColor="?attr/colorOnPrimary"
-                android:checkable="false"
-                android:clickable="false" />
+                <TextView
+                    android:id="@+id/text_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    android:textColor="?attr/colorOnSurface"
+                    tools:text="Sunday, March 16, 2025" />
 
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lesson_pt"
-                app:chipBackgroundColor="@color/lesson_pt"
-                android:textColor="?attr/colorOnPrimary"
-                android:checkable="false"
-                android:clickable="false" />
+                <ImageButton
+                    android:id="@+id/button_next"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Next day"
+                    android:tint="?attr/colorPrimary"
+                    android:src="@android:drawable/ic_media_next" />
 
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lesson_cpr"
-                app:chipBackgroundColor="@color/lesson_cpr"
-                android:textColor="?attr/colorOnPrimary"
-                android:checkable="false"
-                android:clickable="false" />
+                <ImageButton
+                    android:id="@+id/button_calendar"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="8dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Select date"
+                    android:tint="?attr/colorPrimary"
+                    android:src="@drawable/ic_today" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lesson_aptit"
-                app:chipBackgroundColor="@color/lesson_aptit"
-                android:textColor="?attr/colorOnPrimary"
-                android:checkable="false"
-                android:clickable="false" />
-
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lesson_cdd"
-                app:chipBackgroundColor="@color/lesson_cdd"
-                android:textColor="?attr/colorOnPrimary"
-                android:checkable="false"
-                android:clickable="false" />
-
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lesson_ext"
-                app:chipBackgroundColor="@color/lesson_ext"
-                android:textColor="?attr/colorOnPrimary"
-                android:checkable="false"
-                android:clickable="false" />
-
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lesson_exrd"
-                app:chipBackgroundColor="@color/lesson_exrd"
-                android:textColor="?attr/colorOnPrimary"
-                android:checkable="false"
-                android:clickable="false" />
-
-            <com.google.android.material.chip.Chip
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/lesson_aps"
-                app:chipBackgroundColor="@color/lesson_aps"
-                android:textColor="?attr/colorOnPrimary"
-                android:checkable="false"
-                android:clickable="false" />
-
-        </com.google.android.material.chip.ChipGroup>
-    </HorizontalScrollView>
-
-    <!-- Lessons for the day -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_lessons"
+    <!-- Lessons for the selected day -->
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:clipToPadding="false"
-        android:paddingBottom="16dp"
-        tools:listitem="@layout/item_lesson" />
+        android:background="?attr/colorSurface"
+        android:fillViewport="true">
 
-    <!-- Empty view -->
-    <TextView
-        android:id="@+id/text_empty"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:gravity="center"
-        android:text="@string/no_lessons_today"
-        android:textAlignment="center"
-        android:textAppearance="?attr/textAppearanceBody1"
-        android:visibility="gone" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
 
+            <TextView
+                android:id="@+id/text_empty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/no_lessons_selected_day"
+                android:textAlignment="center"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textColor="?attr/colorOnSurface"
+                android:visibility="gone" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_lessons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:clipToPadding="false"
+                tools:listitem="@layout/item_lesson" />
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
