@@ -115,4 +115,11 @@
     <string name="lesson_ext_full">Extended Training (EXT): Additional practice hours for skill refinement</string>
     <string name="lesson_exrd_full">Expressway and Route Determination (EX&amp;RD): Highway driving and navigation</string>
     <string name="lesson_aps_full">Advanced Practical Skills (APS): Advanced maneuvers and specialized techniques</string>
+    
+    <!-- PAPARU CARD -->
+    <string name="paparu_card_title">PAPARU CARD</string>
+    <string name="enjoy_driving">Enjoy driving</string>
+    <string name="take_it_easy">Take it easy</string>
+    <string name="come_and_join_us">Come and join us!</string>
+    <string name="driving_school">パパル自動車学校</string>
 </resources>

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView progressPercentage;
     private LessonAdapter todayAdapter;
     private NumberedLessonAdapter nextDayAdapter;
+    private ImageView carIcon;
 
     private static final String TAG = "MainActivity";
 
@@ -64,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
             nextDayLessonsRecycler = findViewById(R.id.recycler_next_day_lessons);
             progressBar = findViewById(R.id.progress_bar);
             progressPercentage = findViewById(R.id.text_progress_percentage);
+            carIcon = findViewById(R.id.car_icon);
 
             // Set up recycler views
             Log.d(TAG, "Setting up recycler views");

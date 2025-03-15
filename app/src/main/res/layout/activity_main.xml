@@ -38,72 +38,181 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- User Profile Section -->
+            <!-- User Profile Section with integrated Progress Bar -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/Widget.KoyamaScheduler.Card"
-                app:cardElevation="1dp">
-
-                <LinearLayout
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                android:layout_marginBottom="16dp">
+                
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/text_name"
-                        android:layout_width="match_parent"
+                    <!-- Background with gradient -->
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:src="@drawable/bg_paparu_card"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:contentDescription="Card background"/>
+
+                    <!-- Add a subtle blur/glass effect overlay -->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="#10FFFFFF"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                    <!-- Road curves - positioned at the bottom -->
+                    <ImageView
+                        android:layout_width="0dp" 
                         android:layout_height="wrap_content"
-                        android:text="Rohid Ali Ahammed"
-                        android:textAppearance="?attr/textAppearanceHeadline6"
-                        android:textAlignment="center" />
+                        android:src="@drawable/bg_curved_road"
+                        android:scaleType="fitXY"
+                        android:adjustViewBounds="true"
+                        android:alpha="0.85"
+                        android:translationY="15dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:contentDescription="Road design"/>
 
-                    <TextView
-                        android:id="@+id/text_id"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="ID: 2013645"
-                        android:textAppearance="?attr/textAppearanceBody2"
-                        android:textColor="?attr/colorOnSurface"
-                        android:textAlignment="center"
-                        android:layout_marginTop="4dp" />
-
-                    <!-- Progress section -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:text="Progress"
-                        android:textAppearance="?attr/textAppearanceSubtitle1" />
-
+                    <!-- Card content -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:padding="20dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
 
-                        <com.google.android.material.progressindicator.LinearProgressIndicator
-                            android:id="@+id/progress_bar"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:max="100"
-                            android:progress="45"
-                            app:trackThickness="4dp"
-                            app:trackColor="?attr/colorSurface"
-                            app:indicatorColor="?attr/colorPrimary" />
-
+                        <!-- User name (English) -->
                         <TextView
-                            android:id="@+id/text_progress_percentage"
+                            android:id="@+id/text_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:gravity="end"
-                            android:textAppearance="?attr/textAppearanceBody2"
+                            android:text="Rohid Ali Ahammed"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp"
                             android:textStyle="bold"
-                            tools:text="45% Complete" />
+                            android:shadowColor="#000000"
+                            android:shadowRadius="2"
+                            android:shadowDx="1"
+                            android:shadowDy="1"/>
+                            
+                        <!-- User name (Japanese) -->
+                        <TextView
+                            android:id="@+id/text_name_jp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="ロヒド アリ アハメッド"
+                            android:textColor="#FFFFFF"
+                            android:textSize="16sp"
+                            android:layout_marginTop="2dp"
+                            android:shadowColor="#000000"
+                            android:shadowRadius="2"
+                            android:shadowDx="1"
+                            android:shadowDy="1"/>
+
+                        <!-- User ID -->
+                        <TextView
+                            android:id="@+id/text_id"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="ID: 2013645"
+                            android:textColor="#FFFFFF"
+                            android:alpha="0.9"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="16dp"
+                            android:shadowColor="#000000"
+                            android:shadowRadius="1"
+                            android:shadowDx="1"
+                            android:shadowDy="1"/>
+                            
+                        <!-- Progress section with car icon and percentage -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="4dp">
+                                
+                            <!-- Left side with Progress label and car icon -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
+                                
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Progress"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold"
+                                    android:shadowColor="#000000"
+                                    android:shadowRadius="1"
+                                    android:shadowDx="1"
+                                    android:shadowDy="1"/>
+                                    
+                                <!-- Car icon next to Progress text -->
+                                <ImageView
+                                    android:id="@+id/car_icon"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:src="@drawable/ic_small_car"
+                                    android:layout_marginStart="8dp"
+                                    android:contentDescription="Car icon"/>
+                            </LinearLayout>
+                            
+                            <!-- Percentage text on the right -->
+                            <TextView
+                                android:id="@+id/text_progress_percentage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#FFFFFF"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:shadowColor="#000000"
+                                android:shadowRadius="1"
+                                android:shadowDx="1"
+                                android:shadowDy="1"
+                                android:text="0% Complete" />
+                        </LinearLayout>
+
+                        <!-- Progress bar container with elevated appearance -->
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#15FFFFFF"
+                            android:padding="2dp"
+                            android:elevation="4dp">
+                                
+                            <com.google.android.material.progressindicator.LinearProgressIndicator
+                                android:id="@+id/progress_bar"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:max="100"
+                                android:progress="0"
+                                app:trackThickness="6dp"
+                                app:trackColor="#80FFFFFF"
+                                app:indicatorColor="#FFFFFF" />
+                        </FrameLayout>
+
                     </LinearLayout>
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Today's lessons section -->

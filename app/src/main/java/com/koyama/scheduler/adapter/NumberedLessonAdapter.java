@@ -12,8 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.koyama.scheduler.R;
 import com.koyama.scheduler.data.model.Lesson;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Adapter for numbered lesson items, typically used in the MainActivity
@@ -23,6 +27,7 @@ public class NumberedLessonAdapter extends RecyclerView.Adapter<NumberedLessonAd
     private static final String TAG = "NumberedLessonAdapter";
     private List<Lesson> lessons = new ArrayList<>();
     private final OnItemClickListener listener;
+    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM d, yyyy");
 
     public interface OnItemClickListener {
         void onItemClick(Lesson lesson);
@@ -64,6 +69,19 @@ public class NumberedLessonAdapter extends RecyclerView.Adapter<NumberedLessonAd
             holder.lessonNumberTextView.setVisibility(View.VISIBLE);
         }
         
+        // Format and set the lesson date
+        try {
+            LocalDate date = LocalDate.parse(lesson.getDate());
+            String dayOfWeek = date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault());
+            String formattedDate = dayOfWeek + ", " + date.format(dateFormatter);
+            holder.lessonDateTextView.setText(formattedDate);
+            holder.lessonDateTextView.setVisibility(View.VISIBLE);
+        } catch (Exception e) {
+            // If date parsing fails, just show the raw date
+            holder.lessonDateTextView.setText(lesson.getDate());
+            holder.lessonDateTextView.setVisibility(View.VISIBLE);
+        }
+        
         // Set the lesson time
         holder.lessonTimeTextView.setText(String.format("%s - %s", 
                 lesson.getStartTime(), 
@@ -80,12 +98,14 @@ public class NumberedLessonAdapter extends RecyclerView.Adapter<NumberedLessonAd
 
     class NumberedLessonViewHolder extends RecyclerView.ViewHolder {
         private final TextView lessonNumberTextView;
+        private final TextView lessonDateTextView;
         private final TextView lessonTimeTextView;
         private final TextView lessonDescriptionTextView;
 
         NumberedLessonViewHolder(View view) {
             super(view);
             lessonNumberTextView = view.findViewById(R.id.text_lesson_number);
+            lessonDateTextView = view.findViewById(R.id.text_lesson_date);
             lessonTimeTextView = view.findViewById(R.id.text_lesson_time);
             lessonDescriptionTextView = view.findViewById(R.id.text_lesson_description);
 

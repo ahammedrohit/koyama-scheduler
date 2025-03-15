@@ -12,6 +12,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.koyama.scheduler.data.model.Lesson;
 import com.koyama.scheduler.data.repository.LessonRepository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -130,6 +131,10 @@ public class LessonViewModel extends AndroidViewModel {
         return progressPercentage;
     }
 
+    /**
+     * Updates the progress calculation. Past lessons are automatically considered completed
+     * even if not manually marked as such.
+     */
     private void updateProgress() {
         if (repository == null) {
             progressPercentage.postValue(0f);
@@ -143,17 +148,49 @@ public class LessonViewModel extends AndroidViewModel {
                 return;
             }
             
+            LocalDate today = LocalDate.now();
             int total = lessons.size();
             int completed = 0;
+            
+            // Create lists to keep track of lessons that need automatic completion
+            List<Lesson> lessonsToUpdate = new ArrayList<>();
+            
             for (Lesson lesson : lessons) {
-                if (lesson.isCompleted()) {
+                boolean isCompletedOrPast = lesson.isCompleted();
+                
+                // Check if lesson is in the past and not already marked as completed
+                if (!isCompletedOrPast) {
+                    try {
+                        LocalDate lessonDate = LocalDate.parse(lesson.getDate());
+                        if (lessonDate.isBefore(today)) {
+                            // This is a past lesson that should be counted as completed
+                            isCompletedOrPast = true;
+                            
+                            // Add to list for database update
+                            lesson.setCompleted(true);
+                            lessonsToUpdate.add(lesson);
+                        }
+                    } catch (Exception e) {
+                        Log.e(TAG, "Error parsing lesson date: " + lesson.getDate(), e);
+                    }
+                }
+                
+                if (isCompletedOrPast) {
                     completed++;
+                }
+            }
+            
+            // Update the database for lessons that need to be marked as completed
+            if (!lessonsToUpdate.isEmpty()) {
+                Log.d(TAG, "Automatically marking " + lessonsToUpdate.size() + " past lessons as completed");
+                for (Lesson lesson : lessonsToUpdate) {
+                    repository.update(lesson);
                 }
             }
             
             float progress = total > 0 ? (float) completed / total : 0f;
             progressPercentage.postValue(progress);
-            Log.d(TAG, "Progress updated: " + progress);
+            Log.d(TAG, "Progress updated: " + progress + " (" + completed + "/" + total + " lessons)");
         } catch (Exception e) {
             Log.e(TAG, "Error updating progress", e);
             progressPercentage.postValue(0f);

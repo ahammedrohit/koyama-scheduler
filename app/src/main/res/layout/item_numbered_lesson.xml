@@ -39,6 +39,32 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <!-- Date display -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="4dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/ic_calendar_today"
+                    app:tint="?attr/colorPrimary"
+                    android:contentDescription="Lesson date" />
+
+                <TextView
+                    android:id="@+id/text_lesson_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?attr/colorOnSurface"
+                    tools:text="Monday, May 15, 2023" />
+            </LinearLayout>
+
+            <!-- Time display -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

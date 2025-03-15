@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="320dp"
+    android:height="180dp"
+    android:viewportWidth="320"
+    android:viewportHeight="180">
+
+    <!-- Background gradient -->
+    <path
+        android:pathData="M0,0h320v180h-320z"
+        android:fillColor="#4527A0"/>
+
+    <!-- First curved road (outer line) - positioned at the bottom -->
+    <path
+        android:pathData="M-20,170 C80,120 240,120 340,170"
+        android:strokeWidth="3"
+        android:strokeColor="#FFFFFF"
+        android:fillColor="#00000000"/>
+
+    <!-- Second curved road (inner line) - positioned at the bottom -->
+    <path
+        android:pathData="M-20,160 C80,110 240,110 340,160"
+        android:strokeWidth="3"
+        android:strokeColor="#FFEB3B"
+        android:fillColor="#00000000"/>
+
+</vector> 
