@@ -159,4 +159,11 @@ public class LessonViewModel extends AndroidViewModel {
             progressPercentage.postValue(0f);
         }
     }
+
+    public LiveData<List<Lesson>> getNextDayLessons(String currentDate, String currentTime) {
+        if (repository == null) {
+            return new MutableLiveData<>(new ArrayList<>());
+        }
+        return repository.getNextDayLessons(currentDate, currentTime);
+    }
 }
