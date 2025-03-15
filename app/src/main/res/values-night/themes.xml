@@ -13,15 +13,15 @@
         <item name="colorOnSecondary">@color/on_secondary_dark</item>
         
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/background_dark</item>
         
         <!-- Background colors -->
         <item name="android:colorBackground">@color/background_dark</item>
         <item name="colorSurface">@color/surface_dark</item>
         <item name="colorOnBackground">@color/on_background_dark</item>
         <item name="colorOnSurface">@color/on_surface_dark</item>
-        <item name="colorError">@color/error</item>
-        <item name="colorOnError">@color/on_error</item>
+        <item name="colorError">@color/error_dark</item>
+        <item name="colorOnError">@color/on_error_dark</item>
         
         <!-- Action Bar and popups -->
         <item name="actionBarPopupTheme">@style/ThemeOverlay.MaterialComponents.Dark</item>
@@ -41,8 +41,9 @@
         <item name="textAppearanceButton">@style/TextAppearance.KoyamaScheduler.Dark.Button</item>
         <item name="textAppearanceOverline">@style/TextAppearance.KoyamaScheduler.Dark.Overline</item>
         
-        <!-- Increase elevation levels for better visibility in dark mode -->
-        <item name="cardElevation">4dp</item>
+        <!-- Card and component styling -->
+        <item name="cardElevation">2dp</item>
+        <item name="cardBackgroundColor">@color/card_background_dark</item>
         
         <!-- Material shapes -->
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.KoyamaScheduler.SmallComponent</item>

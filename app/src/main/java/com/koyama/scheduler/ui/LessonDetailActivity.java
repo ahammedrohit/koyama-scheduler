@@ -21,8 +21,9 @@ import com.koyama.scheduler.viewmodel.LessonViewModel;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Calendar;
 
 public class LessonDetailActivity extends AppCompatActivity {
@@ -31,7 +32,8 @@ public class LessonDetailActivity extends AppCompatActivity {
     private String lessonId;
     private Lesson currentLesson;
 
-    private TextView lessonTypeText;
+    private TextView lessonTypeFullText;
+    private TextView lessonTypeFullMeaningText;
     private TextView lessonNumberText;
     private TextView startTimeText;
     private TextView endTimeText;
@@ -41,12 +43,19 @@ public class LessonDetailActivity extends AppCompatActivity {
     private MaterialButton getDirectionsButton;
     private MaterialButton setReminderButton;
     private MaterialButton markCompletedButton;
+    
+    private Map<String, String> lessonTypeFullDescriptions = new HashMap<>();
+    private Map<String, String> lessonTypeFullMeanings = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lesson_detail);
 
+        // Initialize lesson type descriptions map
+        initLessonTypeDescriptions();
+        initLessonTypeFullMeanings();
+        
         // Get lesson ID from intent
         lessonId = getIntent().getStringExtra("LESSON_ID");
         if (lessonId == null) {
@@ -61,7 +70,8 @@ public class LessonDetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Find views
-        lessonTypeText = findViewById(R.id.text_lesson_type);
+        lessonTypeFullText = findViewById(R.id.text_lesson_type_full);
+        lessonTypeFullMeaningText = findViewById(R.id.text_lesson_type_full_meaning);
         lessonNumberText = findViewById(R.id.text_lesson_number);
         startTimeText = findViewById(R.id.text_start_time);
         endTimeText = findViewById(R.id.text_end_time);
@@ -99,6 +109,34 @@ public class LessonDetailActivity extends AppCompatActivity {
         undoMarkCompletedButton.setOnClickListener(v -> undoMarkAsCompleted());
     }
 
+    private void initLessonTypeDescriptions() {
+        // This map is for the short descriptions shown in the header
+        lessonTypeFullDescriptions.put("AT", getString(R.string.lesson_at));
+        lessonTypeFullDescriptions.put("A50", getString(R.string.lesson_a50));
+        lessonTypeFullDescriptions.put("ATP", getString(R.string.lesson_atp));
+        lessonTypeFullDescriptions.put("PT", getString(R.string.lesson_pt));
+        lessonTypeFullDescriptions.put("CPR", getString(R.string.lesson_cpr));
+        lessonTypeFullDescriptions.put("APTIT", getString(R.string.lesson_aptit));
+        lessonTypeFullDescriptions.put("CDD", getString(R.string.lesson_cdd));
+        lessonTypeFullDescriptions.put("EXT", getString(R.string.lesson_ext));
+        lessonTypeFullDescriptions.put("EX&RD", getString(R.string.lesson_exrd));
+        lessonTypeFullDescriptions.put("APS", getString(R.string.lesson_aps));
+    }
+    
+    private void initLessonTypeFullMeanings() {
+        // This map is for the full meanings shown in the description area
+        lessonTypeFullMeanings.put("AT", getString(R.string.lesson_at_full));
+        lessonTypeFullMeanings.put("A50", getString(R.string.lesson_a50_full));
+        lessonTypeFullMeanings.put("ATP", getString(R.string.lesson_atp_full));
+        lessonTypeFullMeanings.put("PT", getString(R.string.lesson_pt_full));
+        lessonTypeFullMeanings.put("CPR", getString(R.string.lesson_cpr_full));
+        lessonTypeFullMeanings.put("APTIT", getString(R.string.lesson_aptit_full));
+        lessonTypeFullMeanings.put("CDD", getString(R.string.lesson_cdd_full));
+        lessonTypeFullMeanings.put("EXT", getString(R.string.lesson_ext_full));
+        lessonTypeFullMeanings.put("EX&RD", getString(R.string.lesson_exrd_full));
+        lessonTypeFullMeanings.put("APS", getString(R.string.lesson_aps_full));
+    }
+
     private void undoMarkAsCompleted() {
         if (currentLesson != null) {
             currentLesson.setCompleted(false);
@@ -112,8 +150,25 @@ public class LessonDetailActivity extends AppCompatActivity {
     }
 
     private void updateUI(Lesson lesson) {
-        lessonTypeText.setText(getLessonTypeDisplay(lesson.getEventType()));
-        lessonNumberText.setText(String.format("Lesson #%s", lesson.getEventNumber()));
+        if (lesson.getEventType() != null && !lesson.getEventType().isEmpty()) {
+            // Set just the abbreviation in header (AT, PT, etc.)
+            lessonTypeFullText.setText(lesson.getEventType().toUpperCase());
+            
+            // Set full meaning in description area
+            lessonTypeFullMeaningText.setText(getLessonTypeFullMeaning(lesson.getEventType()));
+        } else {
+            lessonTypeFullText.setText(getString(R.string.lesson_generic));
+            lessonTypeFullMeaningText.setText("");
+        }
+        
+        // Set the lesson number if available
+        if (lesson.getEventNumber() != null && !lesson.getEventNumber().isEmpty()) {
+            lessonNumberText.setText(String.format("Lesson #%s", lesson.getEventNumber()));
+            lessonNumberText.setVisibility(View.VISIBLE);
+        } else {
+            lessonNumberText.setVisibility(View.GONE);
+        }
+        
         startTimeText.setText(lesson.getStartTime());
         endTimeText.setText(lesson.getEndTime());
         
@@ -122,7 +177,12 @@ public class LessonDetailActivity extends AppCompatActivity {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy");
         dateText.setText(date.format(formatter));
         
-        descriptionText.setText(lesson.getDescription());
+        // Set description if available
+        if (lesson.getDescription() != null && !lesson.getDescription().isEmpty()) {
+            descriptionText.setText(lesson.getDescription());
+        } else {
+            descriptionText.setText(getString(R.string.no_description_available));
+        }
         
         // Update mark completed button state
         if (lesson.isCompleted()) {
@@ -206,30 +266,13 @@ public class LessonDetailActivity extends AppCompatActivity {
     private String getLessonTypeDisplay(String eventType) {
         if (eventType == null) return "Lesson";
         
-        switch (eventType.toUpperCase()) {
-            case "AT":
-                return getString(R.string.lesson_at);
-            case "A50":
-                return getString(R.string.lesson_a50);
-            case "ATP":
-                return getString(R.string.lesson_atp);
-            case "PT":
-                return getString(R.string.lesson_pt);
-            case "CPR":
-                return getString(R.string.lesson_cpr);
-            case "APTI.T":
-            case "APTIT":
-                return getString(R.string.lesson_aptit);
-            case "CDD":
-                return getString(R.string.lesson_cdd);
-            case "EXT":
-                return getString(R.string.lesson_ext);
-            case "EX&RD":
-                return getString(R.string.lesson_exrd);
-            case "APS":
-                return getString(R.string.lesson_aps);
-            default:
-                return eventType;
-        }
+        return lessonTypeFullDescriptions.getOrDefault(eventType.toUpperCase(), eventType);
+    }
+    
+    // Helper method to get full meaning of lesson type code
+    private String getLessonTypeFullMeaning(String eventType) {
+        if (eventType == null) return "";
+        
+        return lessonTypeFullMeanings.getOrDefault(eventType.toUpperCase(), eventType);
     }
 }

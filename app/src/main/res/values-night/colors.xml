@@ -1,37 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Dark Theme Colors - Material Design 3 inspired -->
-    <color name="primary_dark">#90CAF9</color>         <!-- Blue 200 - lighter for dark theme visibility -->
-    <color name="primary_variant_dark">#1565C0</color> <!-- Blue 800 for contrast -->
-    <color name="on_primary_dark">#000000</color>      <!-- Black text on light primary -->
+    <!-- User-friendly dark theme colors - Softer contrast -->
+    <color name="primary_dark">#7DA8F5</color>         <!-- Slightly muted blue for primary accents -->
+    <color name="primary_variant_dark">#5B8DEF</color> <!-- Slightly darker blue variant -->
+    <color name="on_primary_dark">#141414</color>      <!-- Very dark gray instead of pure black -->
     
-    <color name="secondary_dark">#78909C</color>       <!-- Blue Grey 400 - more subtle secondary -->
-    <color name="secondary_variant_dark">#455A64</color> <!-- Blue Grey 700 -->
-    <color name="on_secondary_dark">#FFFFFF</color>    <!-- White text on darker secondary -->
+    <color name="secondary_dark">#ADADAD</color>       <!-- Medium gray -->
+    <color name="secondary_variant_dark">#8A8A8A</color> <!-- Darker gray -->
+    <color name="on_secondary_dark">#212121</color>    <!-- Dark gray on light colors -->
     
-    <color name="background_dark">#121212</color>      <!-- Standard Material dark theme background -->
-    <color name="surface_dark">#1E1E1E</color>         <!-- Slightly lighter than background for cards -->
-    <color name="on_background_dark">#FFFFFF</color>   <!-- White text on dark background -->
-    <color name="on_surface_dark">#FFFFFF</color>      <!-- White text for better readability -->
+    <color name="background_dark">#121212</color>      <!-- Dark gray instead of pure black for background -->
+    <color name="surface_dark">#1E1E1E</color>         <!-- Slightly lighter surface for cards -->
+    <color name="on_background_dark">#E0E0E0</color>   <!-- Light gray instead of pure white for better eye comfort -->
+    <color name="on_surface_dark">#E0E0E0</color>      <!-- Light gray text on dark surfaces -->
     
     <!-- Error colors -->
-    <color name="error_dark">#CF6679</color>           <!-- Material Design dark theme error color -->
-    <color name="on_error_dark">#000000</color>
+    <color name="error_dark">#CF6679</color>           <!-- Red for errors -->
+    <color name="on_error_dark">#212121</color>        <!-- Dark gray text on error color -->
     
     <!-- Text colors -->
-    <color name="text_primary_dark">#FFFFFF</color>    <!-- Primary text in dark theme - white -->
-    <color name="text_secondary_dark">#B0BEC5</color>  <!-- Secondary text - blue grey 200 -->
-    <color name="text_disabled_dark">#78909C</color>   <!-- Disabled text - blue grey 400 -->
+    <color name="text_primary_dark">#E0E0E0</color>    <!-- Light gray instead of pure white for text -->
+    <color name="text_secondary_dark">#B0B0B0</color>  <!-- Medium light gray for secondary text -->
+    <color name="text_disabled_dark">#757575</color>   <!-- Darker gray for disabled text -->
     
-    <!-- Lesson type colors adjusted for dark theme visibility - more consistent with Material Design -->
-    <color name="lesson_at_dark">#66BB6A</color>       <!-- Green 400 -->
-    <color name="lesson_a50_dark">#81C784</color>      <!-- Green 300 -->
-    <color name="lesson_atp_dark">#26A69A</color>      <!-- Teal 400 -->
-    <color name="lesson_pt_dark">#EF5350</color>       <!-- Red 400 -->
-    <color name="lesson_cpr_dark">#EC407A</color>      <!-- Pink 400 -->
-    <color name="lesson_aptit_dark">#42A5F5</color>    <!-- Blue 400 -->
-    <color name="lesson_cdd_dark">#29B6F6</color>      <!-- Light Blue 400 -->
-    <color name="lesson_ext_dark">#FFA726</color>      <!-- Orange 400 -->
-    <color name="lesson_exrd_dark">#2196F3</color>     <!-- Blue 500 -->
-    <color name="lesson_aps_dark">#8D6E63</color>      <!-- Brown 400 -->
+    <!-- Lesson type colors for dark theme - slightly muted to be easier on the eyes -->
+    <color name="lesson_at_dark">#6EAF80</color>       <!-- Softer green -->
+    <color name="lesson_a50_dark">#7BA0DE</color>      <!-- Softer blue -->
+    <color name="lesson_atp_dark">#70B5B8</color>      <!-- Softer teal -->
+    <color name="lesson_pt_dark">#D77A73</color>       <!-- Softer red -->
+    <color name="lesson_cpr_dark">#E4C45C</color>      <!-- Softer yellow -->
+    <color name="lesson_aptit_dark">#B27CDE</color>    <!-- Softer purple -->
+    <color name="lesson_cdd_dark">#E57CB3</color>      <!-- Softer pink -->
+    <color name="lesson_ext_dark">#E09A66</color>      <!-- Softer orange -->
+    <color name="lesson_exrd_dark">#6BC0D1</color>     <!-- Softer light blue -->
+    <color name="lesson_aps_dark">#A596A9</color>      <!-- Softer lavender -->
+
+    <!-- Card background and surface colors -->
+    <color name="card_background_dark">#232323</color> <!-- Slightly lighter than background for cards -->
 </resources>

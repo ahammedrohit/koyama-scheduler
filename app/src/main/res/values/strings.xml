@@ -98,4 +98,21 @@
     <string name="lesson_ext">Extra lesson (¥4,950/hr)</string>
     <string name="lesson_exrd">Expressway and Route determination</string>
     <string name="lesson_aps">Special item lesson</string>
+    
+    <!-- Lesson Details -->
+    <string name="lesson_type_description">Lesson Type: %s</string>
+    <string name="tap_to_view_details">Tap a lesson type code to view details</string>
+    <string name="no_description_available">No description available</string>
+    
+    <!-- Lesson Types Full Meanings -->
+    <string name="lesson_at_full">Autonomous Theory (AT): Basic driving theory for autonomous vehicles</string>
+    <string name="lesson_a50_full">Advanced 50 (A50): 50-minute extended training session</string>
+    <string name="lesson_atp_full">Autonomous Theory Practice (ATP): Practical application of autonomous theory</string>
+    <string name="lesson_pt_full">Practice Test (PT): Simulated test environment to prepare for examination</string>
+    <string name="lesson_cpr_full">Cardio Pulmonary Resuscitation (CPR): Emergency response training</string>
+    <string name="lesson_aptit_full">Aptitude Test (APTIT): Assessment of driving aptitude and capabilities</string>
+    <string name="lesson_cdd_full">Comprehensive Driving Discussion (CDD): In-depth lesson combining practice and theory</string>
+    <string name="lesson_ext_full">Extended Training (EXT): Additional practice hours for skill refinement</string>
+    <string name="lesson_exrd_full">Expressway and Route Determination (EX&amp;RD): Highway driving and navigation</string>
+    <string name="lesson_aps_full">Advanced Practical Skills (APS): Advanced maneuvers and specialized techniques</string>
 </resources>
