@@ -53,22 +53,61 @@
                     android:textStyle="bold"
                     tools:text="Lesson Type" />
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginEnd="4dp"
-                    android:src="@drawable/ic_access_time"
-                    app:tint="?attr/colorPrimary"
-                    android:contentDescription="Lesson time" />
-
-                <TextView
-                    android:id="@+id/text_lesson_time"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:textAppearance="?attr/textAppearanceCaption"
-                    android:textColor="?attr/colorOnSurface"
-                    tools:text="9:00 - 10:30" />
+                    android:orientation="vertical"
+                    android:gravity="end">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_marginEnd="4dp"
+                            android:src="@drawable/ic_calendar_today"
+                            app:tint="?attr/colorPrimary"
+                            android:contentDescription="Lesson date" />
+
+                        <TextView
+                            android:id="@+id/text_lesson_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:textAppearance="?attr/textAppearanceBody2"
+                            android:textColor="?attr/colorOnSurface"
+                            tools:text="Fri, Mar 15, 2025" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_marginEnd="4dp"
+                            android:src="@drawable/ic_access_time"
+                            app:tint="?attr/colorPrimary"
+                            android:contentDescription="Lesson time" />
+
+                        <TextView
+                            android:id="@+id/text_lesson_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:textAppearance="?attr/textAppearanceBody2"
+                            android:textColor="?attr/colorOnSurface"
+                            tools:text="2:30 PM - 3:20 PM" />
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
 
             <TextView

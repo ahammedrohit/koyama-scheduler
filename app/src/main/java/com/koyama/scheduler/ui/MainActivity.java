@@ -3,20 +3,25 @@ package com.koyama.scheduler.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.koyama.scheduler.R;
 import com.koyama.scheduler.adapter.LessonAdapter;
 import com.koyama.scheduler.adapter.NumberedLessonAdapter;
@@ -27,7 +32,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private LessonViewModel lessonViewModel;
     private TextView todayEmpty;
@@ -39,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private LessonAdapter todayAdapter;
     private NumberedLessonAdapter nextDayAdapter;
     private ImageView carIcon;
+    private DrawerLayout drawerLayout;
 
     private static final String TAG = "MainActivity";
 
@@ -53,6 +59,25 @@ public class MainActivity extends AppCompatActivity {
             // Set up toolbar
             Log.d(TAG, "Setting up toolbar");
             Toolbar toolbar = findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+
+            // Set up drawer layout
+            drawerLayout = findViewById(R.id.drawer_layout);
+            NavigationView navigationView = findViewById(R.id.nav_view);
+            navigationView.setNavigationItemSelectedListener(this);
+            
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar, 
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            drawerLayout.addDrawerListener(toggle);
+            toggle.syncState();
+            
+            // Set username in nav header
+            View headerView = navigationView.getHeaderView(0);
+            TextView usernameTextView = headerView.findViewById(R.id.text_user_name);
+            if (usernameTextView != null) {
+                usernameTextView.setText("Rohid Ali Ahammed");
+            }
 
             // Initialize view model
             Log.d(TAG, "Initializing view model");
@@ -82,15 +107,9 @@ public class MainActivity extends AppCompatActivity {
             // Set up button click listeners
             Log.d(TAG, "Setting up button click listeners");
             MaterialButton viewCalendarButton = findViewById(R.id.button_view_calendar);
-            FloatingActionButton settingsFab = findViewById(R.id.fab_settings);
 
             viewCalendarButton.setOnClickListener(v -> {
                 Intent intent = new Intent(MainActivity.this, CalendarViewActivity.class);
-                startActivity(intent);
-            });
-
-            settingsFab.setOnClickListener(v -> {
-                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);
             });
 
@@ -109,6 +128,40 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.e(TAG, "Error in MainActivity.onCreate()", e);
             Toast.makeText(this, "Error starting app: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+    
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        
+        if (id == R.id.nav_home) {
+            // Already on home, just close drawer
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else if (id == R.id.nav_calendar) {
+            Intent intent = new Intent(MainActivity.this, CalendarViewActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_all_schedules) {
+            Intent intent = new Intent(MainActivity.this, AllSchedulesActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_profile) {
+            // TODO: Implement profile screen
+            Toast.makeText(this, "Profile feature coming soon", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_settings) {
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(intent);
+        }
+        
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+    
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
         }
     }
     

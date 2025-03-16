@@ -11,6 +11,37 @@
     <string name="view_calendar">View Calendar</string>
     <string name="course_progress">Course Progress</string>
     
+    <!-- Navigation Drawer -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="home">Home</string>
+    <string name="calendar">Calendar</string>
+    <string name="profile">Profile</string>
+    <string name="account">Account</string>
+    
+    <!-- All Schedules -->
+    <string name="all_schedules">All Schedules</string>
+    <string name="view_all_schedules">View All Schedules</string>
+    <string name="all">All</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="completed">Completed</string>
+    <string name="date_range">Date Range</string>
+    <string name="sort_by">Sort by</string>
+    <string name="group_by">Group by</string>
+    <string name="sort_date_asc">Date (Oldest first)</string>
+    <string name="sort_date_desc">Date (Newest first)</string>
+    <string name="sort_lesson_type">Lesson Type</string>
+    <string name="sort_lesson_number">Lesson Number</string>
+    <string name="group_month">Month</string>
+    <string name="group_week">Week</string>
+    <string name="group_day">Day</string>
+    <string name="group_type">Lesson Type</string>
+    <string name="group_status">Completion Status</string>
+    <string name="no_schedules_found">No schedules found</string>
+    <string name="no_schedules_description">Your schedule list is empty</string>
+    <string name="no_matching_schedules">No matching schedules</string>
+    <string name="try_different_filter">Try a different filter or date range</string>
+    
     <!-- Calendar View -->
     <string name="daily_view">Daily</string>
     <string name="weekly_view">Weekly</string>

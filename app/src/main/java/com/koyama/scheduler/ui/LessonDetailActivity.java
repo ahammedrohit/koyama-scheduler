@@ -1,5 +1,6 @@
 package com.koyama.scheduler.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -46,6 +47,18 @@ public class LessonDetailActivity extends AppCompatActivity {
     
     private Map<String, String> lessonTypeFullDescriptions = new HashMap<>();
     private Map<String, String> lessonTypeFullMeanings = new HashMap<>();
+    
+    /**
+     * Starts the LessonDetailActivity with the given lesson ID
+     *
+     * @param context The context to start the activity from
+     * @param lessonId The ID of the lesson to display
+     */
+    public static void start(Context context, String lessonId) {
+        Intent intent = new Intent(context, LessonDetailActivity.class);
+        intent.putExtra("LESSON_ID", lessonId);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

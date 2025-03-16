@@ -1,307 +1,318 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?android:attr/colorBackground"
-    tools:context=".ui.MainActivity">
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorSurface"
-        app:elevation="0dp">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="?attr/actionBarPopupTheme"
-            app:title="@string/app_name"
-            app:titleTextColor="?attr/colorOnSurface" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.core.widget.NestedScrollView
+    <!-- Main Content -->
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingBottom="16dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:background="?android:attr/colorBackground"
+        tools:context=".ui.MainActivity">
 
-        <LinearLayout
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorSurface"
+            app:elevation="0dp">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:popupTheme="?attr/actionBarPopupTheme"
+                app:title="@string/app_name"
+                app:titleTextColor="?attr/colorOnSurface" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:clipToPadding="false"
+            android:paddingBottom="16dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <!-- User Profile Section with integrated Progress Bar -->
-            <com.google.android.material.card.MaterialCardView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp"
-                android:layout_marginBottom="16dp">
-                
-                <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- User Profile Section with integrated Progress Bar -->
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <!-- Background with gradient -->
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:src="@drawable/bg_paparu_card"
-                        android:scaleType="centerCrop"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:contentDescription="Card background"/>
-
-                    <!-- Add a subtle blur/glass effect overlay -->
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:background="#10FFFFFF"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"/>
-
-                    <!-- Road curves - positioned at the bottom -->
-                    <ImageView
-                        android:layout_width="0dp" 
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/bg_curved_road"
-                        android:scaleType="fitXY"
-                        android:adjustViewBounds="true"
-                        android:alpha="0.85"
-                        android:translationY="15dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:contentDescription="Road design"/>
-
-                    <!-- Card content -->
-                    <LinearLayout
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp"
+                    android:layout_marginBottom="16dp">
+                    
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="20dp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent">
+                        android:layout_height="wrap_content">
 
-                        <!-- User name (English) -->
-                        <TextView
-                            android:id="@+id/text_name"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Rohid Ali Ahammed"
-                            android:textColor="#FFFFFF"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:shadowColor="#000000"
-                            android:shadowRadius="2"
-                            android:shadowDx="1"
-                            android:shadowDy="1"/>
-                            
-                        <!-- User name (Japanese) -->
-                        <TextView
-                            android:id="@+id/text_name_jp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="ロヒド アリ アハメッド"
-                            android:textColor="#FFFFFF"
-                            android:textSize="16sp"
-                            android:layout_marginTop="2dp"
-                            android:shadowColor="#000000"
-                            android:shadowRadius="2"
-                            android:shadowDx="1"
-                            android:shadowDy="1"/>
+                        <!-- Background with gradient -->
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:src="@drawable/bg_paparu_card"
+                            android:scaleType="centerCrop"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:contentDescription="Card background"/>
 
-                        <!-- User ID -->
-                        <TextView
-                            android:id="@+id/text_id"
-                            android:layout_width="match_parent"
+                        <!-- Add a subtle blur/glass effect overlay -->
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:background="#10FFFFFF"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
+                        <!-- Road curves - positioned at the bottom -->
+                        <ImageView
+                            android:layout_width="0dp" 
                             android:layout_height="wrap_content"
-                            android:text="ID: 2013645"
-                            android:textColor="#FFFFFF"
-                            android:alpha="0.9"
-                            android:layout_marginTop="4dp"
-                            android:layout_marginBottom="16dp"
-                            android:shadowColor="#000000"
-                            android:shadowRadius="1"
-                            android:shadowDx="1"
-                            android:shadowDy="1"/>
-                            
-                        <!-- Progress section with car icon and percentage -->
+                            android:src="@drawable/bg_curved_road"
+                            android:scaleType="fitXY"
+                            android:adjustViewBounds="true"
+                            android:alpha="0.85"
+                            android:translationY="15dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:contentDescription="Road design"/>
+
+                        <!-- Card content -->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical"
-                            android:layout_marginBottom="4dp">
-                                
-                            <!-- Left side with Progress label and car icon -->
-                            <LinearLayout
-                                android:layout_width="0dp"
+                            android:orientation="vertical"
+                            android:padding="20dp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent">
+
+                            <!-- User name (English) -->
+                            <TextView
+                                android:id="@+id/text_name"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:orientation="horizontal"
-                                android:gravity="center_vertical">
+                                android:text="Rohid Ali Ahammed"
+                                android:textColor="#FFFFFF"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:shadowColor="#000000"
+                                android:shadowRadius="2"
+                                android:shadowDx="1"
+                                android:shadowDy="1"/>
                                 
+                            <!-- User name (Japanese) -->
+                            <TextView
+                                android:id="@+id/text_name_jp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="ロヒド アリ アハメッド"
+                                android:textColor="#FFFFFF"
+                                android:textSize="16sp"
+                                android:layout_marginTop="2dp"
+                                android:shadowColor="#000000"
+                                android:shadowRadius="2"
+                                android:shadowDx="1"
+                                android:shadowDy="1"/>
+
+                            <!-- User ID -->
+                            <TextView
+                                android:id="@+id/text_id"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="ID: 2013645"
+                                android:textColor="#FFFFFF"
+                                android:alpha="0.9"
+                                android:layout_marginTop="4dp"
+                                android:layout_marginBottom="16dp"
+                                android:shadowColor="#000000"
+                                android:shadowRadius="1"
+                                android:shadowDx="1"
+                                android:shadowDy="1"/>
+                                
+                            <!-- Progress section with car icon and percentage -->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                android:layout_marginBottom="4dp">
+                                    
+                                <!-- Left side with Progress label and car icon -->
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="horizontal"
+                                    android:gravity="center_vertical">
+                                    
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Progress"
+                                        android:textColor="#FFFFFF"
+                                        android:textSize="14sp"
+                                        android:textStyle="bold"
+                                        android:shadowColor="#000000"
+                                        android:shadowRadius="1"
+                                        android:shadowDx="1"
+                                        android:shadowDy="1"/>
+                                        
+                                    <!-- Car icon next to Progress text -->
+                                    <ImageView
+                                        android:id="@+id/car_icon"
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:src="@drawable/ic_small_car"
+                                        android:layout_marginStart="8dp"
+                                        android:contentDescription="Car icon"/>
+                                </LinearLayout>
+                                
+                                <!-- Percentage text on the right -->
                                 <TextView
+                                    android:id="@+id/text_progress_percentage"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Progress"
                                     android:textColor="#FFFFFF"
                                     android:textSize="14sp"
                                     android:textStyle="bold"
                                     android:shadowColor="#000000"
                                     android:shadowRadius="1"
                                     android:shadowDx="1"
-                                    android:shadowDy="1"/>
-                                    
-                                <!-- Car icon next to Progress text -->
-                                <ImageView
-                                    android:id="@+id/car_icon"
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:src="@drawable/ic_small_car"
-                                    android:layout_marginStart="8dp"
-                                    android:contentDescription="Car icon"/>
+                                    android:shadowDy="1"
+                                    android:text="0% Complete" />
                             </LinearLayout>
-                            
-                            <!-- Percentage text on the right -->
-                            <TextView
-                                android:id="@+id/text_progress_percentage"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="#FFFFFF"
-                                android:textSize="14sp"
-                                android:textStyle="bold"
-                                android:shadowColor="#000000"
-                                android:shadowRadius="1"
-                                android:shadowDx="1"
-                                android:shadowDy="1"
-                                android:text="0% Complete" />
-                        </LinearLayout>
 
-                        <!-- Progress bar container with elevated appearance -->
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="#15FFFFFF"
-                            android:padding="2dp"
-                            android:elevation="4dp">
-                                
-                            <com.google.android.material.progressindicator.LinearProgressIndicator
-                                android:id="@+id/progress_bar"
+                            <!-- Progress bar container with elevated appearance -->
+                            <FrameLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:max="100"
-                                android:progress="0"
-                                app:trackThickness="6dp"
-                                app:trackColor="#80FFFFFF"
-                                app:indicatorColor="#FFFFFF" />
-                        </FrameLayout>
+                                android:background="#15FFFFFF"
+                                android:padding="2dp"
+                                android:elevation="4dp">
+                                    
+                                <com.google.android.material.progressindicator.LinearProgressIndicator
+                                    android:id="@+id/progress_bar"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:max="100"
+                                    android:progress="0"
+                                    app:trackThickness="6dp"
+                                    app:trackColor="#80FFFFFF"
+                                    app:indicatorColor="#FFFFFF" />
+                            </FrameLayout>
 
-                    </LinearLayout>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
 
-            <!-- Today's lessons section -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                <!-- Today's lessons section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/today_lessons"
+                        android:textAppearance="?attr/textAppearanceHeadline6" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_view_calendar"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/view_calendar"
+                        android:textColor="?attr/colorPrimary" />
+
+                </LinearLayout>
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:id="@+id/text_today_empty"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/today_lessons"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/no_lessons_today"
+                    android:textAlignment="center"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?attr/colorOnSurface"
+                    android:visibility="gone" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_today_lessons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/item_lesson" />
+
+                <!-- Next lesson section -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/next_day_lessons"
                     android:textAppearance="?attr/textAppearanceHeadline6" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_view_calendar"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/text_next_day_empty"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/view_calendar"
-                    android:textColor="?attr/colorPrimary" />
+                    android:layout_marginTop="8dp"
+                    android:text="@string/no_upcoming_lessons"
+                    android:textAlignment="center"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?attr/colorOnSurface"
+                    android:visibility="gone" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_next_day_lessons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/item_lesson" />
 
             </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
-            <TextView
-                android:id="@+id/text_today_empty"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/no_lessons_today"
-                android:textAlignment="center"
-                android:textAppearance="?attr/textAppearanceBody2"
-                android:textColor="?attr/colorOnSurface"
-                android:visibility="gone" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_today_lessons"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:clipToPadding="false"
-                android:nestedScrollingEnabled="false"
-                tools:itemCount="2"
-                tools:listitem="@layout/item_lesson" />
-
-            <!-- Next lesson section -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/next_day_lessons"
-                android:textAppearance="?attr/textAppearanceHeadline6" />
-
-            <TextView
-                android:id="@+id/text_next_day_empty"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/no_upcoming_lessons"
-                android:textAlignment="center"
-                android:textAppearance="?attr/textAppearanceBody2"
-                android:textColor="?attr/colorOnSurface"
-                android:visibility="gone" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_next_day_lessons"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:clipToPadding="false"
-                android:nestedScrollingEnabled="false"
-                tools:itemCount="2"
-                tools:listitem="@layout/item_lesson" />
-
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_settings"
+    <!-- Navigation Drawer -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:contentDescription="@string/settings"
-        app:backgroundTint="?attr/colorPrimary"
-        app:tint="?attr/colorOnPrimary"
-        app:srcCompat="@drawable/ic_settings" />
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/drawer_menu"
+        app:itemIconTint="?attr/colorAccent"
+        app:itemTextColor="?attr/colorOnSurface" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.drawerlayout.widget.DrawerLayout>
