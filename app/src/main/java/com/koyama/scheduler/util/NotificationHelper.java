@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
@@ -18,18 +19,25 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Helper class for creating and scheduling notifications
  */
 public class NotificationHelper {
+    private static final String TAG = "NotificationHelper";
     public static final String CHANNEL_ID_LESSONS = "lesson_notifications";
     private static final int NOTIFICATION_ID_BASE = 1000;
     private final Context context;
     private final NotificationManager notificationManager;
     private final LessonRepository repository;
+    
+    // Define formatters for different time formats
+    private final DateTimeFormatter timeFormatter12h = DateTimeFormatter.ofPattern("h:mm a", Locale.US);
+    private final DateTimeFormatter timeFormatter24h = DateTimeFormatter.ofPattern("HH:mm", Locale.US);
 
     public NotificationHelper(Context context, LessonRepository repository) {
         this.context = context;
@@ -91,12 +99,40 @@ public class NotificationHelper {
         LocalTime now = LocalTime.now();
         
         for (Lesson lesson : unnotifiedLessons) {
-            LocalDate lessonDate = LocalDate.parse(lesson.getDate());
-            LocalTime lessonTime = LocalTime.parse(lesson.getStartTime());
-            
-            // Only notify for lessons that are within the next 24 hours
-            if (lessonDate.equals(today) || (lessonDate.equals(today.plusDays(1)) && lessonTime.compareTo(now) >= 0)) {
-                showLessonNotification(lesson);
+            try {
+                LocalDate lessonDate = LocalDate.parse(lesson.getDate());
+                LocalTime lessonTime = parseTimeString(lesson.getStartTime());
+                
+                // Only notify for lessons that are within the next 24 hours
+                if (lessonDate.equals(today) || (lessonDate.equals(today.plusDays(1)) && lessonTime.compareTo(now) >= 0)) {
+                    showLessonNotification(lesson);
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "Error parsing lesson date/time: " + e.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Parse a time string that could be in 12-hour or 24-hour format
+     */
+    private LocalTime parseTimeString(String timeString) {
+        try {
+            // First try standard ISO format (24-hour)
+            return LocalTime.parse(timeString);
+        } catch (DateTimeParseException e1) {
+            try {
+                // Then try 12-hour format with AM/PM
+                return LocalTime.parse(timeString, timeFormatter12h);
+            } catch (DateTimeParseException e2) {
+                try {
+                    // Try 24-hour format with explicit formatter
+                    return LocalTime.parse(timeString, timeFormatter24h);
+                } catch (DateTimeParseException e3) {
+                    // Log the error and provide details about the unparseable string
+                    Log.e(TAG, "Cannot parse time: '" + timeString + "'");
+                    throw new IllegalArgumentException("Invalid time format: " + timeString, e3);
+                }
             }
         }
     }
@@ -108,7 +144,7 @@ public class NotificationHelper {
     public long getNotificationDelayForLesson(Lesson lesson, String notificationType) {
         try {
             LocalDate lessonDate = LocalDate.parse(lesson.getDate());
-            LocalTime lessonTime = LocalTime.parse(lesson.getStartTime());
+            LocalTime lessonTime = parseTimeString(lesson.getStartTime());
             LocalDate today = LocalDate.now();
             LocalTime now = LocalTime.now();
             
@@ -150,7 +186,7 @@ public class NotificationHelper {
             
             return Math.max(0, delayMillis);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "Error calculating notification delay: " + e.getMessage());
             return TimeUnit.HOURS.toMillis(1); // Default to 1 hour if there's an error
         }
     }
