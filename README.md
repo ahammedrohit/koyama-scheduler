@@ -1,10 +1,10 @@
 # Koyama Scheduler
 
-An Android application I developed to streamline scheduling at Koyama Driving School. This app helps instructors and students manage their driving lessons efficiently.
+An Android application I developed to streamline scheduling at Koyama Driving School. It's a personal project and not affiliated with Koyama Driving School.
 
 ## About
 
-I built Koyama Scheduler to solve the scheduling challenges I faced at my driving school. The app provides a clean interface to track lessons, details, and progress all in one place.
+I built Koyama Scheduler to solve the scheduling challenges I faced at my driving school. The app provides a clean interface to track lessons, details, notifications, schedules and progress all in one place.
 
 ## Key Features
 
