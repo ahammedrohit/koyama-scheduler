@@ -43,7 +43,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 LessonDao lessonDao = INSTANCE.lessonDao();
 
                 // March 2025
-                lessonDao.insertLesson(new Lesson("1", "2025-03-15", "2:30 PM", "3:20 PM", "Apti.t", "1", "Aptitude test"));
+                lessonDao.insertLesson(new Lesson("1", "2025-03-15", "2:30 PM", "3:20 PM", "APTIT", "1", "Aptitude test"));
                 lessonDao.insertLesson(new Lesson("2", "2025-03-15", "3:30 PM", "4:20 PM", "1", "", ""));
                 lessonDao.insertLesson(new Lesson("3", "2025-03-19", "6:40 PM", "7:30 PM", "6", "", ""));
                 lessonDao.insertLesson(new Lesson("4", "2025-03-19", "7:40 PM", "8:30 PM", "8", "", ""));

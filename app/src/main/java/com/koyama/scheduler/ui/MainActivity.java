@@ -26,6 +26,7 @@ import com.koyama.scheduler.R;
 import com.koyama.scheduler.adapter.LessonAdapter;
 import com.koyama.scheduler.adapter.NumberedLessonAdapter;
 import com.koyama.scheduler.data.model.Lesson;
+import com.koyama.scheduler.util.AbbreviationHelper;
 import com.koyama.scheduler.viewmodel.LessonViewModel;
 
 import java.time.LocalDate;
@@ -228,7 +229,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private String getLessonTypeDisplay(String eventType) {
         if (eventType == null) return getString(R.string.lesson_generic);
         
-        switch (eventType.toUpperCase()) {
+        // Standardize the abbreviation
+        String standardAbbr = AbbreviationHelper.standardizeAbbreviation(eventType);
+        
+        // Get display name from string resources
+        switch (standardAbbr) {
             case "AT":
                 return getString(R.string.lesson_at);
             case "A50":
@@ -239,7 +244,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return getString(R.string.lesson_pt);
             case "CPR":
                 return getString(R.string.lesson_cpr);
-            case "APTI.T":
             case "APTIT":
                 return getString(R.string.lesson_aptit);
             case "CDD":

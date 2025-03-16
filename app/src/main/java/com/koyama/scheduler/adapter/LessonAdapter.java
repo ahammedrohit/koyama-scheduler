@@ -1,5 +1,6 @@
 package com.koyama.scheduler.adapter;
 
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,8 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.chip.Chip;
 import com.koyama.scheduler.R;
 import com.koyama.scheduler.data.model.Lesson;
+import com.koyama.scheduler.util.AbbreviationHelper;
 
 import java.util.List;
+import java.util.Map;
 
 public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonViewHolder> {
 
@@ -73,7 +76,7 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
         holder.lessonTypeTextView.setText(lessonType);
         
         // Set color indicator using event type
-        int colorResId = getLessonTypeColor(lesson.getEventType());
+        int colorResId = getColorForLessonType(lesson.getEventType());
         holder.lessonColorView.setBackgroundColor(
             ContextCompat.getColor(holder.itemView.getContext(), colorResId));
         
@@ -126,45 +129,36 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
     }
     
     /**
-     * Get the full name of a lesson type from its code
+     * Gets the display name for a lesson type
      */
-    private String getLessonTypeFullName(String eventType) {
-        if (eventType == null) return "Lesson";
-        
-        switch (eventType.toUpperCase()) {
-            case "AT":
-                return "Autonomous Theory";
-            case "A50":
-                return "Advanced 50";
-            case "ATP":
-                return "Autonomous Theory Practice";
-            case "PT":
-                return "Practice Test";
-            case "CPR":
-                return "Comprehensive Review";
-            case "APTIT":
-            case "APTI.T":
-                return "Aptitude Test";
-            case "CDD":
-                return "Comprehensive Driving";
-            case "EXT":
-                return "Extended Training";
-            case "EX&RD":
-                return "Exam & Road Driving";
-            case "APS":
-                return "Advanced Practical Skills";
-            default:
-                return eventType;
+    private String getDisplayForLessonType(String eventType, Context context) {
+        if (eventType == null || eventType.isEmpty()) {
+            return "Lesson";
         }
-    }
-
-    /**
-     * Get the color resource ID for a lesson type
-     */
-    private int getLessonTypeColor(String eventType) {
-        if (eventType == null) return R.color.lesson_general;
         
-        switch (eventType.toUpperCase()) {
+        // Standardize the abbreviation
+        String standardAbbr = AbbreviationHelper.standardizeAbbreviation(eventType);
+        
+        // Get display name from context using AbbreviationHelper
+        Map<String, String> displayNames = AbbreviationHelper.getAbbreviationDisplayNames(context);
+        String displayName = displayNames.get(standardAbbr);
+        
+        return displayName != null ? displayName : standardAbbr;
+    }
+    
+    /**
+     * Gets the color resource for a lesson type
+     */
+    private int getColorForLessonType(String eventType) {
+        if (eventType == null || eventType.isEmpty()) {
+            return R.color.lesson_general;
+        }
+        
+        // Standardize the abbreviation
+        String standardAbbr = AbbreviationHelper.standardizeAbbreviation(eventType);
+        
+        // Get the color for the standard abbreviation
+        switch (standardAbbr) {
             case "AT":
                 return R.color.lesson_at;
             case "A50":
@@ -176,7 +170,6 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.LessonView
             case "CPR":
                 return R.color.lesson_cpr;
             case "APTIT":
-            case "APTI.T":
                 return R.color.lesson_aptit;
             case "CDD":
                 return R.color.lesson_cdd;

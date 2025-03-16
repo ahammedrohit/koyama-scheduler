@@ -28,6 +28,7 @@
     <color name="lesson_exrd">#78D9EC</color>        <!-- Light Blue -->
     <color name="lesson_aps">#B9A9BE</color>         <!-- Lavender -->
     <color name="lesson_general">#9E9E9E</color>     <!-- Gray - for unknown lesson types -->
+    <color name="lesson_generic">#757575</color>      <!-- Gray -->
     
     <!-- Dark mode lesson type colors -->
     <color name="lesson_at_dark">#5B9D6B</color>     <!-- Darker Green -->

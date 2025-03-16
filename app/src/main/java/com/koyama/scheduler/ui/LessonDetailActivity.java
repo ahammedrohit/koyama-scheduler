@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.button.MaterialButton;
 import com.koyama.scheduler.R;
 import com.koyama.scheduler.data.model.Lesson;
+import com.koyama.scheduler.util.AbbreviationHelper;
 import com.koyama.scheduler.viewmodel.LessonViewModel;
 
 import java.time.LocalDate;
@@ -103,7 +104,7 @@ public class LessonDetailActivity extends AppCompatActivity {
         viewModel.getLessonById(lessonId).observe(this, lesson -> {
             if (lesson != null) {
                 currentLesson = lesson;
-                updateUI(lesson);
+                populateView(lesson);
 
                 // Show or hide the undo button based on lesson completion status
                 if (lesson.isCompleted()) {
@@ -130,6 +131,8 @@ public class LessonDetailActivity extends AppCompatActivity {
         lessonTypeFullDescriptions.put("PT", getString(R.string.lesson_pt));
         lessonTypeFullDescriptions.put("CPR", getString(R.string.lesson_cpr));
         lessonTypeFullDescriptions.put("APTIT", getString(R.string.lesson_aptit));
+        lessonTypeFullDescriptions.put("APTI.T", getString(R.string.lesson_aptit));
+        lessonTypeFullDescriptions.put("Apti.t", getString(R.string.lesson_aptit));
         lessonTypeFullDescriptions.put("CDD", getString(R.string.lesson_cdd));
         lessonTypeFullDescriptions.put("EXT", getString(R.string.lesson_ext));
         lessonTypeFullDescriptions.put("EX&RD", getString(R.string.lesson_exrd));
@@ -144,6 +147,8 @@ public class LessonDetailActivity extends AppCompatActivity {
         lessonTypeFullMeanings.put("PT", getString(R.string.lesson_pt_full));
         lessonTypeFullMeanings.put("CPR", getString(R.string.lesson_cpr_full));
         lessonTypeFullMeanings.put("APTIT", getString(R.string.lesson_aptit_full));
+        lessonTypeFullMeanings.put("APTI.T", getString(R.string.lesson_aptit_full));
+        lessonTypeFullMeanings.put("Apti.t", getString(R.string.lesson_aptit_full));
         lessonTypeFullMeanings.put("CDD", getString(R.string.lesson_cdd_full));
         lessonTypeFullMeanings.put("EXT", getString(R.string.lesson_ext_full));
         lessonTypeFullMeanings.put("EX&RD", getString(R.string.lesson_exrd_full));
@@ -157,44 +162,60 @@ public class LessonDetailActivity extends AppCompatActivity {
             Toast.makeText(this, "Lesson marked as not completed", Toast.LENGTH_SHORT).show();
             
             // The UI will be updated automatically through the lesson observer
-            updateUI(currentLesson);
+            populateView(currentLesson);
             findViewById(R.id.button_undo_mark_completed).setVisibility(View.GONE);
         }
     }
 
-    private void updateUI(Lesson lesson) {
-        if (lesson.getEventType() != null && !lesson.getEventType().isEmpty()) {
-            // Set just the abbreviation in header (AT, PT, etc.)
-            lessonTypeFullText.setText(lesson.getEventType().toUpperCase());
-            
-            // Set full meaning in description area
-            lessonTypeFullMeaningText.setText(getLessonTypeFullMeaning(lesson.getEventType()));
-        } else {
-            lessonTypeFullText.setText(getString(R.string.lesson_generic));
-            lessonTypeFullMeaningText.setText("");
+    private void populateView(Lesson lesson) {
+        if (lesson == null) {
+            return;
+        }
+
+        // Standardize the event type
+        String eventType = lesson.getEventType();
+        if (eventType != null) {
+            eventType = AbbreviationHelper.standardizeAbbreviation(eventType);
+        }
+
+        // Get descriptions from AbbreviationHelper
+        Map<String, String> lessonTypeFullDescriptions = AbbreviationHelper.getAbbreviationDisplayNames(this);
+        Map<String, String> lessonTypeFullMeanings = AbbreviationHelper.getAbbreviationFullDescriptions(this);
+        
+        // Set date
+        dateText.setText(formatDate(lesson.getDate()));
+        
+        // Set title with event type and number
+        String titleText = "";
+        if (eventType != null && !eventType.isEmpty()) {
+            String displayName = lessonTypeFullDescriptions.get(eventType);
+            if (displayName != null) {
+                titleText = displayName;
+            } else {
+                titleText = eventType;
+            }
         }
         
-        // Set the lesson number if available
         if (lesson.getEventNumber() != null && !lesson.getEventNumber().isEmpty()) {
-            lessonNumberText.setText(String.format("Lesson #%s", lesson.getEventNumber()));
-            lessonNumberText.setVisibility(View.VISIBLE);
-        } else {
-            lessonNumberText.setVisibility(View.GONE);
+            titleText += " #" + lesson.getEventNumber();
         }
+        lessonTypeFullText.setText(titleText);
         
+        // Set times
         startTimeText.setText(lesson.getStartTime());
         endTimeText.setText(lesson.getEndTime());
         
-        // Format date
-        LocalDate date = LocalDate.parse(lesson.getDate());
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy");
-        dateText.setText(date.format(formatter));
-        
-        // Set description if available
-        if (lesson.getDescription() != null && !lesson.getDescription().isEmpty()) {
-            descriptionText.setText(lesson.getDescription());
+        // Set description
+        if (eventType != null && !eventType.isEmpty()) {
+            String fullDescription = lessonTypeFullMeanings.get(eventType);
+            if (fullDescription != null) {
+                descriptionText.setText(fullDescription);
+                descriptionText.setVisibility(View.VISIBLE);
+            } else {
+                descriptionText.setVisibility(View.GONE);
+            }
         } else {
-            descriptionText.setText(getString(R.string.no_description_available));
+            descriptionText.setVisibility(View.GONE);
         }
         
         // Update mark completed button state
@@ -261,7 +282,7 @@ public class LessonDetailActivity extends AppCompatActivity {
             Toast.makeText(this, "Lesson marked as completed", Toast.LENGTH_SHORT).show();
             
             // The UI will be updated automatically through the lesson observer
-            updateUI(currentLesson);
+            populateView(currentLesson);
             findViewById(R.id.button_undo_mark_completed).setVisibility(View.VISIBLE);
         }
     }
@@ -287,5 +308,20 @@ public class LessonDetailActivity extends AppCompatActivity {
         if (eventType == null) return "";
         
         return lessonTypeFullMeanings.getOrDefault(eventType.toUpperCase(), eventType);
+    }
+
+    /**
+     * Formats a date string into a user-friendly format
+     * @param dateString Date in ISO format (yyyy-MM-dd)
+     * @return Formatted date string
+     */
+    private String formatDate(String dateString) {
+        try {
+            LocalDate date = LocalDate.parse(dateString);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy");
+            return date.format(formatter);
+        } catch (Exception e) {
+            return dateString; // Return original string if parsing fails
+        }
     }
 }

@@ -24,6 +24,7 @@ import com.google.android.material.chip.ChipGroup;
 import com.koyama.scheduler.R;
 import com.koyama.scheduler.adapter.ScheduleAdapter;
 import com.koyama.scheduler.data.model.Lesson;
+import com.koyama.scheduler.util.AbbreviationHelper;
 import com.koyama.scheduler.util.ScheduleGroup;
 import com.koyama.scheduler.viewmodel.LessonViewModel;
 
@@ -316,7 +317,15 @@ public class AllSchedulesActivity extends AppCompatActivity {
             
             // Apply lesson type filter first if present
             if (lessonTypeFilter != null && !lessonTypeFilter.isEmpty()) {
-                if (lesson.getEventType() == null || !lesson.getEventType().equals(lessonTypeFilter)) {
+                if (lesson.getEventType() == null) {
+                    continue; // Skip lessons with no event type
+                }
+                
+                // Standardize both the filter and the lesson event type for comparison
+                String standardizedFilter = AbbreviationHelper.standardizeAbbreviation(lessonTypeFilter);
+                String standardizedEventType = AbbreviationHelper.standardizeAbbreviation(lesson.getEventType());
+                
+                if (!standardizedEventType.equals(standardizedFilter)) {
                     continue; // Skip lessons that don't match the type filter
                 }
             }

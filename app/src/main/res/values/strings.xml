@@ -148,10 +148,10 @@
     <string name="lesson_pt_full">Practice Test (PT): Simulated test environment to prepare for examination</string>
     <string name="lesson_cpr_full">Cardio Pulmonary Resuscitation (CPR): Emergency response training</string>
     <string name="lesson_aptit_full">Aptitude Test (APTIT): Assessment of driving aptitude and capabilities</string>
-    <string name="lesson_cdd_full">Comprehensive Driving Discussion (CDD): In-depth lesson combining practice and theory</string>
-    <string name="lesson_ext_full">Extended Training (EXT): Additional practice hours for skill refinement</string>
+    <string name="lesson_cdd_full">Combination of Driving Lesson and Discussion (CDD): In-depth lesson combining practice and theory</string>
+    <string name="lesson_ext_full">Extra Lesson (EXT): Additional practice hours (¥4,950/hr)</string>
     <string name="lesson_exrd_full">Expressway and Route Determination (EX&amp;RD): Highway driving and navigation</string>
-    <string name="lesson_aps_full">Advanced Practical Skills (APS): Advanced maneuvers and specialized techniques</string>
+    <string name="lesson_aps_full">Special Item Lesson (APS): Advanced maneuvers and specialized techniques</string>
     
     <!-- Abbreviations Guide -->
     <string name="abbreviations_title">Lesson Type Abbreviations</string>
