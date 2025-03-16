@@ -21,6 +21,8 @@
     
     <!-- Calendar -->
     <string name="showing_current_week">Showing current week</string>
+    <string name="showing_today">Showing today</string>
+    <string name="already_showing_today">Already showing today</string>
     
     <!-- All Schedules -->
     <string name="all_schedules">All Schedules</string>

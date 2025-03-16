@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -72,10 +73,12 @@ public class CalendarDailyFragment extends BaseCalendarFragment {
         // Setup navigation buttons with accessibility
         View previousButton = view.findViewById(R.id.button_previous);
         View nextButton = view.findViewById(R.id.button_next);
+        View todayButton = view.findViewById(R.id.button_today);
         View calendarButton = view.findViewById(R.id.button_calendar);
 
         previousButton.setContentDescription(getString(R.string.previous_day_description));
         nextButton.setContentDescription(getString(R.string.next_day_description));
+        todayButton.setContentDescription(getString(R.string.today_description));
         calendarButton.setContentDescription(getString(R.string.calendar_description));
         
         previousButton.setOnClickListener(v -> {
@@ -90,12 +93,45 @@ public class CalendarDailyFragment extends BaseCalendarFragment {
             announceContentChange();
         });
         
+        // Add click listener for the "Today" button to go to current day
+        todayButton.setOnClickListener(v -> {
+            goToToday();
+        });
+        
         calendarButton.setOnClickListener(v -> {
             showDatePickerDialog();
         });
         
         // Initialize calendar
         updateCalendar();
+    }
+    
+    /**
+     * Jump to today's date
+     */
+    private void goToToday() {
+        LocalDate today = LocalDate.now();
+        
+        // Check if we're already on today to avoid unnecessary updates
+        if (currentDate.equals(today)) {
+            // Already on today, just show a confirmation toast
+            if (getContext() != null) {
+                Toast.makeText(getContext(), getString(R.string.already_showing_today), Toast.LENGTH_SHORT).show();
+            }
+            return;
+        }
+        
+        // Update to today
+        currentDate = today;
+        updateCalendar();
+        
+        // Provide user feedback
+        if (getContext() != null) {
+            Toast.makeText(getContext(), getString(R.string.showing_today), Toast.LENGTH_SHORT).show();
+        }
+        
+        // Announce for accessibility
+        announceContentChange();
     }
 
     @Override
