@@ -156,6 +156,7 @@
     <!-- Abbreviations Guide -->
     <string name="abbreviations_title">Lesson Type Abbreviations</string>
     <string name="abbreviations_description">This guide explains the abbreviations used for different lesson types in the driving school.</string>
+    <string name="abbreviations_interaction_tip">Tap a card to view all lessons of that type. Long-press to edit the description.</string>
     
     <!-- PAPARU CARD -->
     <string name="paparu_card_title">PAPARU CARD</string>

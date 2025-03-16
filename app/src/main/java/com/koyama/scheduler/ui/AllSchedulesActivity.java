@@ -1,6 +1,7 @@
 package com.koyama.scheduler.ui;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,6 +36,8 @@ import java.util.Locale;
 
 public class AllSchedulesActivity extends AppCompatActivity {
 
+    private static final String EXTRA_FILTER_LESSON_TYPE = "FILTER_LESSON_TYPE";
+    
     private LessonViewModel viewModel;
     private RecyclerView scheduleRecyclerView;
     private ScheduleAdapter adapter;
@@ -55,6 +58,7 @@ public class AllSchedulesActivity extends AppCompatActivity {
     private boolean showUpcoming = true;
     private LocalDate startDate = null;
     private LocalDate endDate = null;
+    private String lessonTypeFilter = null; // New field for lesson type filter
 
     // Sorting and grouping options
     private String[] sortOptions;
@@ -67,8 +71,16 @@ public class AllSchedulesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_schedules);
 
-        // Set up toolbar
+        // Check for lesson type filter from intent
+        if (getIntent() != null && getIntent().hasExtra(EXTRA_FILTER_LESSON_TYPE)) {
+            lessonTypeFilter = getIntent().getStringExtra(EXTRA_FILTER_LESSON_TYPE);
+        }
+
+        // Set up toolbar with custom title if filtering by lesson type
         Toolbar toolbar = findViewById(R.id.toolbar);
+        if (lessonTypeFilter != null && !lessonTypeFilter.isEmpty()) {
+            toolbar.setTitle(getString(R.string.all_schedules) + " - " + lessonTypeFilter);
+        }
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -302,6 +314,13 @@ public class AllSchedulesActivity extends AppCompatActivity {
         for (Lesson lesson : lessons) {
             boolean shouldInclude = false;
             
+            // Apply lesson type filter first if present
+            if (lessonTypeFilter != null && !lessonTypeFilter.isEmpty()) {
+                if (lesson.getEventType() == null || !lesson.getEventType().equals(lessonTypeFilter)) {
+                    continue; // Skip lessons that don't match the type filter
+                }
+            }
+            
             try {
                 LocalDate lessonDate = LocalDate.parse(lesson.getDate());
                 
@@ -347,8 +366,14 @@ public class AllSchedulesActivity extends AppCompatActivity {
         
         // Update UI
         if (filteredLessons.isEmpty()) {
-            showEmptyState(getString(R.string.no_matching_schedules), 
-                    getString(R.string.try_different_filter));
+            // Show custom empty state for lesson type filter
+            if (lessonTypeFilter != null && !lessonTypeFilter.isEmpty()) {
+                showEmptyState("No " + lessonTypeFilter + " lessons found", 
+                        "There are no " + lessonTypeFilter + " lessons in your schedule");
+            } else {
+                showEmptyState(getString(R.string.no_matching_schedules), 
+                        getString(R.string.try_different_filter));
+            }
         } else {
             emptyStateView.setVisibility(View.GONE);
             scheduleRecyclerView.setVisibility(View.VISIBLE);

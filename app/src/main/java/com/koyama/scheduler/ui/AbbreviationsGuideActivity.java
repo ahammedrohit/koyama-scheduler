@@ -1,6 +1,7 @@
 package com.koyama.scheduler.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -103,9 +104,15 @@ public class AbbreviationsGuideActivity extends AppCompatActivity {
         TextView descriptionView = cardView.findViewById(descriptionViewId);
         if (descriptionView == null) return; // Skip if description view not found
         
+        // Set up long-press listener for editing description
         cardView.setOnLongClickListener(v -> {
             showEditDialog(abbr, descriptionView);
             return true;
+        });
+        
+        // Set up click listener to view all schedules of this type
+        cardView.setOnClickListener(v -> {
+            showLessonsOfType(abbr);
         });
         
         // Load and display any saved custom descriptions
@@ -143,6 +150,17 @@ public class AbbreviationsGuideActivity extends AppCompatActivity {
                .setNegativeButton("Cancel", null)
                .create()
                .show();
+    }
+
+    /**
+     * Shows all lessons of the specified type by opening AllSchedulesActivity with a filter
+     */
+    private void showLessonsOfType(String lessonType) {
+        Intent intent = new Intent(this, AllSchedulesActivity.class);
+        intent.putExtra("FILTER_LESSON_TYPE", lessonType);
+        startActivity(intent);
+        
+        Toast.makeText(this, "Showing all " + lessonType + " lessons", Toast.LENGTH_SHORT).show();
     }
 
     // Handle "Up" navigation

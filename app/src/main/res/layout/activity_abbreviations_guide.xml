@@ -47,6 +47,15 @@
                 android:text="@string/abbreviations_description"
                 android:textAppearance="?attr/textAppearanceBody1"
                 android:textColor="?attr/colorOnBackground"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/abbreviations_interaction_tip"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:textColor="?attr/colorOnBackground"
+                android:textStyle="italic"
                 android:layout_marginBottom="24dp" />
 
             <!-- AT - Automatic Transmission -->
