@@ -85,6 +85,33 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/layout_date_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginEnd="4dp"
+                    android:src="@drawable/ic_calendar_today"
+                    app:tint="?attr/colorPrimary"
+                    android:contentDescription="Lesson date" />
+
+                <TextView
+                    android:id="@+id/text_lesson_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="?attr/colorOnSurface"
+                    tools:text="Fri, Mar 15, 2025" />
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/text_lesson_description"
                 android:layout_width="match_parent"

@@ -326,6 +326,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         private final TextView lessonDateTextView;
         private final TextView lessonDescriptionTextView;
         private final Chip lessonLocationChip;
+        private final View dateContainer;
 
         LessonViewHolder(@NonNull View view) {
             super(view);
@@ -335,6 +336,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             lessonDateTextView = view.findViewById(R.id.text_lesson_date);
             lessonDescriptionTextView = view.findViewById(R.id.text_lesson_description);
             lessonLocationChip = view.findViewById(R.id.chip_lesson_location);
+            dateContainer = view.findViewById(R.id.layout_date_container);
         }
 
         void bind(Lesson lesson) {
@@ -359,7 +361,8 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             String timeDisplay = String.format("%s - %s", lesson.getStartTime(), lesson.getEndTime());
             lessonTimeTextView.setText(timeDisplay);
             
-            // Set the date separately
+            // Set the date separately - make date container visible
+            dateContainer.setVisibility(View.VISIBLE);
             try {
                 LocalDate date = LocalDate.parse(lesson.getDate());
                 // Updated format to include day of week
@@ -379,6 +382,13 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             
             // Set location chip if available (future feature)
             lessonLocationChip.setVisibility(View.GONE);
+            
+            // Set click listener
+            itemView.setOnClickListener(v -> {
+                if (clickListener != null) {
+                    clickListener.onLessonClick(lesson);
+                }
+            });
         }
     }
 } 
