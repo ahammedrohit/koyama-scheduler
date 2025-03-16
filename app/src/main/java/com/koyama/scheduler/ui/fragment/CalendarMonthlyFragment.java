@@ -52,9 +52,14 @@ public class CalendarMonthlyFragment extends BaseCalendarFragment {
         TextView monthTitle = view.findViewById(R.id.text_month_title);
         monthTitle.setText(currentMonth.format(formatter));
 
-        // Setup RecyclerView
+        // Setup RecyclerView with optimized scrolling
         lessonsRecyclerView = view.findViewById(R.id.recycler_lessons);
-        lessonsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        lessonsRecyclerView.setLayoutManager(layoutManager);
+        lessonsRecyclerView.setNestedScrollingEnabled(true);
+        lessonsRecyclerView.setHasFixedSize(false);
+        lessonsRecyclerView.setOverScrollMode(View.OVER_SCROLL_ALWAYS);
+        
         adapter = new LessonAdapter(new ArrayList<>());
         lessonsRecyclerView.setAdapter(adapter);
         
@@ -103,10 +108,17 @@ public class CalendarMonthlyFragment extends BaseCalendarFragment {
     private void updateLessonsList() {
         List<Lesson> lessonsForDate = new ArrayList<>();
         for (Lesson lesson : lessons) {
-            if (lesson.getDate().equals(selectedDate.toString())) {
-                lessonsForDate.add(lesson);
+            try {
+                if (lesson.getDate().equals(selectedDate.toString())) {
+                    lessonsForDate.add(lesson);
+                }
+            } catch (Exception e) {
+                // Skip invalid lessons
             }
         }
+
+        // Sort lessons by start time
+        lessonsForDate.sort((l1, l2) -> l1.getStartTime().compareTo(l2.getStartTime()));
 
         if (lessonsForDate.isEmpty()) {
             emptyView.setVisibility(View.VISIBLE);
@@ -115,6 +127,11 @@ public class CalendarMonthlyFragment extends BaseCalendarFragment {
             emptyView.setVisibility(View.GONE);
             lessonsRecyclerView.setVisibility(View.VISIBLE);
             adapter.setLessons(lessonsForDate);
+            
+            // Scroll to the top when showing new lessons
+            if (lessonsRecyclerView.getLayoutManager() != null) {
+                lessonsRecyclerView.getLayoutManager().scrollToPosition(0);
+            }
         }
     }
 

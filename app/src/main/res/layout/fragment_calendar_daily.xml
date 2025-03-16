@@ -68,39 +68,37 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- Lessons for the selected day -->
-    <ScrollView
+    <!-- Container for lesson content -->
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="?attr/colorSurface"
-        android:fillViewport="true">
+        android:layout_weight="1">
 
-        <LinearLayout
+        <!-- Empty view -->
+        <TextView
+            android:id="@+id/text_empty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_marginTop="16dp"
+            android:padding="16dp"
+            android:text="@string/no_lessons_selected_day"
+            android:textAlignment="center"
+            android:textAppearance="?attr/textAppearanceBody1"
+            android:textColor="?attr/colorOnSurface"
+            android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/text_empty"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/no_lessons_selected_day"
-                android:textAlignment="center"
-                android:textAppearance="?attr/textAppearanceBody1"
-                android:textColor="?attr/colorOnSurface"
-                android:visibility="gone" />
+        <!-- Lessons RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_lessons"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="8dp"
+            android:paddingBottom="16dp"
+            android:scrollbars="vertical"
+            android:overScrollMode="always"
+            tools:listitem="@layout/item_lesson" />
+    </FrameLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_lessons"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                android:clipToPadding="false"
-                tools:listitem="@layout/item_lesson" />
-
-        </LinearLayout>
-    </ScrollView>
 </LinearLayout>

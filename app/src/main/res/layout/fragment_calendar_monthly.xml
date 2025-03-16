@@ -194,13 +194,13 @@
     </LinearLayout>
 
     <!-- Lessons Section - Scrollable -->
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:fillViewport="true"
         android:background="?attr/colorSurface">
 
+        <!-- Container for lessons content -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -227,16 +227,21 @@
                 android:textColor="?attr/colorOnSurface"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:visibility="gone" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_lessons"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:nestedScrollingEnabled="false"
-                tools:listitem="@layout/item_lesson" />
-
         </LinearLayout>
-    </ScrollView>
+
+        <!-- RecyclerView directly in FrameLayout to handle its own scrolling -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_lessons"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="70dp"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="16dp"
+            android:clipToPadding="false"
+            android:scrollbars="vertical"
+            android:overScrollMode="always"
+            tools:listitem="@layout/item_lesson" />
+
+    </FrameLayout>
 
 </LinearLayout>

@@ -49,8 +49,17 @@ public class CalendarDailyFragment extends BaseCalendarFragment {
         dateText = view.findViewById(R.id.text_date);
         lessonsRecyclerView = view.findViewById(R.id.recycler_lessons);
         
-        // Set up RecyclerView
-        lessonsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        // Set up RecyclerView with optimized scrolling
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        lessonsRecyclerView.setLayoutManager(layoutManager);
+        
+        // Optimization for better scroll performance
+        lessonsRecyclerView.setHasFixedSize(false); // Change to false since lesson items may have varying sizes
+        lessonsRecyclerView.setNestedScrollingEnabled(true);
+        
+        // Add overscroll glow effect for better UX
+        lessonsRecyclerView.setOverScrollMode(View.OVER_SCROLL_ALWAYS);
+        
         adapter = new LessonAdapter(new ArrayList<>());
         lessonsRecyclerView.setAdapter(adapter);
         
