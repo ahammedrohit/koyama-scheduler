@@ -35,78 +35,53 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="8dp"
-                    android:src="@drawable/ic_assignment"
-                    app:tint="?attr/colorPrimary"
-                    android:contentDescription="Lesson type" />
-
-                <TextView
-                    android:id="@+id/text_lesson_type"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textAppearance="?attr/textAppearanceSubtitle1"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textStyle="bold"
-                    tools:text="Lesson Type" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+                    
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/ic_assignment"
+                        app:tint="?attr/colorPrimary"
+                        android:contentDescription="Lesson type" />
+
+                    <TextView
+                        android:id="@+id/text_lesson_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?attr/textAppearanceSubtitle1"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textStyle="bold"
+                        tools:text="Lesson Type" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="end">
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
 
-                    <LinearLayout
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_marginEnd="4dp"
+                        android:src="@drawable/ic_access_time"
+                        app:tint="?attr/colorPrimary"
+                        android:contentDescription="Lesson time" />
+
+                    <TextView
+                        android:id="@+id/text_lesson_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_marginEnd="4dp"
-                            android:src="@drawable/ic_calendar_today"
-                            app:tint="?attr/colorPrimary"
-                            android:contentDescription="Lesson date" />
-
-                        <TextView
-                            android:id="@+id/text_lesson_date"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="end"
-                            android:textAppearance="?attr/textAppearanceBody2"
-                            android:textColor="?attr/colorOnSurface"
-                            tools:text="Fri, Mar 15, 2025" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="8dp"
-                        android:gravity="center_vertical">
-
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_marginEnd="4dp"
-                            android:src="@drawable/ic_access_time"
-                            app:tint="?attr/colorPrimary"
-                            android:contentDescription="Lesson time" />
-
-                        <TextView
-                            android:id="@+id/text_lesson_time"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="end"
-                            android:textAppearance="?attr/textAppearanceBody2"
-                            android:textColor="?attr/colorOnSurface"
-                            tools:text="2:30 PM - 3:20 PM" />
-                    </LinearLayout>
+                        android:gravity="end"
+                        android:textAppearance="?attr/textAppearanceBody2"
+                        android:textColor="?attr/colorOnSurface"
+                        tools:text="2:30 PM - 3:20 PM" />
                 </LinearLayout>
             </LinearLayout>
 

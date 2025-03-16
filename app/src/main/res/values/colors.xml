@@ -27,6 +27,20 @@
     <color name="lesson_ext">#FCAD70</color>         <!-- Orange -->
     <color name="lesson_exrd">#78D9EC</color>        <!-- Light Blue -->
     <color name="lesson_aps">#B9A9BE</color>         <!-- Lavender -->
+    <color name="lesson_general">#9E9E9E</color>     <!-- Gray - for unknown lesson types -->
+    
+    <!-- Dark mode lesson type colors -->
+    <color name="lesson_at_dark">#5B9D6B</color>     <!-- Darker Green -->
+    <color name="lesson_a50_dark">#5F87C6</color>    <!-- Darker Blue -->
+    <color name="lesson_atp_dark">#5A9799</color>    <!-- Darker Teal -->
+    <color name="lesson_pt_dark">#C75F57</color>     <!-- Darker Red -->
+    <color name="lesson_cpr_dark">#DFB82F</color>    <!-- Darker Yellow -->
+    <color name="lesson_aptit_dark">#9B5FD3</color>  <!-- Darker Purple -->
+    <color name="lesson_cdd_dark">#D65A9B</color>    <!-- Darker Pink -->
+    <color name="lesson_ext_dark">#E88140</color>    <!-- Darker Orange -->
+    <color name="lesson_exrd_dark">#48A7B8</color>   <!-- Darker Light Blue -->
+    <color name="lesson_aps_dark">#8A7992</color>    <!-- Darker Lavender -->
+    <color name="lesson_general_dark">#757575</color><!-- Darker Gray -->
     
     <!-- Additional neutral colors for UI elements -->
     <color name="divider">#E0E0E0</color>            <!-- Light gray for dividers -->
@@ -40,4 +54,9 @@
     
     <!-- Launcher icon colors -->
     <color name="ic_launcher_background">#212121</color>
+    
+    <!-- Dark theme text colors -->
+    <color name="text_primary_dark">#FFFFFF</color>  <!-- White for primary text in dark theme -->
+    <color name="text_secondary_dark">#BDBDBD</color><!-- Light gray for secondary text in dark theme -->
+    <color name="white">#FFFFFF</color>              <!-- Pure white -->
 </resources>

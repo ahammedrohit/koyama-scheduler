@@ -20,12 +20,17 @@ import com.koyama.scheduler.data.model.Lesson;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.TemporalAdjusters;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * Fragment for weekly calendar view
@@ -36,9 +41,13 @@ public class CalendarWeeklyFragment extends BaseCalendarFragment {
     private LocalDate currentWeekStart;
     private final DateTimeFormatter headerFormatter = DateTimeFormatter.ofPattern("MMM d");
     private final DateTimeFormatter weekFormatter = DateTimeFormatter.ofPattern("MMMM d - ");
+    // Support both 24-hour format and 12-hour format with AM/PM
+    private final DateTimeFormatter timeFormatter24h = DateTimeFormatter.ofPattern("HH:mm");
+    private final DateTimeFormatter timeFormatter12h = DateTimeFormatter.ofPattern("h:mm a", Locale.US);
     private List<TextView> dayTextViews = new ArrayList<>();
     private List<View> dayContainers = new ArrayList<>();
     private TextView weekTitle;
+    private LocalDate selectedDate;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,6 +55,7 @@ public class CalendarWeeklyFragment extends BaseCalendarFragment {
         // Initialize current week to start of this week
         WeekFields weekFields = WeekFields.of(Locale.getDefault());
         currentWeekStart = LocalDate.now().with(weekFields.dayOfWeek(), 1);
+        selectedDate = LocalDate.now(); // Start with today selected
         return inflater.inflate(R.layout.fragment_calendar_weekly, container, false);
     }
 
@@ -72,7 +82,16 @@ public class CalendarWeeklyFragment extends BaseCalendarFragment {
             final int dayIndex = i;
             TextView textView = dayTextViews.get(i);
             textView.setOnClickListener(v -> {
-                LocalDate selectedDate = currentWeekStart.plusDays(dayIndex);
+                // First, deselect all days
+                for (TextView tv : dayTextViews) {
+                    tv.setSelected(false);
+                }
+                
+                // Select this day
+                textView.setSelected(true);
+                
+                // Update selected date and show its lessons
+                selectedDate = currentWeekStart.plusDays(dayIndex);
                 showLessonsForSelectedDate(selectedDate);
             });
         }
@@ -101,6 +120,7 @@ public class CalendarWeeklyFragment extends BaseCalendarFragment {
             // Reset to current week
             WeekFields weekFields = WeekFields.of(Locale.getDefault());
             currentWeekStart = LocalDate.now().with(weekFields.dayOfWeek(), 1);
+            selectedDate = LocalDate.now(); // Select today
             updateCalendar();
             
             // Show toast to confirm
@@ -130,21 +150,51 @@ public class CalendarWeeklyFragment extends BaseCalendarFragment {
         weekTitle.setText(title);
         
         // Update date numbers
+        LocalDate today = LocalDate.now();
+        boolean todayInRange = !today.isBefore(currentWeekStart) && !today.isAfter(weekEnd);
+        
         for (int i = 0; i < 7; i++) {
             LocalDate date = currentWeekStart.plusDays(i);
             TextView dateTextView = dayTextViews.get(i);
             
-            // Simply set the date number
+            // Set the date number
             dateTextView.setText(String.valueOf(date.getDayOfMonth()));
             
-            // Highlight today
-            if (date.equals(LocalDate.now())) {
-                dateTextView.setTextColor(getResources().getColor(R.color.primary, null));
+            // Reset state
+            dateTextView.setActivated(false);
+            dateTextView.setSelected(false);
+            dateTextView.setTypeface(null, Typeface.NORMAL);
+            
+            // Highlight today with a circle
+            if (date.equals(today)) {
+                dateTextView.setActivated(true);
                 dateTextView.setTypeface(null, Typeface.BOLD);
+            }
+            
+            // Highlight selected date
+            if (date.equals(selectedDate)) {
+                dateTextView.setSelected(true);
+                dateTextView.setTextColor(getResources().getColor(R.color.white, null));
             } else {
                 dateTextView.setTextColor(getResources().getColor(getResources().getBoolean(R.bool.is_night_mode) ? 
                     R.color.text_secondary_dark : R.color.text_secondary, null));
-                dateTextView.setTypeface(null, Typeface.NORMAL);
+            }
+        }
+        
+        // If the selected date is not in this week, select the first day
+        boolean selectedDateInRange = !selectedDate.isBefore(currentWeekStart) && !selectedDate.isAfter(weekEnd);
+        if (!selectedDateInRange) {
+            // Default to first day or today if it's in range
+            selectedDate = todayInRange ? today : currentWeekStart;
+            
+            // Update selection visually
+            for (int i = 0; i < 7; i++) {
+                LocalDate date = currentWeekStart.plusDays(i);
+                if (date.equals(selectedDate)) {
+                    TextView tv = dayTextViews.get(i);
+                    tv.setSelected(true);
+                    tv.setTextColor(getResources().getColor(R.color.white, null));
+                }
             }
         }
         
@@ -169,17 +219,40 @@ public class CalendarWeeklyFragment extends BaseCalendarFragment {
             androidx.gridlayout.widget.GridLayout gridCalendar = requireView().findViewById(R.id.grid_weekly_calendar);
             gridCalendar.removeAllViews();
             
-            // Add time column headers and lesson cells (implement based on your lesson data model)
-            // This would typically involve creating cells for each hour of the day and placing lessons
-            // in the appropriate cells based on their start and end times
-            
-            // For simplicity, we'll just create a basic representation here
+            // Add time column headers and lesson cells
             populateWeekGrid(gridCalendar, weekLessons);
+        }
+        
+        // Show lessons for the selected date
+        showLessonsForSelectedDate(selectedDate);
+    }
+    
+    /**
+     * Parses a time string that could be in either 12-hour (h:mm a) or 24-hour (HH:mm) format
+     * @param timeStr the time string to parse
+     * @return the parsed LocalTime, or null if parsing fails
+     */
+    private LocalTime parseTimeString(String timeStr) {
+        try {
+            // First try 24-hour format (HH:mm)
+            return LocalTime.parse(timeStr, timeFormatter24h);
+        } catch (DateTimeParseException e1) {
+            try {
+                // Then try 12-hour format (h:mm a)
+                return LocalTime.parse(timeStr, timeFormatter12h);
+            } catch (DateTimeParseException e2) {
+                // If both fail, log error and use a default time
+                System.err.println("Failed to parse time: " + timeStr);
+                return LocalTime.of(8, 0); // Default to 8:00 AM
+            }
         }
     }
     
     private void populateWeekGrid(androidx.gridlayout.widget.GridLayout grid, List<Lesson> weekLessons) {
         Context context = requireContext();
+        
+        // Map to track occupied cells
+        Map<String, Boolean> occupiedCells = new HashMap<>();
         
         // Add time column (first column)
         for (int hour = 8; hour <= 18; hour++) {
@@ -197,35 +270,70 @@ public class CalendarWeeklyFragment extends BaseCalendarFragment {
             grid.addView(timeText);
         }
         
-        // Add cells for lessons based on their day and time
+        // Add lesson cards
         for (Lesson lesson : weekLessons) {
-            // In a real implementation, you would parse the lesson's date and time
-            // and place it in the appropriate grid cell
-            // This is a simplified example
             LocalDate lessonDate = LocalDate.parse(lesson.getDate());
             int dayOfWeek = lessonDate.getDayOfWeek().getValue() % 7; // Map to 0-6 (Sun-Sat)
+            
+            // Parse time format using our helper method that supports both formats
+            LocalTime startTime = parseTimeString(lesson.getStartTime());
+            LocalTime endTime = parseTimeString(lesson.getEndTime());
+            
+            if (startTime == null || endTime == null) {
+                continue; // Skip this lesson if times cannot be parsed
+            }
+            
+            // Calculate hour position for the grid (subtract 7 to start grid at 08:00)
+            int startHour = startTime.getHour() - 7;
+            int endHour = endTime.getHour() - 7;
+            
+            // Ensure the hours are within our displayed range
+            if (startHour < 1) startHour = 1;
+            if (endHour < startHour) endHour = startHour + 1;
+            
+            // Calculate duration in hours, rounded up
+            int durationHours = endHour - startHour;
+            if (endTime.getMinute() > 0) durationHours++;
+            durationHours = Math.max(1, durationHours); // Minimum 1 hour
+            
+            // Check if this cell position conflicts with existing lessons
+            String cellKey = dayOfWeek + ":" + startHour;
+            if (occupiedCells.containsKey(cellKey)) {
+                // Skip or handle conflict (could shift horizontally)
+                continue;
+            }
+            
+            // Mark cell as occupied
+            occupiedCells.put(cellKey, true);
             
             // Create a card for the lesson
             CardView lessonCard = new CardView(context);
             lessonCard.setCardBackgroundColor(getLessonColor(lesson.getEventType()));
             lessonCard.setCardElevation(4);
             lessonCard.setRadius(8);
+            lessonCard.setPadding(4, 4, 4, 4);
             
-            TextView lessonText = new TextView(context);
-            lessonText.setText(lesson.getEventType());
-            lessonText.setTextColor(Color.WHITE);
-            lessonText.setPadding(8, 4, 8, 4);
+            // Create content layout
+            View.inflate(context, R.layout.item_lesson_mini, lessonCard);
+            TextView lessonTitle = lessonCard.findViewById(R.id.text_lesson_title);
+            TextView lessonTime = lessonCard.findViewById(R.id.text_lesson_time);
             
-            lessonCard.addView(lessonText);
+            // Set lesson details
+            lessonTitle.setText(lesson.getEventType() + 
+                               (TextUtils.isEmpty(lesson.getEventNumber()) ? "" : " " + lesson.getEventNumber()));
+            lessonTime.setText(lesson.getStartTime() + " - " + lesson.getEndTime());
             
-            // Position based on time (simplified)
-            // In a real app, you would calculate this based on start/end times
-            int startHour = 9; // Example
-            int duration = 2; // Example - 2 hour duration
+            // Add click listener to show details
+            lessonCard.setOnClickListener(v -> {
+                // Show lesson details or navigate to detail screen
+                Toast.makeText(context, "Lesson: " + lesson.getEventType() + " " + 
+                            lesson.getStartTime() + " - " + lesson.getEndTime(), Toast.LENGTH_SHORT).show();
+            });
             
+            // Position based on calculated time values
             androidx.gridlayout.widget.GridLayout.LayoutParams params = new androidx.gridlayout.widget.GridLayout.LayoutParams();
-            params.rowSpec = androidx.gridlayout.widget.GridLayout.spec(startHour - 7, duration, 1f);
-            params.columnSpec = androidx.gridlayout.widget.GridLayout.spec(dayOfWeek + 1, 1);
+            params.rowSpec = androidx.gridlayout.widget.GridLayout.spec(startHour, durationHours, 1f);
+            params.columnSpec = androidx.gridlayout.widget.GridLayout.spec(dayOfWeek + 1, 1); // +1 because first column is time
             params.setMargins(4, 4, 4, 4);
             lessonCard.setLayoutParams(params);
             
@@ -249,71 +357,23 @@ public class CalendarWeeklyFragment extends BaseCalendarFragment {
                 colorResId = getResources().getBoolean(R.bool.is_night_mode) ? 
                     R.color.lesson_atp_dark : R.color.lesson_atp;
                 break;
-            case "PT":
-                colorResId = getResources().getBoolean(R.bool.is_night_mode) ? 
-                    R.color.lesson_pt_dark : R.color.lesson_pt;
-                break;
-            case "CPR":
-                colorResId = getResources().getBoolean(R.bool.is_night_mode) ? 
-                    R.color.lesson_cpr_dark : R.color.lesson_cpr;
-                break;
-            case "Apti.t":
-                colorResId = getResources().getBoolean(R.bool.is_night_mode) ? 
-                    R.color.lesson_aptit_dark : R.color.lesson_aptit;
-                break;
-            case "CDD":
-                colorResId = getResources().getBoolean(R.bool.is_night_mode) ? 
-                    R.color.lesson_cdd_dark : R.color.lesson_cdd;
-                break;
-            case "EXT":
-                colorResId = getResources().getBoolean(R.bool.is_night_mode) ? 
-                    R.color.lesson_ext_dark : R.color.lesson_ext;
-                break;
-            case "EX&RD":
-                colorResId = getResources().getBoolean(R.bool.is_night_mode) ? 
-                    R.color.lesson_exrd_dark : R.color.lesson_exrd;
-                break;
-            case "APS":
-                colorResId = getResources().getBoolean(R.bool.is_night_mode) ? 
-                    R.color.lesson_aps_dark : R.color.lesson_aps;
-                break;
             default:
                 colorResId = getResources().getBoolean(R.bool.is_night_mode) ? 
-                    R.color.primary_dark : R.color.primary;
+                    R.color.lesson_general_dark : R.color.lesson_general;
                 break;
         }
         return getResources().getColor(colorResId, null);
     }
     
-    /**
-     * Show lessons for the selected date
-     */
     private void showLessonsForSelectedDate(LocalDate date) {
-        // Find lessons for the selected date
-        List<Lesson> lessonsForDate = new ArrayList<>();
-        for (Lesson lesson : lessons) {
-            LocalDate lessonDate = LocalDate.parse(lesson.getDate());
-            if (lessonDate.equals(date)) {
-                lessonsForDate.add(lesson);
-            }
-        }
+        // This would typically update another part of the UI with lessons for the selected date
+        // For now, just add a visual indicator for the selected date
         
-        if (!lessonsForDate.isEmpty()) {
-            // In a real implementation, we would show these lessons in a list dialog or bottom sheet
-            // For now, just show a toast with the count
+        // Show a toast with the selected date
+        if (getContext() != null) {
             Toast.makeText(getContext(), 
-                    lessonsForDate.size() + " lessons on " + 
-                            date.format(DateTimeFormatter.ofPattern("EEE, MMM d")),
-                    Toast.LENGTH_SHORT).show();
-            
-            // Open detail for the first lesson (for demonstration)
-            if (!lessonsForDate.isEmpty()) {
-                openLessonDetail(lessonsForDate.get(0));
-            }
-        } else {
-            Toast.makeText(getContext(),
-                    "No lessons on " + date.format(DateTimeFormatter.ofPattern("EEE, MMM d")),
-                    Toast.LENGTH_SHORT).show();
+                "Selected: " + date.format(DateTimeFormatter.ofPattern("EEEE, MMMM d, yyyy")), 
+                Toast.LENGTH_SHORT).show();
         }
     }
 }
