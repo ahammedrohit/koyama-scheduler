@@ -19,6 +19,9 @@
     <string name="profile">Profile</string>
     <string name="account">Account</string>
     
+    <!-- Calendar -->
+    <string name="showing_current_week">Showing current week</string>
+    
     <!-- All Schedules -->
     <string name="all_schedules">All Schedules</string>
     <string name="view_all_schedules">View All Schedules</string>

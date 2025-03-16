@@ -84,6 +84,7 @@ public class CalendarWeeklyFragment extends BaseCalendarFragment {
         // Setup navigation buttons
         View previousButton = view.findViewById(R.id.button_previous);
         View nextButton = view.findViewById(R.id.button_next);
+        View todayButton = view.findViewById(R.id.button_today);
         
         previousButton.setOnClickListener(v -> {
             currentWeekStart = currentWeekStart.minusWeeks(1);
@@ -93,6 +94,17 @@ public class CalendarWeeklyFragment extends BaseCalendarFragment {
         nextButton.setOnClickListener(v -> {
             currentWeekStart = currentWeekStart.plusWeeks(1);
             updateCalendar();
+        });
+        
+        // Add click listener for the "Today" button to go to current week
+        todayButton.setOnClickListener(v -> {
+            // Reset to current week
+            WeekFields weekFields = WeekFields.of(Locale.getDefault());
+            currentWeekStart = LocalDate.now().with(weekFields.dayOfWeek(), 1);
+            updateCalendar();
+            
+            // Show toast to confirm
+            Toast.makeText(getContext(), R.string.showing_current_week, Toast.LENGTH_SHORT).show();
         });
         
         // Initialize calendar with current lessons
