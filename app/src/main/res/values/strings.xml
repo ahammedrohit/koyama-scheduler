@@ -18,6 +18,7 @@
     <string name="calendar">Calendar</string>
     <string name="profile">Profile</string>
     <string name="account">Account</string>
+    <string name="abbreviations_guide">Abbreviations Guide</string>
     
     <!-- Calendar -->
     <string name="showing_current_week">Showing current week</string>
@@ -141,9 +142,9 @@
     <string name="no_description_available">No description available</string>
     
     <!-- Lesson Types Full Meanings -->
-    <string name="lesson_at_full">Autonomous Theory (AT): Basic driving theory for autonomous vehicles</string>
+    <string name="lesson_at_full">Automatic Transmission (AT): Basic driving with automatic transmission</string>
     <string name="lesson_a50_full">Advanced 50 (A50): 50-minute extended training session</string>
-    <string name="lesson_atp_full">Autonomous Theory Practice (ATP): Practical application of autonomous theory</string>
+    <string name="lesson_atp_full">Automatic Transmission Parking (ATP): Parking practice with automatic transmission</string>
     <string name="lesson_pt_full">Practice Test (PT): Simulated test environment to prepare for examination</string>
     <string name="lesson_cpr_full">Cardio Pulmonary Resuscitation (CPR): Emergency response training</string>
     <string name="lesson_aptit_full">Aptitude Test (APTIT): Assessment of driving aptitude and capabilities</string>
@@ -151,6 +152,10 @@
     <string name="lesson_ext_full">Extended Training (EXT): Additional practice hours for skill refinement</string>
     <string name="lesson_exrd_full">Expressway and Route Determination (EX&amp;RD): Highway driving and navigation</string>
     <string name="lesson_aps_full">Advanced Practical Skills (APS): Advanced maneuvers and specialized techniques</string>
+    
+    <!-- Abbreviations Guide -->
+    <string name="abbreviations_title">Lesson Type Abbreviations</string>
+    <string name="abbreviations_description">This guide explains the abbreviations used for different lesson types in the driving school.</string>
     
     <!-- PAPARU CARD -->
     <string name="paparu_card_title">PAPARU CARD</string>

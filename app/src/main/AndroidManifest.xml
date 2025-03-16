@@ -41,6 +41,10 @@
             android:name=".ui.AllSchedulesActivity"
             android:parentActivityName=".ui.MainActivity" />
             
+        <activity
+            android:name=".ui.AbbreviationsGuideActivity"
+            android:parentActivityName=".ui.MainActivity" />
+            
     </application>
 
 </manifest>
