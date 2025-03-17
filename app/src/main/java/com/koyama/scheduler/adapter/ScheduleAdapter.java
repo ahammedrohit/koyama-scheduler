@@ -361,7 +361,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             String timeDisplay = String.format("%s - %s", lesson.getStartTime(), lesson.getEndTime());
             lessonTimeTextView.setText(timeDisplay);
             
-            // Set the date separately - make date container visible
+            // Set the date - always make date container visible
             dateContainer.setVisibility(View.VISIBLE);
             try {
                 LocalDate date = LocalDate.parse(lesson.getDate());
