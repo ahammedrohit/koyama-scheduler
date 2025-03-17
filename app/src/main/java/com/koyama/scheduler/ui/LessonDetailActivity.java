@@ -25,6 +25,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Calendar;
 
@@ -232,8 +233,11 @@ public class LessonDetailActivity extends AppCompatActivity {
         if (currentLesson == null) return;
 
         LocalDate date = LocalDate.parse(currentLesson.getDate());
-        LocalTime startTime = LocalTime.parse(currentLesson.getStartTime());
-        LocalTime endTime = LocalTime.parse(currentLesson.getEndTime());
+        
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("h:mm a", Locale.getDefault());
+        
+        LocalTime startTime = LocalTime.parse(currentLesson.getStartTime(), timeFormatter);
+        LocalTime endTime = LocalTime.parse(currentLesson.getEndTime(), timeFormatter);
         
         Calendar beginTime = Calendar.getInstance();
         beginTime.set(date.getYear(), date.getMonthValue() - 1, date.getDayOfMonth(),
