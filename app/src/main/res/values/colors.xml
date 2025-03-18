@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Google Pixel style colors - Monochromatic theme -->
-    <color name="primary">#212121</color>            <!-- Dark gray - main theme color -->
-    <color name="primary_variant">#000000</color>    <!-- Black -->
+    <color name="primary_light">#212121</color>      <!-- Dark gray - main theme color -->
+    <color name="primary_variant_light">#000000</color>    <!-- Black -->
     <color name="on_primary">#FFFFFF</color>         <!-- White text on dark primary -->
     
-    <!-- Missing colors from dark theme -->
+    <!-- Dark theme colors -->
     <color name="primary_dark">#7DA8F5</color>         <!-- Slightly muted blue for primary accents -->
-    <color name="primary_variant_dark">#5B8DEF</color> <!-- Slightly darker blue variant -->
+    <color name="primary_variant_dark">#5C6BC0</color> <!-- Slightly darker blue variant -->
     <color name="on_primary_dark">#141414</color>      <!-- Very dark gray instead of pure black -->
     
     <color name="secondary">#424242</color>          <!-- Medium dark gray -->
     <color name="secondary_variant">#1F1F1F</color>  <!-- Almost black -->
     <color name="on_secondary">#FFFFFF</color>       <!-- White text on dark secondary -->
     
-    <!-- Missing colors from dark theme -->
-    <color name="secondary_dark">#ADADAD</color>       <!-- Medium gray -->
+    <!-- Dark theme secondary colors -->
+    <color name="secondary_dark">#2A2A2A</color>       <!-- Medium gray -->
     <color name="secondary_variant_dark">#8A8A8A</color> <!-- Darker gray -->
     <color name="on_secondary_dark">#212121</color>    <!-- Dark gray on light colors -->
     
@@ -26,7 +26,7 @@
     <color name="on_surface">#121212</color>         <!-- Black text on white surface -->
     <color name="on_error">#000000</color>           <!-- Black text on error -->
     
-    <!-- Missing colors from dark theme -->
+    <!-- Dark theme surface colors -->
     <color name="background_dark">#121212</color>      <!-- Dark gray instead of pure black for background -->
     <color name="surface_dark">#1E1E1E</color>         <!-- Slightly lighter surface for cards -->
     <color name="on_background_dark">#E0E0E0</color>   <!-- Light gray instead of pure white for better eye comfort -->
@@ -49,12 +49,12 @@
     <color name="lesson_generic">#757575</color>      <!-- Gray -->
     
     <!-- Dark mode lesson type colors -->
-    <color name="lesson_at_dark">#5B9D6B</color>     <!-- Darker Green -->
+    <color name="lesson_at_dark">#00897B</color>     <!-- Darker Green -->
     <color name="lesson_a50_dark">#5F87C6</color>    <!-- Darker Blue -->
     <color name="lesson_atp_dark">#5A9799</color>    <!-- Darker Teal -->
     <color name="lesson_pt_dark">#C75F57</color>     <!-- Darker Red -->
     <color name="lesson_cpr_dark">#DFB82F</color>    <!-- Darker Yellow -->
-    <color name="lesson_aptit_dark">#9B5FD3</color>  <!-- Darker Purple -->
+    <color name="lesson_aptit_dark">#00796B</color>  <!-- Darker Purple -->
     <color name="lesson_cdd_dark">#D65A9B</color>    <!-- Darker Pink -->
     <color name="lesson_ext_dark">#E88140</color>    <!-- Darker Orange -->
     <color name="lesson_exrd_dark">#48A7B8</color>   <!-- Darker Light Blue -->
@@ -68,8 +68,10 @@
     <color name="text_disabled">#757575</color>      <!-- Medium gray for disabled text -->
     <color name="icon_color">#424242</color>         <!-- Dark gray for icons -->
     
-    <!-- Missing dark theme text color -->
+    <!-- Dark theme text color -->
     <color name="text_disabled_dark">#757575</color>   <!-- Darker gray for disabled text -->
+    <color name="text_primary_dark">#FFFFFF</color>    <!-- White for primary text in dark theme -->
+    <color name="text_secondary_dark">#B3FFFFFF</color><!-- Light gray for secondary text in dark theme -->
     
     <!-- Card background color -->
     <color name="card_background">#FAFAFA</color>    <!-- Slightly off-white for card backgrounds -->
@@ -78,9 +80,6 @@
     <!-- Launcher icon colors -->
     <color name="ic_launcher_background">#212121</color>
     
-    <!-- Dark theme text colors -->
-    <color name="text_primary_dark">#FFFFFF</color>  <!-- White for primary text in dark theme -->
-    <color name="text_secondary_dark">#BDBDBD</color><!-- Light gray for secondary text in dark theme -->
     <color name="white">#FFFFFF</color>              <!-- Pure white -->
     
     <color name="colorPrimary">#2196F3</color>
@@ -91,4 +90,8 @@
     <color name="row_odd">#333333</color>
     
     <color name="purple_500">#6200EE</color>
+
+    <!-- Modern UI Colors -->
+    <color name="primary">#3F51B5</color>
+    <color name="primary_variant">#303F9F</color>
 </resources>

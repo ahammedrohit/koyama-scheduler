@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -33,6 +34,14 @@ public class AlternativeTermAdapter extends RecyclerView.Adapter<AlternativeTerm
         holder.textbookText.setText(term.getTextBookWord());
         holder.alternativeText.setText(term.getAlternativeWord());
         
+        // Handle sign image
+        if (term.hasSignImage()) {
+            holder.signImage.setVisibility(View.VISIBLE);
+            holder.signImage.setImageResource(term.getSignImageResId());
+        } else {
+            holder.signImage.setVisibility(View.GONE);
+        }
+        
         // Alternate background colors for better readability
         int backgroundColor = position % 2 == 0 ? 
                 R.color.row_even : R.color.row_odd;
@@ -59,11 +68,13 @@ public class AlternativeTermAdapter extends RecyclerView.Adapter<AlternativeTerm
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textbookText;
         TextView alternativeText;
+        ImageView signImage;
 
         ViewHolder(View view) {
             super(view);
             textbookText = view.findViewById(R.id.textbookText);
             alternativeText = view.findViewById(R.id.alternativeText);
+            signImage = view.findViewById(R.id.signImage);
         }
     }
 } 

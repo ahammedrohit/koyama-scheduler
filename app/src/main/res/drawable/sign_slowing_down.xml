@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <!-- Red triangle (yield sign) -->
+    <path
+        android:fillColor="#D32F2F"
+        android:pathData="M24,4L2,44h44L24,4z"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M24,10L6,40h36L24,10z"/>
+    
+    <!-- 'Slowing Down' indication in Japanese-style characters -->
+    <path
+        android:fillColor="#D32F2F"
+        android:pathData="M19,18h10v2H19V18zM19,22h10v2H19V22zM19,26h10v2H19V26zM24,30c-2.21,0 -4,1.79 -4,4s1.79,4 4,4s4,-1.79 4,-4S26.21,30 24,30z"/>
+</vector> 

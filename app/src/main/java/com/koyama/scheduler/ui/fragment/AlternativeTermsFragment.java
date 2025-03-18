@@ -38,7 +38,16 @@ public class AlternativeTermsFragment extends Fragment {
     private List<AlternativeTerm> getAlternativeTerms() {
         List<AlternativeTerm> terms = new ArrayList<>();
         
-        // Add all terms from the image
+        // Add terms with traffic signs from the image
+        terms.add(new AlternativeTerm("No overtaking on the right hand side of the road", "No swerving to the right for overtaking", R.drawable.sign_no_overtaking));
+        terms.add(new AlternativeTerm("Motor vehicles only", "Automobiles only", R.drawable.sign_motor_vehicles));
+        terms.add(new AlternativeTerm("Square right turn", "Two step right turn", R.drawable.sign_square_right_turn));
+        terms.add(new AlternativeTerm("Round right trun", "Direct right turn", R.drawable.sign_round_right_turn));
+        terms.add(new AlternativeTerm("Sound horn zone", "Honking zone", R.drawable.sign_sound_horn));
+        terms.add(new AlternativeTerm("Slowing down", "Drive slow", R.drawable.sign_slowing_down));
+        terms.add(new AlternativeTerm("Pedestrian crossing", "Crosswalk", R.drawable.sign_pedestrian_crossing));
+        
+        // Add remaining terms from the original image
         terms.add(new AlternativeTerm("hearing impairment sign", "aurally challenged driver's mark"));
         terms.add(new AlternativeTerm("bicycle crossing zone", "bicycle crossing lane"));
         terms.add(new AlternativeTerm("signal", "blinker/winker"));
@@ -50,7 +59,6 @@ public class AlternativeTermsFragment extends Fragment {
         terms.add(new AlternativeTerm("indication sign", "designation sign"));
         terms.add(new AlternativeTerm("switch to low beams", "dip high beams"));
         terms.add(new AlternativeTerm("signal", "direction indicator"));
-        terms.add(new AlternativeTerm("round right turn", "direct right turn"));
         terms.add(new AlternativeTerm("riding with a passenger (motorcycle)", "double riding"));
         terms.add(new AlternativeTerm("double overtaking", "dual overtaking"));
         terms.add(new AlternativeTerm("use the engine brake", "employ the braking power of the engine"));
@@ -89,7 +97,6 @@ public class AlternativeTermsFragment extends Fragment {
         terms.add(new AlternativeTerm("emergency reflector/warning triangle", "trianglar reflector"));
         terms.add(new AlternativeTerm("wheelbase differential", "turning radius difference/innner wheel difference"));
         terms.add(new AlternativeTerm("around sunset", "twilight"));
-        terms.add(new AlternativeTerm("square right turn", "two step right turn"));
         terms.add(new AlternativeTerm("vehicle lane", "vehicular lane"));
         terms.add(new AlternativeTerm("opposite", "vice versa"));
         

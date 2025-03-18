@@ -7,7 +7,23 @@
     android:paddingEnd="16dp"
     android:paddingTop="12dp"
     android:paddingBottom="12dp"
-    android:layout_marginBottom="1dp">
+    android:layout_marginBottom="1dp"
+    android:gravity="center_vertical">
+
+    <!-- Sign image container -->
+    <FrameLayout
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="12dp">
+        
+        <ImageView
+            android:id="@+id/signImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:visibility="gone"
+            android:contentDescription="Traffic sign" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/textbookText"

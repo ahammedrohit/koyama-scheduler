@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <!-- Blue triangle for pedestrian crossing -->
+    <path
+        android:fillColor="#1A237E"
+        android:pathData="M24,4L2,44h44L24,4z"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M24,10L6,40h36L24,10z"/>
+    
+    <!-- Pedestrian figure -->
+    <path
+        android:fillColor="#1A237E"
+        android:pathData="M24,18c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2s-2,0.9 -2,2S22.9,18 24,18zM29,23.59l-1,-1.59h-8l-1,1.59V28h2v6h3v-6h1v6h3v-6h2v-4.41H29z"/>
+</vector> 
