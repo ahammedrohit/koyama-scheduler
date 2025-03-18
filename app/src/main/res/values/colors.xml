@@ -19,7 +19,7 @@
     <color name="secondary_variant_dark">#8A8A8A</color> <!-- Darker gray -->
     <color name="on_secondary_dark">#212121</color>    <!-- Dark gray on light colors -->
     
-    <color name="background">#FFFFFF</color>         <!-- Pure white background -->
+    <!-- Removing duplicate background color -->
     <color name="surface">#FFFFFF</color>            <!-- White surface -->
     <color name="error">#CF6679</color>              <!-- Red for errors -->
     <color name="on_background">#121212</color>      <!-- Black text on white background -->
@@ -99,4 +99,11 @@
     <!-- Modern UI Colors -->
     <color name="primary">#3F51B5</color>
     <color name="primary_variant">#303F9F</color>
+
+    <color name="classroom_phase">#5E35B1</color>
+    <color name="driving_phase">#0288D1</color>
+    <color name="success">#00897B</color>
+    <color name="warning">#F57C00</color>
+    <color name="info">#039BE5</color>
+    <color name="background">#F5F5F5</color>
 </resources>

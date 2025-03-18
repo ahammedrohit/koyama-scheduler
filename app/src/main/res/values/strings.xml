@@ -183,4 +183,7 @@
     <string name="menu_previous_page">Previous</string>
     <string name="no_lecture_chapters">No lecture chapters available</string>
     <string name="lecture_step_indicator">Step %d</string>
+    <string name="license_flow_title">Driver\'s\nLicense Guide</string>
+    <string name="license_flow_subtitle">License Acquisition Process</string>
+    <string name="register_at_driving_school">Register at Driving School</string>
 </resources>

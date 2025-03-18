@@ -103,12 +103,17 @@
         <item name="android:textColor">@color/text_secondary</item>
     </style>
 
-    <style name="TextAppearance.KoyamaScheduler.CollapsingTitle" parent="TextAppearance.MaterialComponents.Headline5">
-        <item name="fontFamily">sans-serif-medium</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
-        <item name="android:textSize">28sp</item>
+    <style name="TextAppearance.KoyamaScheduler.CollapsingTitle" parent="TextAppearance.MaterialComponents.Headline4">
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:letterSpacing">0.01</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.KoyamaScheduler.CollapsingTitle.Collapsed" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">none</item>
+        <item name="android:textSize">18sp</item>
     </style>
     
     <style name="TextAppearance.KoyamaScheduler.Tab" parent="TextAppearance.Design.Tab">
