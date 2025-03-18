@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -71,14 +72,6 @@ public class LessonDetailActivity extends AppCompatActivity {
         initLessonTypeDescriptions();
         initLessonTypeFullMeanings();
         
-        // Get lesson ID from intent
-        lessonId = getIntent().getStringExtra("LESSON_ID");
-        if (lessonId == null) {
-            Toast.makeText(this, "Error: Lesson ID is missing", Toast.LENGTH_SHORT).show();
-            finish();
-            return;
-        }
-
         // Set up toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -101,20 +94,185 @@ public class LessonDetailActivity extends AppCompatActivity {
         // Set up view model
         viewModel = new ViewModelProvider(this).get(LessonViewModel.class);
 
-        // Load lesson data
-        viewModel.getLessonById(lessonId).observe(this, lesson -> {
-            if (lesson != null) {
-                currentLesson = lesson;
-                populateView(lesson);
-
-                // Show or hide the undo button based on lesson completion status
-                if (lesson.isCompleted()) {
-                    undoMarkCompletedButton.setVisibility(View.VISIBLE);
-                } else {
-                    undoMarkCompletedButton.setVisibility(View.GONE);
-                }
+        // Check if we should find lecture by date, type and number
+        boolean findLecture = getIntent().getBooleanExtra("FIND_LECTURE", false);
+        
+        if (findLecture) {
+            // Get parameters from intent
+            String date = getIntent().getStringExtra("LESSON_DATE");
+            String lectureNumber = getIntent().getStringExtra("LECTURE_NUMBER");
+            String stepNumber = getIntent().getStringExtra("STEP_NUMBER");
+            String stepType = getIntent().getStringExtra("STEP_TYPE");
+            String directEventType = getIntent().getStringExtra("DIRECT_EVENT_TYPE");
+            String alternateEventType = getIntent().getStringExtra("ALTERNATE_EVENT_TYPE");
+            
+            if (date != null) {
+                // Get lessons for this date
+                viewModel.getLessonsByDate(date).observe(this, lessons -> {
+                    if (lessons != null && !lessons.isEmpty()) {
+                        Log.d("LessonDetailActivity", "Found " + lessons.size() + " lessons for date: " + date);
+                        boolean foundMatch = false;
+                        
+                        // DEBUG: List all lessons for this date
+                        Log.d("LessonDetailActivity", "All lessons for date " + date + ":");
+                        for (Lesson l : lessons) {
+                            Log.d("LessonDetailActivity", "Lesson id=" + l.getId() + 
+                                  ", eventType=" + l.getEventType() + 
+                                  ", eventNumber=" + l.getEventNumber() + 
+                                  ", time=" + l.getStartTime() + "-" + l.getEndTime());
+                        }
+                        
+                        // PRIORITY 1: Direct event type match (most reliable)
+                        if (!foundMatch && directEventType != null) {
+                            for (Lesson lesson : lessons) {
+                                if (lesson.getEventType() != null && lesson.getEventType().equals(directEventType)) {
+                                    lessonId = lesson.getId();
+                                    currentLesson = lesson;
+                                    populateView(lesson);
+                                    foundMatch = true;
+                                    
+                                    if (lesson.isCompleted()) {
+                                        findViewById(R.id.button_undo_mark_completed).setVisibility(View.VISIBLE);
+                                    } else {
+                                        findViewById(R.id.button_undo_mark_completed).setVisibility(View.GONE);
+                                    }
+                                    
+                                    Log.d("LessonDetailActivity", "DIRECT_EVENT_TYPE match found: " + directEventType);
+                                    break;
+                                }
+                            }
+                        }
+                        
+                        // PRIORITY 2: Alternate event type match (for special cases like CPR)
+                        if (!foundMatch && alternateEventType != null) {
+                            for (Lesson lesson : lessons) {
+                                if (lesson.getEventType() != null && lesson.getEventType().equals(alternateEventType)) {
+                                    lessonId = lesson.getId();
+                                    currentLesson = lesson;
+                                    populateView(lesson);
+                                    foundMatch = true;
+                                    
+                                    if (lesson.isCompleted()) {
+                                        findViewById(R.id.button_undo_mark_completed).setVisibility(View.VISIBLE);
+                                    } else {
+                                        findViewById(R.id.button_undo_mark_completed).setVisibility(View.GONE);
+                                    }
+                                    
+                                    Log.d("LessonDetailActivity", "ALTERNATE_EVENT_TYPE match found: " + alternateEventType);
+                                    break;
+                                }
+                            }
+                        }
+                        
+                        // PRIORITY 3: Try step number match
+                        if (!foundMatch && stepNumber != null) {
+                            for (Lesson lesson : lessons) {
+                                if (lesson.getEventType() != null && lesson.getEventType().equals(stepNumber)) {
+                                    Log.d("LessonDetailActivity", "Matched by step number: " + stepNumber);
+                                    lessonId = lesson.getId();
+                                    currentLesson = lesson;
+                                    populateView(lesson);
+                                    foundMatch = true;
+                                    
+                                    if (lesson.isCompleted()) {
+                                        findViewById(R.id.button_undo_mark_completed).setVisibility(View.VISIBLE);
+                                    } else {
+                                        findViewById(R.id.button_undo_mark_completed).setVisibility(View.GONE);
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                        
+                        // PRIORITY 4: Try lecture number match
+                        if (!foundMatch && lectureNumber != null) {
+                            for (Lesson lesson : lessons) {
+                                if (lesson.getEventType() != null && lesson.getEventType().equals(lectureNumber)) {
+                                    Log.d("LessonDetailActivity", "Matched by lecture number: " + lectureNumber);
+                                    lessonId = lesson.getId();
+                                    currentLesson = lesson;
+                                    populateView(lesson);
+                                    foundMatch = true;
+                                    
+                                    if (lesson.isCompleted()) {
+                                        findViewById(R.id.button_undo_mark_completed).setVisibility(View.VISIBLE);
+                                    } else {
+                                        findViewById(R.id.button_undo_mark_completed).setVisibility(View.GONE);
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                        
+                        // PRIORITY 5: Fallback to any numeric lesson
+                        if (!foundMatch) {
+                            for (Lesson lesson : lessons) {
+                                String eventType = lesson.getEventType();
+                                if (eventType == null || 
+                                    eventType.equals("AT") || 
+                                    eventType.equals("PT") || 
+                                    eventType.equals("APTIT") ||
+                                    eventType.equals("CPR")) {
+                                    continue;
+                                }
+                                
+                                if (eventType.matches("\\d+")) {
+                                    Log.d("LessonDetailActivity", "Fallback match to numeric lesson: " + eventType);
+                                    lessonId = lesson.getId();
+                                    currentLesson = lesson;
+                                    populateView(lesson);
+                                    foundMatch = true;
+                                    
+                                    if (lesson.isCompleted()) {
+                                        findViewById(R.id.button_undo_mark_completed).setVisibility(View.VISIBLE);
+                                    } else {
+                                        findViewById(R.id.button_undo_mark_completed).setVisibility(View.GONE);
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                        
+                        if (!foundMatch) {
+                            // No matching lesson found
+                            Toast.makeText(this, "Could not find lecture lesson for the selected date", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    } else {
+                        // No lessons on this date
+                        Toast.makeText(this, "No lessons found for date: " + date, Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                });
+            } else {
+                // Missing required parameters
+                Toast.makeText(this, "Missing information to find lecture", Toast.LENGTH_SHORT).show();
+                finish();
             }
-        });
+        } else {
+            // Get lesson ID from intent
+            lessonId = getIntent().getStringExtra("LESSON_ID");
+            if (lessonId == null) {
+                Toast.makeText(this, "Error: Lesson ID is missing", Toast.LENGTH_SHORT).show();
+                finish();
+                return;
+            }
+
+            // Load lesson data
+            viewModel.getLessonById(lessonId).observe(this, lesson -> {
+                if (lesson != null) {
+                    currentLesson = lesson;
+                    populateView(lesson);
+
+                    // Show or hide the undo button based on lesson completion status
+                    if (lesson.isCompleted()) {
+                        undoMarkCompletedButton.setVisibility(View.VISIBLE);
+                    } else {
+                        undoMarkCompletedButton.setVisibility(View.GONE);
+                    }
+                }
+            });
+        }
 
         // Set up button click listeners
         addToCalendarButton.setOnClickListener(v -> addToCalendar());

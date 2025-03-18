@@ -72,11 +72,30 @@
             tools:text="Blind spots and driving" />
 
         <TextView
+            android:id="@+id/text_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:drawableStart="@drawable/ic_calendar"
+            android:drawablePadding="8dp"
+            android:fontFamily="sans-serif"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textSize="14sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@id/text_pages"
+            app:layout_constraintStart_toEndOf="@id/text_lecture_number"
+            app:layout_constraintTop_toBottomOf="@id/text_subject"
+            tools:text="March 19, 2023"
+            tools:visibility="visible" />
+
+        <TextView
             android:id="@+id/text_textbook"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:drawableStart="@drawable/ic_book"
@@ -88,7 +107,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/text_pages"
             app:layout_constraintStart_toEndOf="@id/text_lecture_number"
-            app:layout_constraintTop_toBottomOf="@id/text_subject"
+            app:layout_constraintTop_toBottomOf="@id/text_date"
             tools:text="Rules of the road" />
 
         <TextView

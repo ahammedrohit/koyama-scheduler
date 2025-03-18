@@ -7,6 +7,8 @@ public class LectureChapter {
     private String textBook;
     private String pages;
     private boolean isStep2;
+    private boolean isCompleted;
+    private String date; // Store lesson date
 
     public LectureChapter(int lectureNumber, String chapterNumber, String subject, String textBook, String pages, boolean isStep2) {
         this.lectureNumber = lectureNumber;
@@ -15,6 +17,8 @@ public class LectureChapter {
         this.textBook = textBook;
         this.pages = pages;
         this.isStep2 = isStep2;
+        this.isCompleted = false;
+        this.date = null; // Initialize with no date
     }
 
     public int getLectureNumber() { return lectureNumber; }
@@ -23,4 +27,9 @@ public class LectureChapter {
     public String getTextBook() { return textBook; }
     public String getPages() { return pages; }
     public boolean isStep2() { return isStep2; }
+    public boolean isCompleted() { return isCompleted; }
+    public void setCompleted(boolean completed) { isCompleted = completed; }
+    
+    public String getDate() { return date; }
+    public void setDate(String date) { this.date = date; }
 } 

@@ -2,6 +2,7 @@ package com.koyama.scheduler.ui;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.appbar.MaterialToolbar;
@@ -9,17 +10,22 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.koyama.scheduler.R;
 import com.koyama.scheduler.adapter.LectureStepPagerAdapter;
+import com.koyama.scheduler.viewmodel.LessonViewModel;
 
 public class LectureChaptersActivity extends AppCompatActivity {
 
     private ViewPager2 viewPager;
     private TabLayout tabLayout;
     private LectureStepPagerAdapter pagerAdapter;
+    private LessonViewModel lessonViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lecture_chapters);
+
+        // Initialize ViewModel
+        lessonViewModel = new ViewModelProvider(this).get(LessonViewModel.class);
 
         // Set up the toolbar
         MaterialToolbar toolbar = findViewById(R.id.toolbar);
