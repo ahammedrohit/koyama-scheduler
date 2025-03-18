@@ -77,18 +77,7 @@ public interface LessonDao {
 
     @Query("SELECT * FROM lessons WHERE isCompleted = 0 AND " +
            "(date = (SELECT MIN(date) FROM lessons WHERE isCompleted = 0 AND " +
-           "(date > :currentDate OR (date = :currentDate AND " +
-           "CASE " +
-           "  WHEN substr(startTime, -2) = 'PM' AND substr(:currentTime, -2) = 'AM' THEN 1 " +
-           "  WHEN substr(startTime, -2) = 'AM' AND substr(:currentTime, -2) = 'PM' THEN 0 " +
-           "  WHEN substr(startTime, -2) = substr(:currentTime, -2) THEN " +
-           "    CASE " +
-           "      WHEN CAST(substr(startTime, 0, instr(startTime, ':')) AS INTEGER) > CAST(substr(:currentTime, 0, instr(:currentTime, ':')) AS INTEGER) THEN 1 " +
-           "      WHEN CAST(substr(startTime, 0, instr(startTime, ':')) AS INTEGER) < CAST(substr(:currentTime, 0, instr(:currentTime, ':')) AS INTEGER) THEN 0 " +
-           "      ELSE CAST(substr(startTime, instr(startTime, ':')+1, 2) AS INTEGER) > CAST(substr(:currentTime, instr(:currentTime, ':')+1, 2) AS INTEGER) " +
-           "    END " +
-           "  ELSE 0 " +
-           "END = 1)))) " +
+           "date > :currentDate)) " +  
            "ORDER BY startTime ASC")
-    LiveData<List<Lesson>> getNextDayLessons(String currentDate, String currentTime);
+    LiveData<List<Lesson>> getNextDayLessons(String currentDate);
 }

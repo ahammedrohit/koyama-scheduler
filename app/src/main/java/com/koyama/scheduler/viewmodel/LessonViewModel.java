@@ -197,10 +197,10 @@ public class LessonViewModel extends AndroidViewModel {
         }
     }
 
-    public LiveData<List<Lesson>> getNextDayLessons(String currentDate, String currentTime) {
+    public LiveData<List<Lesson>> getNextDayLessons(String currentDate) {
         if (repository == null) {
             return new MutableLiveData<>(new ArrayList<>());
         }
-        return repository.getNextDayLessons(currentDate, currentTime);
+        return repository.getNextDayLessons(currentDate);
     }
 }

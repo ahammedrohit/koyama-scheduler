@@ -62,8 +62,8 @@ public class LessonRepository {
         return lessonDao.getLessonById(id);
     }
 
-    public LiveData<List<Lesson>> getNextDayLessons(String currentDate, String currentTime) {
-        return lessonDao.getNextDayLessons(currentDate, currentTime);
+    public LiveData<List<Lesson>> getNextDayLessons(String currentDate) {
+        return lessonDao.getNextDayLessons(currentDate);
     }
 
     public void insert(Lesson lesson) {

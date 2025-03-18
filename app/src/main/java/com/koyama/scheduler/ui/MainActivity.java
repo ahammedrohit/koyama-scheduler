@@ -206,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Log.d(TAG, "Current date: " + currentDate + ", Current time: " + currentTime);
         
         // Load all lessons for the next day
-        lessonViewModel.getNextDayLessons(currentDate, currentTime).observe(this, lessons -> {
+        lessonViewModel.getNextDayLessons(currentDate).observe(this, lessons -> {
             if (lessons == null || lessons.isEmpty()) {
                 Log.d(TAG, "No lessons found for next day");
                 nextDayEmpty.setVisibility(View.VISIBLE);
