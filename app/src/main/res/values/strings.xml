@@ -165,7 +165,7 @@
     <string name="come_and_join_us">Come and join us!</string>
     <string name="driving_school">パパル自動車学校</string>
     <string name="license_flow_chart">Driver\'s License Guide</string>
-    <string name="lecture_chapters">Lecture Chapters</string>
+    <string name="lecture_chapters">Lecture Curriculum</string>
     <string name="lecture_number_header">No.</string>
     <string name="chapter_number_header">Chapter</string>
     <string name="subject_header">Subject</string>
@@ -174,9 +174,13 @@
     <string name="first_step">1st Step</string>
     <string name="second_step">2nd Step</string>
     <string name="lecture_note">Note: This table shows all the lectures and chapters required to complete your driver\'s license course. Refer to your textbook \'Rules of the road\' for detailed information.</string>
-    <string name="traffic_terms">Traffic &amp; Vehicle Terms</string>
+    <string name="traffic_terms">Traffic Terms</string>
     <string name="alternative_terms">Alternative Terms</string>
     <string name="textbook_term">Textbook Term</string>
     <string name="alternative_term">Alternative Term</string>
     <string name="traffic_terms_tab">Traffic Terms</string>
+    <string name="license_guide">License Guide</string>
+    <string name="menu_previous_page">Previous</string>
+    <string name="no_lecture_chapters">No lecture chapters available</string>
+    <string name="lecture_step_indicator">Step %d</string>
 </resources>

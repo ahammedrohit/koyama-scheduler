@@ -103,6 +103,22 @@
         <item name="android:textColor">@color/text_secondary</item>
     </style>
 
+    <style name="TextAppearance.KoyamaScheduler.CollapsingTitle" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+    
+    <style name="TextAppearance.KoyamaScheduler.Tab" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+
     <!-- Shape Styles -->
     <style name="ShapeAppearance.KoyamaScheduler.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
         <item name="cornerFamily">rounded</item>

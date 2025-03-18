@@ -1,5 +1,6 @@
 package com.koyama.scheduler.adapter;
 
+import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import java.util.List;
 
 public class LectureChapterAdapter extends RecyclerView.Adapter<LectureChapterAdapter.ViewHolder> {
     private List<LectureChapter> chapters = new ArrayList<>();
+    private OnItemClickListener listener;
 
     @NonNull
     @Override
@@ -27,16 +29,37 @@ public class LectureChapterAdapter extends RecyclerView.Adapter<LectureChapterAd
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         LectureChapter chapter = chapters.get(position);
         
-        // Set alternating background colors
-        holder.itemView.setBackgroundColor(position % 2 == 0 ?
-                ContextCompat.getColor(holder.itemView.getContext(), android.R.color.white) :
-                ContextCompat.getColor(holder.itemView.getContext(), R.color.colorPrimaryLight));
-
+        // Set lecture number
         holder.lectureNumberView.setText(String.valueOf(chapter.getLectureNumber()));
+        
+        // Set chapter number
         holder.chapterNumberView.setText(chapter.getChapterNumber());
+        
+        // Set subject with appropriate formatting
         holder.subjectView.setText(chapter.getSubject());
+        
+        // Set textbook
         holder.textBookView.setText(chapter.getTextBook());
+        
+        // Set pages
         holder.pagesView.setText(chapter.getPages());
+        
+        // Set color based on step
+        View accentStrip = holder.itemView.findViewById(R.id.accent_strip);
+        if (chapter.isStep2()) {
+            accentStrip.setBackgroundTintList(ColorStateList.valueOf(
+                    ContextCompat.getColor(holder.itemView.getContext(), R.color.secondary)));
+        } else {
+            accentStrip.setBackgroundTintList(ColorStateList.valueOf(
+                    ContextCompat.getColor(holder.itemView.getContext(), R.color.primary)));
+        }
+        
+        // Set click listener
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onItemClick(chapter);
+            }
+        });
     }
 
     @Override
@@ -48,21 +71,29 @@ public class LectureChapterAdapter extends RecyclerView.Adapter<LectureChapterAd
         this.chapters = chapters;
         notifyDataSetChanged();
     }
-
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+    
+    public interface OnItemClickListener {
+        void onItemClick(LectureChapter chapter);
+    }
+    
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         final TextView lectureNumberView;
         final TextView chapterNumberView;
         final TextView subjectView;
         final TextView textBookView;
         final TextView pagesView;
 
-        ViewHolder(View view) {
-            super(view);
-            lectureNumberView = view.findViewById(R.id.text_lecture_number);
-            chapterNumberView = view.findViewById(R.id.text_chapter_number);
-            subjectView = view.findViewById(R.id.text_subject);
-            textBookView = view.findViewById(R.id.text_textbook);
-            pagesView = view.findViewById(R.id.text_pages);
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            lectureNumberView = itemView.findViewById(R.id.text_lecture_number);
+            chapterNumberView = itemView.findViewById(R.id.text_chapter_number);
+            subjectView = itemView.findViewById(R.id.text_subject);
+            textBookView = itemView.findViewById(R.id.text_textbook);
+            pagesView = itemView.findViewById(R.id.text_pages);
         }
     }
 } 

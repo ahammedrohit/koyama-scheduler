@@ -1,48 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="8dp">
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp"
+    app:strokeWidth="0dp"
+    app:cardBackgroundColor="?attr/colorSurface">
 
-    <TextView
-        android:id="@+id/text_lecture_number"
-        android:layout_width="48dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="14sp" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/text_chapter_number"
-        android:layout_width="96dp"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        android:textSize="14sp"
-        android:layout_marginStart="8dp" />
+        <View
+            android:id="@+id/accent_strip"
+            android:layout_width="6dp"
+            android:layout_height="0dp"
+            android:background="?attr/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/text_subject"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="start"
-        android:textSize="14sp"
-        android:layout_marginStart="8dp" />
+        <TextView
+            android:id="@+id/text_lecture_number"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_lecture_number"
+            android:elevation="1dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:textColor="?attr/colorOnPrimaryContainer"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/accent_strip"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="12" />
 
-    <TextView
-        android:id="@+id/text_textbook"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        android:textSize="14sp"
-        android:layout_marginStart="8dp" />
+        <TextView
+            android:id="@+id/text_chapter_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="?attr/colorSecondary"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/text_pages"
+            app:layout_constraintStart_toEndOf="@id/text_lecture_number"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="2nd step 4" />
 
-    <TextView
-        android:id="@+id/text_pages"
-        android:layout_width="72dp"
-        android:layout_height="wrap_content"
-        android:gravity="end"
-        android:textSize="14sp"
-        android:layout_marginStart="8dp" />
+        <TextView
+            android:id="@+id/text_subject"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="sans-serif"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@id/text_pages"
+            app:layout_constraintStart_toEndOf="@id/text_lecture_number"
+            app:layout_constraintTop_toBottomOf="@id/text_chapter_number"
+            tools:text="Blind spots and driving" />
 
-</LinearLayout> 
+        <TextView
+            android:id="@+id/text_textbook"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:drawableStart="@drawable/ic_book"
+            android:drawablePadding="8dp"
+            android:fontFamily="sans-serif"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/text_pages"
+            app:layout_constraintStart_toEndOf="@id/text_lecture_number"
+            app:layout_constraintTop_toBottomOf="@id/text_subject"
+            tools:text="Rules of the road" />
+
+        <TextView
+            android:id="@+id/text_pages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/bg_pages_chip"
+            android:fontFamily="sans-serif-medium"
+            android:paddingStart="12dp"
+            android:paddingTop="6dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="6dp"
+            android:textColor="?attr/colorOnPrimaryContainer"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="161~170" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView> 

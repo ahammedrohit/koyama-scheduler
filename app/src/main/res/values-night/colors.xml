@@ -21,6 +21,11 @@
     <color name="error_dark">#CF6679</color>           <!-- Red for errors -->
     <color name="on_error_dark">#212121</color>        <!-- Dark gray text on error color -->
 
+    <!-- Material You night colors -->
+    <color name="primary_container_dark">#0D47A1</color>  <!-- Dark blue container -->
+    <color name="on_primary_container_dark">#D6E4FF</color> <!-- Light blue text on container -->
+    <color name="on_surface_variant_dark">#B0B0B0</color> <!-- Light gray variant surface text -->
+
     <!-- Text colors -->
     <color name="text_primary_dark">#E0E0E0
     </color>    <!-- Light gray instead of pure white for text -->

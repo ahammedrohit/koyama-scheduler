@@ -13,7 +13,7 @@
         <item name="colorOnSecondary">@color/on_secondary_dark</item>
         
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/background_dark</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         
         <!-- Background colors -->
         <item name="android:colorBackground">@color/background_dark</item>
@@ -22,6 +22,11 @@
         <item name="colorOnSurface">@color/on_surface_dark</item>
         <item name="colorError">@color/error_dark</item>
         <item name="colorOnError">@color/on_error_dark</item>
+        
+        <!-- Material You night attributes -->
+        <item name="colorPrimaryContainer">@color/primary_container_dark</item>
+        <item name="colorOnPrimaryContainer">@color/on_primary_container_dark</item>
+        <item name="colorOnSurfaceVariant">@color/on_surface_variant_dark</item>
         
         <!-- Action Bar and popups -->
         <item name="actionBarPopupTheme">@style/ThemeOverlay.MaterialComponents.Dark</item>

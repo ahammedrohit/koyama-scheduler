@@ -23,6 +23,11 @@
         <item name="colorError">@color/error</item>
         <item name="colorOnError">@color/on_error</item>
         
+        <!-- New Material You attributes -->
+        <item name="colorPrimaryContainer">@color/primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/on_primary_container</item>
+        <item name="colorOnSurfaceVariant">@color/on_surface_variant</item>
+        
         <!-- Action Bar and popups -->
         <item name="actionBarPopupTheme">@style/ThemeOverlay.MaterialComponents.Light</item>
         
