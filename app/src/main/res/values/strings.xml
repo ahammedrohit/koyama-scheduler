@@ -174,4 +174,9 @@
     <string name="first_step">1st Step</string>
     <string name="second_step">2nd Step</string>
     <string name="lecture_note">Note: This table shows all the lectures and chapters required to complete your driver\'s license course. Refer to your textbook \'Rules of the road\' for detailed information.</string>
+    <string name="traffic_terms">Traffic &amp; Vehicle Terms</string>
+    <string name="alternative_terms">Alternative Terms</string>
+    <string name="textbook_term">Textbook Term</string>
+    <string name="alternative_term">Alternative Term</string>
+    <string name="traffic_terms_tab">Traffic Terms</string>
 </resources>

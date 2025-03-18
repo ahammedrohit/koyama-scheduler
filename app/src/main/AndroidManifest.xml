@@ -53,6 +53,10 @@
             android:name=".ui.LectureChaptersActivity"
             android:parentActivityName=".ui.MainActivity" />
             
+        <activity
+            android:name=".ui.TrafficTermsActivity"
+            android:parentActivityName=".ui.MainActivity" />
+            
     </application>
 
 </manifest>

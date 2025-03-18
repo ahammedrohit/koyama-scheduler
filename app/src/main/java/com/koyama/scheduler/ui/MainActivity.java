@@ -28,6 +28,7 @@ import com.koyama.scheduler.adapter.NumberedLessonAdapter;
 import com.koyama.scheduler.data.model.Lesson;
 import com.koyama.scheduler.util.AbbreviationHelper;
 import com.koyama.scheduler.viewmodel.LessonViewModel;
+import com.koyama.scheduler.ui.TrafficTermsActivity;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -133,16 +134,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
         int id = item.getItemId();
-        
+
         if (id == R.id.nav_home) {
-            // Already on home, just close drawer
-            drawerLayout.closeDrawer(GravityCompat.START);
+            // Handle the home action
+            // Already on home screen, so just close drawer
+            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+            return true;
         } else if (id == R.id.nav_calendar) {
+            // Open the calendar view
             Intent intent = new Intent(MainActivity.this, CalendarViewActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_all_schedules) {
+            // Open the all schedules view
             Intent intent = new Intent(MainActivity.this, AllSchedulesActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_abbreviations) {
@@ -154,15 +161,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_lecture_chapters) {
             Intent intent = new Intent(MainActivity.this, LectureChaptersActivity.class);
             startActivity(intent);
+        } else if (id == R.id.nav_traffic_terms) {
+            Intent intent = new Intent(MainActivity.this, TrafficTermsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_profile) {
             // TODO: Implement profile screen
-            Toast.makeText(this, "Profile feature coming soon", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_settings) {
+            // Open the settings
             Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
             startActivity(intent);
         }
-        
-        drawerLayout.closeDrawer(GravityCompat.START);
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
     

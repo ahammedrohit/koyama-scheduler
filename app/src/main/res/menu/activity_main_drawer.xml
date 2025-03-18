@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_home"
+            android:title="Home" />
+
+        <item
+            android:id="@+id/nav_calendar"
+            android:icon="@drawable/ic_menu_calendar"
+            android:title="Calendar" />
+
+        <item
+            android:id="@+id/nav_all_schedules"
+            android:icon="@drawable/ic_menu_list"
+            android:title="All Schedules" />
+
+        <item
+            android:id="@+id/nav_abbreviations"
+            android:icon="@drawable/ic_menu_info"
+            android:title="Abbreviations Guide" />
+
+        <item
+            android:id="@+id/nav_license_guide"
+            android:icon="@drawable/ic_menu_guide"
+            android:title="Driver's License Guide" />
+
+        <item
+            android:id="@+id/nav_lecture_chapters"
+            android:icon="@drawable/ic_menu_book"
+            android:title="Lecture Chapters" />
+
+        <item
+            android:id="@+id/nav_traffic_terms"
+            android:icon="@drawable/ic_menu_translate"
+            android:title="Traffic Terms" />
+    </group>
+
+    <group android:id="@+id/account_group">
+        <item android:title="Account">
+            <menu>
+                <item
+                    android:id="@+id/nav_profile"
+                    android:icon="@drawable/ic_menu_person"
+                    android:title="Profile" />
+
+                <item
+                    android:id="@+id/nav_settings"
+                    android:icon="@drawable/ic_menu_settings"
+                    android:title="Settings" />
+            </menu>
+        </item>
+    </group>
+</menu> 
