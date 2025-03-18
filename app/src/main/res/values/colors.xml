@@ -5,9 +5,19 @@
     <color name="primary_variant">#000000</color>    <!-- Black -->
     <color name="on_primary">#FFFFFF</color>         <!-- White text on dark primary -->
     
+    <!-- Missing colors from dark theme -->
+    <color name="primary_dark">#7DA8F5</color>         <!-- Slightly muted blue for primary accents -->
+    <color name="primary_variant_dark">#5B8DEF</color> <!-- Slightly darker blue variant -->
+    <color name="on_primary_dark">#141414</color>      <!-- Very dark gray instead of pure black -->
+    
     <color name="secondary">#424242</color>          <!-- Medium dark gray -->
     <color name="secondary_variant">#1F1F1F</color>  <!-- Almost black -->
     <color name="on_secondary">#FFFFFF</color>       <!-- White text on dark secondary -->
+    
+    <!-- Missing colors from dark theme -->
+    <color name="secondary_dark">#ADADAD</color>       <!-- Medium gray -->
+    <color name="secondary_variant_dark">#8A8A8A</color> <!-- Darker gray -->
+    <color name="on_secondary_dark">#212121</color>    <!-- Dark gray on light colors -->
     
     <color name="background">#FFFFFF</color>         <!-- Pure white background -->
     <color name="surface">#FFFFFF</color>            <!-- White surface -->
@@ -15,6 +25,14 @@
     <color name="on_background">#121212</color>      <!-- Black text on white background -->
     <color name="on_surface">#121212</color>         <!-- Black text on white surface -->
     <color name="on_error">#000000</color>           <!-- Black text on error -->
+    
+    <!-- Missing colors from dark theme -->
+    <color name="background_dark">#121212</color>      <!-- Dark gray instead of pure black for background -->
+    <color name="surface_dark">#1E1E1E</color>         <!-- Slightly lighter surface for cards -->
+    <color name="on_background_dark">#E0E0E0</color>   <!-- Light gray instead of pure white for better eye comfort -->
+    <color name="on_surface_dark">#E0E0E0</color>      <!-- Light gray text on dark surfaces -->
+    <color name="error_dark">#CF6679</color>           <!-- Red for errors -->
+    <color name="on_error_dark">#212121</color>        <!-- Dark gray text on error color -->
     
     <!-- Lesson Type Colors - Material You palette -->
     <color name="lesson_at">#81C995</color>          <!-- Green -->
@@ -50,8 +68,12 @@
     <color name="text_disabled">#757575</color>      <!-- Medium gray for disabled text -->
     <color name="icon_color">#424242</color>         <!-- Dark gray for icons -->
     
+    <!-- Missing dark theme text color -->
+    <color name="text_disabled_dark">#757575</color>   <!-- Darker gray for disabled text -->
+    
     <!-- Card background color -->
     <color name="card_background">#FAFAFA</color>    <!-- Slightly off-white for card backgrounds -->
+    <color name="card_background_dark">#232323</color> <!-- Slightly lighter than background for cards -->
     
     <!-- Launcher icon colors -->
     <color name="ic_launcher_background">#212121</color>
