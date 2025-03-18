@@ -106,11 +106,26 @@ public class CalendarMonthlyFragment extends BaseCalendarFragment {
     }
 
     private void updateLessonsList() {
+        // Create a fresh list for the selected date
         List<Lesson> lessonsForDate = new ArrayList<>();
+        
+        // Make sure we have lessons data first
+        if (lessons == null || lessons.isEmpty()) {
+            emptyView.setVisibility(View.VISIBLE);
+            lessonsRecyclerView.setVisibility(View.GONE);
+            return;
+        }
+        
+        // Log for debugging
+        String selectedDateStr = selectedDate.toString();
+        boolean foundLessons = false;
+        
+        // Find all lessons for the selected date
         for (Lesson lesson : lessons) {
             try {
-                if (lesson.getDate().equals(selectedDate.toString())) {
+                if (lesson.getDate() != null && lesson.getDate().equals(selectedDateStr)) {
                     lessonsForDate.add(lesson);
+                    foundLessons = true;
                 }
             } catch (Exception e) {
                 // Skip invalid lessons
@@ -118,15 +133,24 @@ public class CalendarMonthlyFragment extends BaseCalendarFragment {
         }
 
         // Sort lessons by start time
-        lessonsForDate.sort((l1, l2) -> l1.getStartTime().compareTo(l2.getStartTime()));
+        lessonsForDate.sort((l1, l2) -> {
+            if (l1.getStartTime() == null) return 1;
+            if (l2.getStartTime() == null) return -1;
+            return l1.getStartTime().compareTo(l2.getStartTime());
+        });
 
+        // Update UI based on whether we found lessons
         if (lessonsForDate.isEmpty()) {
             emptyView.setVisibility(View.VISIBLE);
             lessonsRecyclerView.setVisibility(View.GONE);
         } else {
             emptyView.setVisibility(View.GONE);
             lessonsRecyclerView.setVisibility(View.VISIBLE);
-            adapter.setLessons(lessonsForDate);
+            
+            // Force refresh the adapter
+            adapter.setLessons(new ArrayList<>()); // Clear first
+            adapter.setLessons(lessonsForDate);   // Then set new data
+            adapter.notifyDataSetChanged();      // Explicitly notify of changes
             
             // Scroll to the top when showing new lessons
             if (lessonsRecyclerView.getLayoutManager() != null) {
@@ -221,9 +245,18 @@ public class CalendarMonthlyFragment extends BaseCalendarFragment {
         }
 
         dayView.setOnClickListener(v -> {
+            // Update selected date
             selectedDate = date;
+            
+            // Update the UI to show the selected date text
             updateSelectedDateView();
-            updateCalendar(); // To refresh the selected day highlight
+            
+            // Update the calendar grid to refresh the selected day highlight
+            updateCalendar();
+            
+            // Force a refresh of the lessons list for this date
+            // This is important to ensure data is shown when first clicking a date
+            showLessonsForSelectedDate(date);
         });
         calendarGrid.addView(dayView, params);
     }
@@ -244,19 +277,54 @@ public class CalendarMonthlyFragment extends BaseCalendarFragment {
         List<Lesson> lessonsForDate = new ArrayList<>();
         
         for (Lesson lesson : lessons) {
-            if (lesson.getDate().equals(date.toString())) {
-                lessonsForDate.add(lesson);
+            try {
+                if (lesson.getDate() != null && lesson.getDate().equals(date.toString())) {
+                    lessonsForDate.add(lesson);
+                }
+            } catch (Exception e) {
+                // Skip invalid lessons
             }
         }
-
-        if (!lessonsForDate.isEmpty()) {
-            // Open the lesson detail activity for the first lesson of the day
-            openLessonDetail(lessonsForDate.get(0));
+        
+        // Sort lessons by start time
+        lessonsForDate.sort((l1, l2) -> {
+            if (l1.getStartTime() == null) return 1;
+            if (l2.getStartTime() == null) return -1;
+            return l1.getStartTime().compareTo(l2.getStartTime());
+        });
+        
+        // Force refresh the adapter with the selected date's lessons
+        if (lessonsForDate.isEmpty()) {
+            emptyView.setVisibility(View.VISIBLE);
+            lessonsRecyclerView.setVisibility(View.GONE);
         } else {
-            Toast.makeText(getContext(),
-                    String.format("No lessons on %s", 
-                        date.format(DateTimeFormatter.ofPattern("MMM d, yyyy"))),
-                    Toast.LENGTH_SHORT).show();
+            emptyView.setVisibility(View.GONE);
+            lessonsRecyclerView.setVisibility(View.VISIBLE);
+            
+            // Force adapter refresh
+            adapter.setLessons(new ArrayList<>()); // Clear first
+            adapter.setLessons(lessonsForDate);    // Then set new data
+            adapter.notifyDataSetChanged();        // Explicitly notify of changes
+            
+            // Scroll to the top
+            lessonsRecyclerView.scrollToPosition(0);
+        }
+    }
+
+    @Override
+    public void setLessons(List<Lesson> lessons) {
+        if (lessons != null) {
+            this.lessons = lessons;
+            if (isAdded() && getView() != null) {
+                // First update the calendar grid to show lesson indicators
+                updateCalendar();
+                
+                // Then make sure to update the currently selected date's lesson list
+                updateSelectedDateView();
+                
+                // Explicitly refresh lessons for the selected date to ensure they're shown
+                showLessonsForSelectedDate(selectedDate);
+            }
         }
     }
 }
