@@ -148,6 +148,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_abbreviations) {
             Intent intent = new Intent(MainActivity.this, AbbreviationsGuideActivity.class);
             startActivity(intent);
+        } else if (id == R.id.nav_license_guide) {
+            Intent intent = new Intent(MainActivity.this, LicenseGuideActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_lecture_chapters) {
+            Intent intent = new Intent(MainActivity.this, LectureChaptersActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_profile) {
             // TODO: Implement profile screen
             Toast.makeText(this, "Profile feature coming soon", Toast.LENGTH_SHORT).show();

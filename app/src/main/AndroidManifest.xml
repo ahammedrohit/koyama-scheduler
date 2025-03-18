@@ -45,6 +45,14 @@
             android:name=".ui.AbbreviationsGuideActivity"
             android:parentActivityName=".ui.MainActivity" />
             
+        <activity
+            android:name=".ui.LicenseGuideActivity"
+            android:parentActivityName=".ui.MainActivity" />
+            
+        <activity
+            android:name=".ui.LectureChaptersActivity"
+            android:parentActivityName=".ui.MainActivity" />
+            
     </application>
 
 </manifest>

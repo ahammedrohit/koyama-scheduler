@@ -17,6 +17,14 @@
             android:id="@+id/nav_abbreviations"
             android:icon="@drawable/ic_assignment"
             android:title="@string/abbreviations_guide" />
+        <item
+            android:id="@+id/nav_license_guide"
+            android:icon="@drawable/ic_license"
+            android:title="@string/license_flow_chart" />
+        <item
+            android:id="@+id/nav_lecture_chapters"
+            android:icon="@drawable/ic_lecture"
+            android:title="@string/lecture_chapters" />
     </group>
     
     <item android:title="@string/account">

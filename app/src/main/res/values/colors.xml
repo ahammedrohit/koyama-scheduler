@@ -82,4 +82,8 @@
     <color name="text_primary_dark">#FFFFFF</color>  <!-- White for primary text in dark theme -->
     <color name="text_secondary_dark">#BDBDBD</color><!-- Light gray for secondary text in dark theme -->
     <color name="white">#FFFFFF</color>              <!-- Pure white -->
+    
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#1976D2</color>
+    <color name="colorPrimaryLight">#BBDEFB</color>
 </resources>
