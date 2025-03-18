@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.tabs.TabLayout;
 import com.koyama.scheduler.R;
 import com.koyama.scheduler.adapter.TrafficTermAdapter;
 import com.koyama.scheduler.model.TrafficTerm;
@@ -16,6 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TrafficTermsFragment extends Fragment {
+
+    private RecyclerView recyclerView;
+    private TrafficTermAdapter adapter;
 
     @Nullable
     @Override
@@ -27,12 +31,39 @@ public class TrafficTermsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         
         List<TrafficTerm> terms = getTrafficTerms();
-        TrafficTermAdapter adapter = new TrafficTermAdapter(terms);
+        adapter = new TrafficTermAdapter(terms);
         recyclerView.setAdapter(adapter);
+
+        // Set up language tabs
+        TabLayout languageTabLayout = view.findViewById(R.id.languageTabLayout);
+        languageTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                // Handle tab selection (Japanese or English)
+                // You can implement filtering or sorting based on the selected language
+                if (tab.getPosition() == 0) {
+                    // Japanese selected
+                    // Currently displaying both languages by default
+                } else {
+                    // English selected
+                    // If you want to implement filtering by language, do it here
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                // Not needed for this implementation
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                // Not needed for this implementation
+            }
+        });
     }
 
     private List<TrafficTerm> getTrafficTerms() {

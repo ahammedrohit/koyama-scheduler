@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.tabs.TabLayout;
 import com.koyama.scheduler.R;
 import com.koyama.scheduler.adapter.AlternativeTermAdapter;
 import com.koyama.scheduler.model.AlternativeTerm;
@@ -16,6 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AlternativeTermsFragment extends Fragment {
+
+    private RecyclerView recyclerView;
+    private AlternativeTermAdapter adapter;
 
     @Nullable
     @Override
@@ -27,12 +31,39 @@ public class AlternativeTermsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         
         List<AlternativeTerm> terms = getAlternativeTerms();
-        AlternativeTermAdapter adapter = new AlternativeTermAdapter(terms);
+        adapter = new AlternativeTermAdapter(terms);
         recyclerView.setAdapter(adapter);
+
+        // Set up terms tabs
+        TabLayout termsTabLayout = view.findViewById(R.id.termsTabLayout);
+        termsTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                // Handle tab selection (Text Book or Alternative)
+                // You can implement filtering or sorting based on the selected term type
+                if (tab.getPosition() == 0) {
+                    // Text Book selected
+                    // Currently displaying both terms by default
+                } else {
+                    // Alternative selected
+                    // If you want to implement filtering by term type, do it here
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                // Not needed for this implementation
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                // Not needed for this implementation
+            }
+        });
     }
 
     private List<AlternativeTerm> getAlternativeTerms() {
