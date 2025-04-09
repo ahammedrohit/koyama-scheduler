@@ -19,7 +19,7 @@ import com.koyama.scheduler.data.model.Lesson;
 /**
  * Main database class for the application
  */
-@Database(entities = {Lesson.class}, version = 1, exportSchema = false)
+@Database(entities = {Lesson.class}, version = 3, exportSchema = false)
 @TypeConverters({TimeConverters.class})
 public abstract class AppDatabase extends RoomDatabase {
     private static final String TAG = "AppDatabase";
@@ -55,53 +55,87 @@ public abstract class AppDatabase extends RoomDatabase {
                 lessonDao.insertLesson(new Lesson("10", "2025-03-30", "11:40 AM", "12:30 PM", "7", "", ""));
                 lessonDao.insertLesson(new Lesson("11", "2025-03-30", "12:40 PM", "1:30 PM", "9", "", ""));
 
-                // April 2025
+                // April 2025 (original entries for April 1)
                 lessonDao.insertLesson(new Lesson("12", "2025-04-01", "6:40 PM", "7:30 PM", "AT", "", ""));
                 lessonDao.insertLesson(new Lesson("13", "2025-04-01", "7:40 PM", "8:30 PM", "AT", "", ""));
-                lessonDao.insertLesson(new Lesson("14", "2025-04-08", "6:40 PM", "7:30 PM", "AT", "", ""));
-                lessonDao.insertLesson(new Lesson("15", "2025-04-08", "7:40 PM", "8:30 PM", "2", "", ""));
-                lessonDao.insertLesson(new Lesson("16", "2025-04-13", "2:30 PM", "3:20 PM", "PT", "", ""));
-                lessonDao.insertLesson(new Lesson("17", "2025-04-13", "3:30 PM", "4:20 PM", "PT", "", ""));
-                lessonDao.insertLesson(new Lesson("18", "2025-04-13", "4:30 PM", "5:20 PM", "AT", "", ""));
-                lessonDao.insertLesson(new Lesson("19", "2025-04-13", "5:40 PM", "6:30 PM", "10", "", ""));
-                lessonDao.insertLesson(new Lesson("20", "2025-04-17", "6:40 PM", "7:30 PM", "AT", "", ""));
-                lessonDao.insertLesson(new Lesson("21", "2025-04-17", "7:40 PM", "8:30 PM", "4", "", ""));
-                lessonDao.insertLesson(new Lesson("22", "2025-04-20", "2:30 PM", "3:20 PM", "PT", "", ""));
-                lessonDao.insertLesson(new Lesson("23", "2025-04-20", "3:30 PM", "4:20 PM", "PT", "", ""));
-                lessonDao.insertLesson(new Lesson("24", "2025-04-20", "4:30 PM", "5:20 PM", "AT", "", ""));
-                lessonDao.insertLesson(new Lesson("25", "2025-04-20", "5:40 PM", "6:30 PM", "AT", "", ""));
-                lessonDao.insertLesson(new Lesson("26", "2025-04-24", "6:40 PM", "7:30 PM", "AT", "", ""));
-                lessonDao.insertLesson(new Lesson("27", "2025-04-24", "7:40 PM", "8:30 PM", "AT", "", ""));
+
+                // April 2025 (updated entries)
+                lessonDao.insertLesson(new Lesson("14", "2025-04-13", "2:30 PM", "3:20 PM", "AT", "", ""));
+                lessonDao.insertLesson(new Lesson("15", "2025-04-13", "4:30 PM", "5:20 PM", "AT", "", ""));
+                lessonDao.insertLesson(new Lesson("16", "2025-04-13", "5:40 PM", "6:30 PM", "10", "", ""));
+                
+                lessonDao.insertLesson(new Lesson("17", "2025-04-17", "6:40 PM", "7:30 PM", "AT", "", ""));
+                lessonDao.insertLesson(new Lesson("18", "2025-04-17", "7:40 PM", "8:30 PM", "4", "", ""));
+                
+                lessonDao.insertLesson(new Lesson("19", "2025-04-20", "10:40 AM", "11:30 AM", "2", "", ""));
+                lessonDao.insertLesson(new Lesson("20", "2025-04-20", "11:40 AM", "12:30 PM", "PT", "", ""));
+                lessonDao.insertLesson(new Lesson("21", "2025-04-20", "2:30 PM", "3:20 PM", "PT", "", ""));
+                lessonDao.insertLesson(new Lesson("22", "2025-04-20", "3:30 PM", "4:20 PM", "PT", "", ""));
+                lessonDao.insertLesson(new Lesson("23", "2025-04-20", "4:30 PM", "5:20 PM", "AT", "", ""));
+                lessonDao.insertLesson(new Lesson("24", "2025-04-20", "5:40 PM", "6:30 PM", "AT", "", ""));
+                
+                lessonDao.insertLesson(new Lesson("25", "2025-04-24", "6:40 PM", "7:30 PM", "AT", "", ""));
+                lessonDao.insertLesson(new Lesson("26", "2025-04-24", "7:40 PM", "8:30 PM", "AT", "", ""));
+                
+                lessonDao.insertLesson(new Lesson("27", "2025-04-26", "12:30 PM", "1:30 PM", "LEARNER_TEST", "", "Learner's Test"));
 
                 // May 2025
                 lessonDao.insertLesson(new Lesson("28", "2025-05-03", "11:40 AM", "12:30 PM", "22", "", ""));
                 lessonDao.insertLesson(new Lesson("29", "2025-05-03", "12:40 PM", "1:30 PM", "23", "", ""));
-                lessonDao.insertLesson(new Lesson("30", "2025-05-03", "2:30 PM", "3:20 PM", "CPR", "", ""));
-                lessonDao.insertLesson(new Lesson("31", "2025-05-03", "3:30 PM", "4:20 PM", "CPR", "", ""));
-                lessonDao.insertLesson(new Lesson("32", "2025-05-03", "4:30 PM", "5:20 PM", "CPR", "", ""));
-                lessonDao.insertLesson(new Lesson("33", "2025-05-04", "3:30 PM", "4:20 PM", "20", "", ""));
-                lessonDao.insertLesson(new Lesson("34", "2025-05-04", "4:30 PM", "5:20 PM", "A50", "", ""));
-                lessonDao.insertLesson(new Lesson("35", "2025-05-04", "5:40 PM", "6:30 PM", "A50", "", ""));
-                lessonDao.insertLesson(new Lesson("36", "2025-05-06", "4:30 PM", "5:20 PM", "14", "", ""));
-                lessonDao.insertLesson(new Lesson("37", "2025-05-06", "5:40 PM", "6:30 PM", "19", "", ""));
-                lessonDao.insertLesson(new Lesson("38", "2025-05-07", "6:40 PM", "7:30 PM", "12", "", ""));
-                lessonDao.insertLesson(new Lesson("39", "2025-05-07", "7:40 PM", "8:30 PM", "13", "", ""));
-                lessonDao.insertLesson(new Lesson("40", "2025-05-13", "6:40 PM", "7:30 PM", "A50", "", ""));
-                lessonDao.insertLesson(new Lesson("41", "2025-05-13", "7:40 PM", "8:30 PM", "A50", "", ""));
-                lessonDao.insertLesson(new Lesson("42", "2025-05-14", "6:40 PM", "7:30 PM", "17", "", ""));
-                lessonDao.insertLesson(new Lesson("43", "2025-05-14", "7:40 PM", "8:30 PM", "18", "", ""));
-                lessonDao.insertLesson(new Lesson("44", "2025-05-17", "2:30 PM", "3:20 PM", "A50", "", ""));
-                lessonDao.insertLesson(new Lesson("45", "2025-05-17", "3:30 PM", "4:20 PM", "A50", "", ""));
-                lessonDao.insertLesson(new Lesson("46", "2025-05-17", "4:30 PM", "5:20 PM", "15", "", ""));
-                lessonDao.insertLesson(new Lesson("47", "2025-05-17", "5:40 PM", "6:30 PM", "16", "", ""));
-                lessonDao.insertLesson(new Lesson("48", "2025-05-21", "6:40 PM", "7:30 PM", "A50", "", ""));
-                lessonDao.insertLesson(new Lesson("49", "2025-05-21", "7:40 PM", "8:30 PM", "A50", "", ""));
-                lessonDao.insertLesson(new Lesson("50", "2025-05-24", "4:30 PM", "5:20 PM", "ATP", "", ""));
-                lessonDao.insertLesson(new Lesson("51", "2025-05-24", "5:40 PM", "6:30 PM", "11", "", ""));
-                lessonDao.insertLesson(new Lesson("52", "2025-05-27", "6:40 PM", "7:30 PM", "ATP", "", ""));
-                lessonDao.insertLesson(new Lesson("53", "2025-05-27", "7:40 PM", "8:30 PM", "ATP", "", ""));
-                lessonDao.insertLesson(new Lesson("54", "2025-05-28", "6:40 PM", "7:30 PM", "APS", "", ""));
-                lessonDao.insertLesson(new Lesson("55", "2025-05-28", "7:40 PM", "8:30 PM", "APS", "", ""));
+                
+                lessonDao.insertLesson(new Lesson("30", "2025-05-04", "3:30 PM", "4:20 PM", "20", "", ""));
+                lessonDao.insertLesson(new Lesson("31", "2025-05-04", "4:30 PM", "5:20 PM", "A50", "", ""));
+                lessonDao.insertLesson(new Lesson("32", "2025-05-04", "5:40 PM", "6:30 PM", "A50", "", ""));
+                
+                lessonDao.insertLesson(new Lesson("33", "2025-05-06", "4:30 PM", "5:20 PM", "14", "", ""));
+                lessonDao.insertLesson(new Lesson("34", "2025-05-06", "5:40 PM", "6:30 PM", "19", "", ""));
+                
+                lessonDao.insertLesson(new Lesson("35", "2025-05-07", "6:40 PM", "7:30 PM", "12", "", ""));
+                lessonDao.insertLesson(new Lesson("36", "2025-05-07", "7:40 PM", "8:30 PM", "13", "", ""));
+                
+                lessonDao.insertLesson(new Lesson("37", "2025-05-13", "6:40 PM", "7:30 PM", "A50", "", ""));
+                lessonDao.insertLesson(new Lesson("38", "2025-05-13", "7:40 PM", "8:30 PM", "A50", "", ""));
+                
+                lessonDao.insertLesson(new Lesson("39", "2025-05-14", "6:40 PM", "7:30 PM", "17", "", ""));
+                lessonDao.insertLesson(new Lesson("40", "2025-05-14", "7:40 PM", "8:30 PM", "18", "", ""));
+                
+                lessonDao.insertLesson(new Lesson("41", "2025-05-17", "2:30 PM", "3:20 PM", "A50", "", ""));
+                lessonDao.insertLesson(new Lesson("42", "2025-05-17", "3:30 PM", "4:20 PM", "A50", "", ""));
+                lessonDao.insertLesson(new Lesson("43", "2025-05-17", "4:30 PM", "5:20 PM", "15", "", ""));
+                lessonDao.insertLesson(new Lesson("44", "2025-05-17", "5:40 PM", "6:30 PM", "16", "", ""));
+                
+                lessonDao.insertLesson(new Lesson("45", "2025-05-21", "6:40 PM", "7:30 PM", "A50", "", ""));
+                lessonDao.insertLesson(new Lesson("46", "2025-05-21", "7:40 PM", "8:30 PM", "A50", "", ""));
+                
+                lessonDao.insertLesson(new Lesson("47", "2025-05-24", "4:30 PM", "5:20 PM", "ATP", "", ""));
+                lessonDao.insertLesson(new Lesson("48", "2025-05-24", "5:40 PM", "6:30 PM", "11", "", ""));
+                
+                lessonDao.insertLesson(new Lesson("49", "2025-05-27", "6:40 PM", "7:30 PM", "ATP", "", ""));
+                lessonDao.insertLesson(new Lesson("50", "2025-05-27", "7:40 PM", "8:30 PM", "ATP", "", ""));
+                
+                lessonDao.insertLesson(new Lesson("51", "2025-05-28", "6:40 PM", "7:30 PM", "APS", "", ""));
+                lessonDao.insertLesson(new Lesson("52", "2025-05-28", "7:40 PM", "8:30 PM", "APS", "", ""));
+                
+                lessonDao.insertLesson(new Lesson("53", "2025-05-31", "9:40 AM", "10:30 AM", "CDD", "", ""));
+                lessonDao.insertLesson(new Lesson("54", "2025-05-31", "10:40 AM", "11:30 AM", "21", "", ""));
+
+                // June 2025
+                lessonDao.insertLesson(new Lesson("55", "2025-06-01", "10:40 AM", "11:30 AM", "CPR", "", ""));
+                lessonDao.insertLesson(new Lesson("56", "2025-06-01", "11:40 AM", "12:30 PM", "CPR", "", ""));
+                lessonDao.insertLesson(new Lesson("57", "2025-06-01", "12:40 PM", "1:30 PM", "CPR", "", ""));
+                
+                lessonDao.insertLesson(new Lesson("58", "2025-06-07", "3:30 PM", "4:20 PM", "EX&RD", "", ""));
+                lessonDao.insertLesson(new Lesson("59", "2025-06-07", "4:30 PM", "5:20 PM", "EX&RD", "", ""));
+                lessonDao.insertLesson(new Lesson("60", "2025-06-07", "5:40 PM", "6:30 PM", "EX&RD", "", ""));
+                
+                lessonDao.insertLesson(new Lesson("61", "2025-06-08", "2:30 PM", "3:20 PM", "PT", "", ""));
+                lessonDao.insertLesson(new Lesson("62", "2025-06-08", "3:30 PM", "4:20 PM", "PT", "", ""));
+                lessonDao.insertLesson(new Lesson("63", "2025-06-08", "4:30 PM", "5:20 PM", "A50", "", ""));
+                
+                lessonDao.insertLesson(new Lesson("64", "2025-06-14", "2:30 PM", "3:20 PM", "A50", "", ""));
+                lessonDao.insertLesson(new Lesson("65", "2025-06-14", "3:30 PM", "4:20 PM", "A50", "", ""));
+                
+                lessonDao.insertLesson(new Lesson("66", "2025-06-15", "10:00 AM", "11:00 AM", "FINAL_TEST", "", "Final Test"));
 
                 Log.d(TAG, "Updated lessons inserted into the database");
             });

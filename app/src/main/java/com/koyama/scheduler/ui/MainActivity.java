@@ -192,7 +192,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(intent);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        
+        // Reload data from database when the activity resumes
+        // This ensures the UI shows the latest data
+        Log.d(TAG, "Activity resumed, reloading data from database");
+        loadData();
+    }
+
     private void loadData() {
+        // Clear adapters first to remove any cached data
+        if (todayAdapter != null) {
+            todayAdapter.setLessons(new ArrayList<>());
+        }
+        
+        if (nextDayAdapter != null) {
+            nextDayAdapter.setLessons(new ArrayList<>());
+        }
+        
         // Get the current date and time
         String currentDate = LocalDate.now().toString();
         

@@ -41,18 +41,21 @@ public class LectureChapterAdapter extends RecyclerView.Adapter<LectureChapterAd
     static {
         // Initialize the mapping for all lectures
         // Format: lectureNumber -> (date, eventType)
+        // March 2025 lectures
         LECTURE_MAPPINGS.put(1, new LectureLessonMapping("2025-03-15", "1"));
-        LECTURE_MAPPINGS.put(2, new LectureLessonMapping("2025-04-08", "2"));
         LECTURE_MAPPINGS.put(3, new LectureLessonMapping("2025-03-27", "3"));
-        LECTURE_MAPPINGS.put(4, new LectureLessonMapping("2025-04-17", "4"));
         LECTURE_MAPPINGS.put(5, new LectureLessonMapping("2025-03-26", "5"));
         LECTURE_MAPPINGS.put(6, new LectureLessonMapping("2025-03-19", "6"));
         LECTURE_MAPPINGS.put(7, new LectureLessonMapping("2025-03-30", "7"));
         LECTURE_MAPPINGS.put(8, new LectureLessonMapping("2025-03-19", "8"));
         LECTURE_MAPPINGS.put(9, new LectureLessonMapping("2025-03-30", "9"));
+        
+        // Updated mappings for April 2025
+        LECTURE_MAPPINGS.put(2, new LectureLessonMapping("2025-04-20", "2"));
+        LECTURE_MAPPINGS.put(4, new LectureLessonMapping("2025-04-17", "4"));
         LECTURE_MAPPINGS.put(10, new LectureLessonMapping("2025-04-13", "10"));
         
-        // 2nd step lectures (11-24)
+        // May 2025 lectures
         LECTURE_MAPPINGS.put(11, new LectureLessonMapping("2025-05-24", "11"));
         LECTURE_MAPPINGS.put(12, new LectureLessonMapping("2025-05-07", "12"));
         LECTURE_MAPPINGS.put(13, new LectureLessonMapping("2025-05-07", "13"));
@@ -63,10 +66,12 @@ public class LectureChapterAdapter extends RecyclerView.Adapter<LectureChapterAd
         LECTURE_MAPPINGS.put(18, new LectureLessonMapping("2025-05-14", "18"));
         LECTURE_MAPPINGS.put(19, new LectureLessonMapping("2025-05-06", "19"));
         LECTURE_MAPPINGS.put(20, new LectureLessonMapping("2025-05-04", "20"));
-        LECTURE_MAPPINGS.put(21, new LectureLessonMapping("2025-05-03", "21", "CPR")); // Special case - CPR
+        LECTURE_MAPPINGS.put(21, new LectureLessonMapping("2025-05-31", "21"));
         LECTURE_MAPPINGS.put(22, new LectureLessonMapping("2025-05-03", "22"));
         LECTURE_MAPPINGS.put(23, new LectureLessonMapping("2025-05-03", "23"));
-        LECTURE_MAPPINGS.put(24, new LectureLessonMapping("2025-05-03", "24", "CPR")); // Special case - CPR
+        
+        // June 2025 lectures
+        LECTURE_MAPPINGS.put(24, new LectureLessonMapping("2025-06-01", "CPR"));
     }
 
     public LectureChapterAdapter(LessonViewModel lessonViewModel) {
